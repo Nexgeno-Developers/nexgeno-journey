@@ -599,16 +599,14 @@
     .about-split{
       position: relative;
       background: var(--bg);
-      padding: 96px 0;
+      padding: 0px 0;
     }
     .about-story{
       padding-bottom: 46px;
+      padding-top: 80px;
     }
     .about-who{
       padding-top: 46px;
-      background: var(--bg2);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
     }
     .about-story-grid{
       display:grid;
@@ -622,6 +620,12 @@
       border: 1px solid var(--border);
       box-shadow: var(--shadow);
       padding: 22px;
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    }
+    .about-story-card:hover{
+      transform: translateY(-4px);
+      border-color: rgba(56,133,222,0.22);
+      box-shadow: 0 18px 50px rgba(56,133,222,0.14);
     }
     .about-story-kicker{
       font-size: 0.78rem;
@@ -650,6 +654,11 @@
       background: var(--bg2);
       border: 1px solid var(--border);
       text-align: center;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .about-metric:hover{
+      transform: translateY(-3px);
+      box-shadow: 0 14px 36px rgba(56,133,222,0.10);
     }
     .about-metric .n{
       font-weight: 900;
@@ -699,6 +708,30 @@
       flex-direction: column;
       gap: 14px;
     }
+
+    /* About-only icon style: white chip (no gradient bg) */
+    .about-split .pillar-item{
+      background: var(--card-bg);
+      border-color: rgba(15,23,42,0.08);
+    }
+    [data-theme="dark"] .about-split .pillar-item{
+      background: rgba(255,255,255,0.03);
+      border-color: rgba(255,255,255,0.10);
+    }
+    .about-split .pillar-icon{
+      background: #ffffff !important;
+      border: 1px solid rgba(15,23,42,0.10);
+      box-shadow: 0 14px 30px rgba(15,23,42,0.10);
+      color: var(--primary);
+    }
+    [data-theme="dark"] .about-split .pillar-icon{
+      background: rgba(255,255,255,0.08) !important;
+      border-color: rgba(255,255,255,0.14);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.35);
+      color: #ffffff;
+    }
+    .about-split .pillar-icon i{ color: inherit; }
+
     .about-cta-row{
       margin-top: 20px;
       display:flex;
@@ -2495,7 +2528,7 @@
     <div class="row align-items-start g-5">
       <div class="col-lg-6 reveal-left">
         <div class="about-who-head">
-          <div class="section-tag">Our Values</div>
+          
           <h3 class="about-who-title">Who We Are</h3>
           <p class="about-who-sub">
             We're built on a simple idea: your business deserves to stand out — and our job is to make that happen with clarity, creativity, and consistency.
