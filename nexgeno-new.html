@@ -1137,6 +1137,696 @@
     /* ==================== COUNTER ==================== */
     .counter-num { font-variant-numeric: tabular-nums; }
 
+    /* ==================== JOURNEY IN NUMBERS (STATS + FILMSTRIP) ==================== */
+    .timeline-section{
+      position: relative;
+      background:
+        radial-gradient(900px 420px at 18% 10%, rgba(56,133,222,0.18), transparent 60%),
+        radial-gradient(900px 420px at 82% 12%, rgba(192,83,174,0.14), transparent 55%),
+        #050812;
+      overflow: hidden;
+    }
+    .timeline-section::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        linear-gradient(90deg, rgba(56,133,222,0.08), rgba(192,83,174,0.06), rgba(56,133,222,0.08));
+      filter: blur(24px);
+      opacity: 0.6;
+      pointer-events:none;
+    }
+
+    .journey-stats{
+      position: relative;
+      z-index: 2;
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .journey-stat-card{
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 18px;
+      padding: 18px 18px 16px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 18px 60px rgba(0,0,0,0.35);
+      transition: transform .25s ease, border-color .25s ease, background .25s ease;
+      min-height: 110px;
+    }
+    .journey-stat-card:hover{
+      transform: translateY(-4px);
+      border-color: rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.055);
+    }
+    .journey-stat-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom: 10px;
+      gap: 10px;
+    }
+    .journey-stat-icon{
+      width: 40px; height: 40px;
+      display:grid; place-items:center;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(56,133,222,0.20), rgba(123,137,235,0.15), rgba(192,83,174,0.14));
+      border: 1px solid rgba(255,255,255,0.10);
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .journey-stat-num{
+      font-size: clamp(1.55rem, 3.2vw, 2.25rem);
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      color: #fff;
+      line-height: 1.05;
+      font-variant-numeric: tabular-nums;
+    }
+    .journey-stat-label{
+      color: rgba(255,255,255,0.62);
+      font-size: 0.86rem;
+      line-height: 1.35;
+      margin-top: 6px;
+    }
+    .journey-stat-foot{
+      margin-top: 10px;
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 10px;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.78rem;
+    }
+    .journey-stat-chip{
+      display:inline-flex;
+      align-items:center;
+      gap: 6px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(0,0,0,0.18);
+      color: rgba(255,255,255,0.72);
+      white-space: nowrap;
+    }
+
+    /* Horizontal filmstrip */
+    .journey-track-wrap{
+      position: relative;
+      z-index: 2;
+      margin-top: 22px;
+      padding: 18px 0 2px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      mask-image: linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
+    }
+    .journey-track-wrap::-webkit-scrollbar{ display:none; }
+    .journey-track{
+      display:flex;
+      align-items: stretch;
+      gap: 18px;
+      padding: 10px max(18px, calc((100vw - 1180px)/2)) 26px;
+      min-width: 100%;
+    }
+    .jcard{
+      flex: 0 0 auto;
+      width: min(360px, 86vw);
+      scroll-snap-align: center;
+      position: relative;
+    }
+    .jcard-inner{
+      border-radius: 22px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: 0 18px 70px rgba(0,0,0,0.45);
+      transform: translateZ(0);
+      transition: transform .25s ease, border-color .25s ease;
+      height: 100%;
+      display:flex;
+      flex-direction: column;
+      min-height: 420px;
+    }
+    .jcard:hover .jcard-inner{
+      transform: translateY(-6px);
+      border-color: rgba(255,255,255,0.18);
+    }
+    .jcard-head{
+      position: relative;
+      height: 210px;
+      background: linear-gradient(135deg, rgba(56,133,222,0.32), rgba(192,83,174,0.22));
+      overflow:hidden;
+    }
+    .jcard-head img{
+      width:100%; height:100%;
+      object-fit: cover;
+      display:block;
+      filter: saturate(1.05) contrast(1.02);
+      transform: scale(1.03);
+      transition: transform .6s cubic-bezier(.23,1,.32,1);
+    }
+    .jcard:hover .jcard-head img{ transform: scale(1.08); }
+    .jcard-head-overlay{
+      position:absolute;
+      inset:0;
+      background: linear-gradient(180deg, rgba(5,8,18,0.05) 0%, rgba(5,8,18,0.55) 70%, rgba(5,8,18,0.80) 100%);
+    }
+    .jcard-emoji{
+      position:absolute;
+      left: 14px;
+      top: 14px;
+      width: 44px; height: 44px;
+      border-radius: 14px;
+      display:grid; place-items:center;
+      background: rgba(0,0,0,0.35);
+      border: 1px solid rgba(255,255,255,0.16);
+      color:#fff;
+      font-size: 1.15rem;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .jcard-year-big{
+      position:absolute;
+      right: 14px;
+      bottom: 12px;
+      font-size: 2.35rem;
+      font-weight: 900;
+      letter-spacing: -1px;
+      color: rgba(255,255,255,0.95);
+      text-shadow: 0 14px 40px rgba(0,0,0,0.5);
+    }
+    .jcard-body{
+      padding: 18px 18px 18px;
+      display:flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .jcard-year-pill{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      width: fit-content;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: rgba(255,255,255,0.72);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .jcard-title{
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -0.2px;
+    }
+    .jcard-desc{
+      color: rgba(255,255,255,0.65);
+      font-size: 0.9rem;
+      line-height: 1.75;
+    }
+    .jcard-team{
+      margin-top: 2px;
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(0,0,0,0.20);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: rgba(255,255,255,0.80);
+      font-weight: 700;
+      width: fit-content;
+    }
+
+    .journey-controls{
+      position: relative;
+      z-index: 2;
+      margin-top: 18px;
+      display:flex;
+      align-items:center;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .journey-arrow{
+      width: 44px; height: 44px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.04);
+      color: rgba(255,255,255,0.9);
+      display:grid; place-items:center;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+    }
+    .journey-arrow:hover{ transform: translateY(-2px); border-color: rgba(255,255,255,0.22); background: rgba(255,255,255,0.06); }
+    .journey-progress-bar{
+      width: min(420px, 70vw);
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.10);
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+    .journey-progress-fill{
+      height: 100%;
+      width: 10%;
+      border-radius: 999px;
+      background: var(--grad);
+      box-shadow: 0 10px 30px rgba(56,133,222,0.35);
+      transition: width .35s ease;
+    }
+    .journey-counter{
+      color: rgba(255,255,255,0.7);
+      font-weight: 700;
+      font-size: 0.88rem;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(0,0,0,0.18);
+    }
+
+    /* Layout switch */
+    .journey-switch{
+      position: relative;
+      z-index: 2;
+      margin-top: 18px;
+      display:flex;
+      justify-content:center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .journey-switch-btn{
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.04);
+      color: rgba(255,255,255,0.82);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-weight: 800;
+      font-size: 0.86rem;
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease, color .2s ease;
+    }
+    .journey-switch-btn:hover{
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,0.22);
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.92);
+    }
+    .journey-switch-btn.active{
+      background: linear-gradient(135deg, rgba(56,133,222,0.28), rgba(123,137,235,0.18), rgba(192,83,174,0.18));
+      border-color: rgba(255,255,255,0.20);
+      color:#fff;
+      box-shadow: 0 16px 50px rgba(0,0,0,0.45);
+    }
+    .journey-view{ display:none; margin-top: 18px; }
+    .journey-view.active{ display:block; }
+
+    /* Option 1 — Split Accordion (like reference) */
+    .journey-sacc{
+      position: relative;
+      z-index: 2;
+      display:grid;
+      grid-template-columns: 170px 1fr;
+      gap: 26px;
+      align-items: start;
+      padding: 6px 0 2px;
+    }
+    .journey-sacc-rail{
+      position: relative;
+      padding-left: 14px;
+    }
+    .journey-sacc-rail::before{
+      content:"";
+      position:absolute;
+      left: 20px;
+      top: 6px;
+      bottom: 6px;
+      width: 2px;
+      background: linear-gradient(180deg, rgba(56,133,222,0), rgba(56,133,222,0.45), rgba(192,83,174,0.35), rgba(192,83,174,0));
+      opacity: 0.85;
+    }
+    .journey-sacc-rail-inner{
+      display:flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .journey-sacc-year{
+      width: 100%;
+      border: none;
+      background: transparent;
+      padding: 8px 10px 8px 18px;
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      color: rgba(255,255,255,0.68);
+      font-weight: 800;
+      border-radius: 12px;
+      transition: background .2s ease, color .2s ease, transform .2s ease;
+      text-align: left;
+    }
+    .journey-sacc-year:hover{
+      background: rgba(255,255,255,0.05);
+      color: rgba(255,255,255,0.88);
+      transform: translateX(2px);
+    }
+    .journey-sacc-year .dot{
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.20);
+      border: 2px solid rgba(255,255,255,0.22);
+      box-shadow: 0 10px 26px rgba(0,0,0,0.25);
+      flex-shrink: 0;
+    }
+    .journey-sacc-year.active{
+      background: linear-gradient(90deg, rgba(56,133,222,0.16), rgba(192,83,174,0.10));
+      color: #fff;
+    }
+    .journey-sacc-year.active .dot{
+      background: var(--grad);
+      border-color: rgba(255,255,255,0.26);
+      box-shadow: 0 16px 40px rgba(56,133,222,0.35);
+    }
+
+    .journey-sacc-stage{
+      position: relative;
+      min-height: 360px;
+    }
+    .journey-sacc-bigyear{
+      position: absolute;
+      left: 0;
+      top: -8px;
+      font-weight: 900;
+      letter-spacing: -6px;
+      line-height: 0.86;
+      font-variant-numeric: tabular-nums;
+      font-size: clamp(3.4rem, 7vw, 5.3rem);
+      color: rgba(255,255,255,0.18);
+      user-select: none;
+      pointer-events: none;
+    }
+    .journey-sacc-bigyear span{
+      display:block;
+    }
+
+    .journey-sacc-panel{ display:none; }
+    .journey-sacc-panel.active{ display:block; }
+
+    .journey-sacc-card{
+      border-radius: 26px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: 0 28px 90px rgba(0,0,0,0.50);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .journey-sacc-grid{
+      display:grid;
+      grid-template-columns: 1.05fr 1fr;
+      gap: 0;
+      align-items: stretch;
+    }
+    .journey-sacc-left{
+      padding: 22px 22px 22px;
+      display:flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 320px;
+    }
+    .journey-sacc-kicker{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+    .journey-sacc-kicker .pill{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(0,0,0,0.18);
+      color: rgba(255,255,255,0.88);
+      font-weight: 900;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.4px;
+    }
+    .journey-sacc-kicker .muted{
+      color: rgba(255,255,255,0.58);
+      font-size: 0.86rem;
+      font-weight: 800;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+    }
+    .journey-sacc-title{
+      font-weight: 900;
+      font-size: clamp(1.35rem, 2.4vw, 1.85rem);
+      color: #fff;
+      letter-spacing: -0.4px;
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .journey-sacc-title .emoji{
+      width: 38px; height: 38px;
+      border-radius: 14px;
+      display:grid; place-items:center;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      font-size: 1.1rem;
+    }
+    .journey-sacc-desc{
+      color: rgba(255,255,255,0.68);
+      font-size: 0.95rem;
+      line-height: 1.75;
+      margin-bottom: 16px;
+      max-width: 52ch;
+    }
+    .journey-sacc-meta{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      color: rgba(255,255,255,0.68);
+      font-weight: 800;
+      font-size: 0.88rem;
+    }
+    .journey-sacc-meta span{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(0,0,0,0.15);
+    }
+    .journey-sacc-right{
+      border-left: 1px solid rgba(255,255,255,0.10);
+      background: rgba(0,0,0,0.10);
+    }
+    .journey-sacc-img{
+      height: 100%;
+      min-height: 320px;
+      background: rgba(0,0,0,0.18);
+    }
+    .journey-sacc-img img{
+      width:100%; height:100%;
+      object-fit: cover;
+      display:block;
+    }
+    .journey-sacc-grad{
+      height: 100%;
+      display:grid;
+      place-items:center;
+      background: linear-gradient(135deg, rgba(13,27,42,0.85), rgba(123,137,235,0.35), rgba(56,133,222,0.38));
+      position: relative;
+    }
+    .journey-sacc-grad span{
+      width: 84px; height: 84px;
+      display:grid; place-items:center;
+      border-radius: 28px;
+      background: rgba(0,0,0,0.22);
+      border: 1px solid rgba(255,255,255,0.16);
+      color: #fff;
+      font-size: 2.2rem;
+    }
+    @media (max-width: 991.98px){
+      .journey-sacc{
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+      .journey-sacc-rail{
+        padding-left: 0;
+        overflow-x: auto;
+      }
+      .journey-sacc-rail::before{ display:none; }
+      .journey-sacc-rail-inner{
+        flex-direction: row;
+        gap: 10px;
+        padding-bottom: 6px;
+      }
+      .journey-sacc-year{
+        padding: 10px 12px;
+        border: 1px solid rgba(255,255,255,0.10);
+        background: rgba(255,255,255,0.03);
+        border-radius: 999px;
+        width: auto;
+      }
+      .journey-sacc-bigyear{
+        position: relative;
+        top: 0;
+        margin-bottom: 10px;
+        color: rgba(255,255,255,0.14);
+      }
+      .journey-sacc-grid{
+        grid-template-columns: 1fr;
+      }
+      .journey-sacc-right{
+        border-left: none;
+        border-top: 1px solid rgba(255,255,255,0.10);
+      }
+      .journey-sacc-img{ min-height: 230px; }
+    }
+
+    /* Option 2 — Vertical timeline */
+    .journey-vt{
+      position: relative;
+      padding: 10px 0 2px;
+    }
+    .journey-vt-line{
+      position:absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, rgba(56,133,222,0.0), rgba(56,133,222,0.35), rgba(192,83,174,0.28), rgba(192,83,174,0.0));
+      transform: translateX(-50%);
+      opacity: 0.9;
+    }
+    .journey-vt-item{
+      position: relative;
+      display:grid;
+      grid-template-columns: 1fr 60px 1fr;
+      align-items: start;
+      padding: 16px 0;
+    }
+    .journey-vt-item:nth-child(even) .journey-vt-card{ grid-column: 1; justify-self: end; }
+    .journey-vt-item:nth-child(odd) .journey-vt-card{ grid-column: 3; justify-self: start; }
+    .journey-vt-dot{
+      grid-column: 2;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      justify-self: center;
+      margin-top: 18px;
+      background: var(--grad);
+      box-shadow: 0 10px 34px rgba(56,133,222,0.45);
+      border: 2px solid rgba(255,255,255,0.22);
+    }
+    .journey-vt-card{
+      width: min(520px, 92%);
+      border-radius: 20px;
+      padding: 16px 16px 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: 0 22px 80px rgba(0,0,0,0.45);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .journey-vt-top{
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .journey-vt-year{
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -0.5px;
+      font-variant-numeric: tabular-nums;
+    }
+    .journey-vt-badges{
+      display:flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .journey-vt-badge{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(0,0,0,0.16);
+      color: rgba(255,255,255,0.72);
+      font-size: 0.78rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+    .journey-vt-emoji{
+      width: 22px; height: 22px;
+      border-radius: 9px;
+      display:grid; place-items:center;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      font-size: 0.9rem;
+    }
+    .journey-vt-title{
+      font-size: 1.06rem;
+      font-weight: 900;
+      color:#fff;
+      margin-bottom: 8px;
+      letter-spacing: -0.2px;
+    }
+    .journey-vt-desc{
+      color: rgba(255,255,255,0.68);
+      font-size: 0.92rem;
+      line-height: 1.75;
+    }
+    @media (max-width: 991.98px){
+      .jacc-body{ grid-template-columns: 1fr; }
+      .journey-vt-line{ left: 18px; transform: none; }
+      .journey-vt-item{
+        grid-template-columns: 36px 1fr;
+        padding-left: 0;
+      }
+      .journey-vt-dot{
+        grid-column: 1;
+        justify-self: center;
+        margin-top: 22px;
+      }
+      .journey-vt-card{
+        grid-column: 2 !important;
+        justify-self: stretch !important;
+        width: 100%;
+      }
+      .journey-vt-item:nth-child(even) .journey-vt-card,
+      .journey-vt-item:nth-child(odd) .journey-vt-card{ grid-column: 2; }
+      .journey-vt-badges{ justify-content: flex-start; }
+    }
+
+    @media (max-width: 991.98px){
+      .journey-stats{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .journey-track{ padding-left: 18px; padding-right: 18px; }
+    }
+    @media (max-width: 575.98px){
+      .journey-stats{ grid-template-columns: 1fr; }
+      .jcard-inner{ min-height: 400px; }
+      .journey-controls{ justify-content: space-between; }
+    }
+
     /* ==================== BACK TO TOP ==================== */
     #backTop {
       position: fixed;
@@ -1277,10 +1967,7 @@
   </div>
 
   <!-- Scroll indicator -->
-  <div style="position:absolute;bottom:32px;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:6px;animation:fadeUp 1s 1s ease both;opacity:0">
-    <span style="font-size:0.72rem;color:rgba(255,255,255,0.5);letter-spacing:2px;text-transform:uppercase;font-weight:600">Scroll</span>
-    <div style="width:1.5px;height:36px;background:linear-gradient(to bottom,rgba(255,255,255,0.6),transparent);animation:scrollLine 1.8s ease-in-out infinite"></div>
-  </div>
+ 
 </section>
 <style>
   @keyframes scrollLine {
@@ -1318,47 +2005,6 @@
   </div>
 </div>
 
-<!-- ==================== STATS ==================== -->
-<section class="stats-section">
-  <div class="container">
-    <div class="row g-4">
-      <div class="col-6 col-lg-3 reveal delay-1">
-        <div class="stat-card">
-          <div class="stat-icon"><i class="bi bi-calendar-check" style="background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text"></i></div>
-          <div class="stat-num counter-num" data-target="17">0</div><div style="font-size:1.2rem;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:800">+</div>
-          <div class="stat-label">Years of Excellence</div>
-        </div>
-      </div>
-      <div class="col-6 col-lg-3 reveal delay-2">
-        <div class="stat-card">
-          <div class="stat-icon"><i class="bi bi-people-fill" style="background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text"></i></div>
-          <div class="d-flex align-items-end justify-content-center gap-1">
-            <div class="stat-num counter-num" data-target="45">0</div>
-            <div style="font-size:1.2rem;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:800;margin-bottom:4px">+</div>
-          </div>
-          <div class="stat-label">Expert Team Members</div>
-        </div>
-      </div>
-      <div class="col-6 col-lg-3 reveal delay-3">
-        <div class="stat-card">
-          <div class="stat-icon"><i class="bi bi-emoji-smile-fill" style="background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text"></i></div>
-          <div class="d-flex align-items-end justify-content-center gap-1">
-            <div class="stat-num counter-num" data-target="100">0</div>
-            <div style="font-size:1.2rem;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:800;margin-bottom:4px">+</div>
-          </div>
-          <div class="stat-label">Happy Clients</div>
-        </div>
-      </div>
-      <div class="col-6 col-lg-3 reveal delay-4">
-        <div class="stat-card">
-          <div class="stat-icon"><i class="bi bi-star-fill" style="background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text"></i></div>
-          <div class="stat-num">4.8</div>
-          <div class="stat-label">Google Rating</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ==================== ABOUT ==================== -->
 <section class="about-section" id="about">
@@ -1540,159 +2186,315 @@
     </div>
   </div>
 
-  <!-- Horizontal scrollable track (full-bleed) -->
-  <div class="journey-track-wrap" id="journeyWrap">
-    <div class="journey-track" id="journeyTrack">
+  <!-- Numbers -->
+ 
 
-      <!-- 2008 -->
-      <div class="jcard">
-        <div class="jcard-dot"></div>
-        <div class="jcard-connector"></div>
-        <div class="jcard-inner">
-          <div class="jcard-head">
-            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=75" alt="2008 Hardware & Tech" loading="lazy" />
-            <div class="jcard-head-overlay"></div>
-            <span class="jcard-emoji">🖥️</span>
-            <span class="jcard-year-big">2008</span>
-          </div>
-          <div class="jcard-body">
-            <div class="jcard-year-pill"><i class="bi bi-record-circle-fill" style="font-size:0.5rem"></i> 2008</div>
-            <div class="jcard-title">The Beginning</div>
-            <div class="jcard-desc">Mr. Arif starts with a strong technical foundation — hardware, networking, sales & training. Big ambition, driven by vision.</div>
-            <div class="jcard-team"><i class="bi bi-person-fill"></i> 01 Person</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 2011 -->
-      <div class="jcard">
-        <div class="jcard-dot"></div>
-        <div class="jcard-connector"></div>
-        <div class="jcard-inner">
-          <div class="jcard-head">
-            <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&q=75" alt="2011 Web Development" loading="lazy" />
-            <div class="jcard-head-overlay"></div>
-            <span class="jcard-emoji">💻</span>
-            <span class="jcard-year-big">2011</span>
-          </div>
-          <div class="jcard-body">
-            <div class="jcard-year-pill"><i class="bi bi-record-circle-fill" style="font-size:0.5rem"></i> 2011</div>
-            <div class="jcard-title">Stepping into Digital</div>
-            <div class="jcard-desc">Registered makent.in and entered web development with HTML, CSS & Bootstrap. A two-member team plants the digital seeds.</div>
-            <div class="jcard-team"><i class="bi bi-people-fill"></i> 02 Persons</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 2014 -->
-      <div class="jcard">
-        <div class="jcard-dot"></div>
-        <div class="jcard-connector"></div>
-        <div class="jcard-inner">
-          <div class="jcard-head">
-            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&q=75" alt="2014 Team Partnership" loading="lazy" />
-            <div class="jcard-head-overlay"></div>
-            <span class="jcard-emoji">🤝</span>
-            <span class="jcard-year-big">2014</span>
-          </div>
-          <div class="jcard-body">
-            <div class="jcard-year-pill"><i class="bi bi-record-circle-fill" style="font-size:0.5rem"></i> 2014</div>
-            <div class="jcard-title">Leadership & Growth</div>
-            <div class="jcard-desc">Tamir joins as partner. PHP development takes off, delivering impactful projects like geci.co.in for major clients.</div>
-            <div class="jcard-team"><i class="bi bi-people-fill"></i> 03 Persons</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 2015 -->
-      <div class="jcard">
-        <div class="jcard-dot"></div>
-        <div class="jcard-connector"></div>
-        <div class="jcard-inner">
-          <div class="jcard-head">
-            <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=600&q=75" alt="2015 Going Global" loading="lazy" />
-            <div class="jcard-head-overlay"></div>
-            <span class="jcard-emoji">✈️</span>
-            <span class="jcard-year-big">2015</span>
-          </div>
-          <div class="jcard-body">
-            <div class="jcard-year-pill"><i class="bi bi-record-circle-fill" style="font-size:0.5rem"></i> 2015</div>
-            <div class="jcard-title">Going Global</div>
-            <div class="jcard-desc">Clients in South Africa, USA, Canada, China, UAE & UK. Nexgeno crosses borders with trust and talent.</div>
-            <div class="jcard-team"><i class="bi bi-people-fill"></i> 07 Persons</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 2018 -->
-      <div class="jcard">
-        <div class="jcard-dot"></div>
-        <div class="jcard-connector"></div>
-        <div class="jcard-inner">
-          <div class="jcard-head">
-            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=75" alt="2018 Digital Marketing" loading="lazy" />
-            <div class="jcard-head-overlay"></div>
-            <span class="jcard-emoji">📈</span>
-            <span class="jcard-year-big">2018</span>
-          </div>
-          <div class="jcard-body">
-            <div class="jcard-year-pill"><i class="bi bi-record-circle-fill" style="font-size:0.5rem"></i> 2018</div>
-            <div class="jcard-title">Full 360° Agency</div>
-            <div class="jcard-desc">SEO, social media, email campaigns & performance marketing all under one roof. A true end-to-end digital agency is born.</div>
-            <div class="jcard-team"><i class="bi bi-people-fill"></i> 20+ Persons</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 2022 -->
-      <div class="jcard">
-        <div class="jcard-dot"></div>
-        <div class="jcard-connector"></div>
-        <div class="jcard-inner">
-          <div class="jcard-head" style="background:linear-gradient(135deg,#0d1b2a,#7B89EB,#3885DE)">
-            <span class="jcard-emoji">🧠</span>
-            <span class="jcard-year-big">2022</span>
-          </div>
-          <div class="jcard-body">
-            <div class="jcard-year-pill"><i class="bi bi-record-circle-fill" style="font-size:0.5rem"></i> 2022</div>
-            <div class="jcard-title">AI Integration</div>
-            <div class="jcard-desc">Cutting-edge AI solutions and custom CRM systems help clients automate, scale and grow smarter in the digital era.</div>
-            <div class="jcard-team"><i class="bi bi-people-fill"></i> 35+ Persons</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 2026 -->
-      <div class="jcard">
-        <div class="jcard-dot"></div>
-        <div class="jcard-connector"></div>
-        <div class="jcard-inner">
-          <div class="jcard-head" style="background:linear-gradient(135deg,#3885DE,#7B89EB,#C053AE)">
-            <span class="jcard-emoji">🏆</span>
-            <span class="jcard-year-big">2026</span>
-          </div>
-          <div class="jcard-body">
-            <div class="jcard-year-pill" style="color:var(--accent);border-color:rgba(192,83,174,0.25);background:linear-gradient(135deg,rgba(192,83,174,0.1),rgba(56,133,222,0.1))"><i class="bi bi-star-fill" style="font-size:0.5rem"></i> Today</div>
-            <div class="jcard-title">Premier Digital Agency</div>
-            <div class="jcard-desc">45+ team, 100+ happy clients, 12 countries, 4.8★ Google rating. The journey continues — the best is yet to come.</div>
-            <div class="jcard-team" style="border-color:rgba(192,83,174,0.25);color:var(--accent)"><i class="bi bi-people-fill" style="color:var(--accent)"></i> 45+ Persons</div>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- end track -->
-  </div><!-- end wrap -->
-
-  <!-- Controls -->
+  <!-- Two Layout Options -->
   <div class="container">
-    <div class="journey-controls">
-      <button class="journey-arrow" id="jPrev" aria-label="Previous"><i class="bi bi-arrow-left"></i></button>
-      <div class="journey-progress-bar">
-        <div class="journey-progress-fill" id="jProgress"></div>
+    
+    <!-- Option 1: Accordion -->
+    <div class="journey-view active" id="journeyAccordionView" data-journey-view="accordion">
+      <div class="journey-sacc" data-journey-sacc>
+        <div class="journey-sacc-rail" role="navigation" aria-label="Journey years">
+          <div class="journey-sacc-rail-inner">
+            <button class="journey-sacc-year active" type="button" data-journey-sacc-btn="2008" aria-controls="jSAcc2008" aria-selected="true">
+              <span class="dot" aria-hidden="true"></span>
+              <span class="year">2008</span>
+            </button>
+            <button class="journey-sacc-year" type="button" data-journey-sacc-btn="2011" aria-controls="jSAcc2011" aria-selected="false">
+              <span class="dot" aria-hidden="true"></span>
+              <span class="year">2011</span>
+            </button>
+            <button class="journey-sacc-year" type="button" data-journey-sacc-btn="2014" aria-controls="jSAcc2014" aria-selected="false">
+              <span class="dot" aria-hidden="true"></span>
+              <span class="year">2014</span>
+            </button>
+            <button class="journey-sacc-year" type="button" data-journey-sacc-btn="2015" aria-controls="jSAcc2015" aria-selected="false">
+              <span class="dot" aria-hidden="true"></span>
+              <span class="year">2015</span>
+            </button>
+            <button class="journey-sacc-year" type="button" data-journey-sacc-btn="2018" aria-controls="jSAcc2018" aria-selected="false">
+              <span class="dot" aria-hidden="true"></span>
+              <span class="year">2018</span>
+            </button>
+            <button class="journey-sacc-year" type="button" data-journey-sacc-btn="2022" aria-controls="jSAcc2022" aria-selected="false">
+              <span class="dot" aria-hidden="true"></span>
+              <span class="year">2022</span>
+            </button>
+            <button class="journey-sacc-year" type="button" data-journey-sacc-btn="2026" aria-controls="jSAcc2026" aria-selected="false">
+              <span class="dot" aria-hidden="true"></span>
+              <span class="year">2026</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="journey-sacc-stage">
+          <div class="journey-sacc-bigyear" aria-hidden="true"><span id="journeyBigYearA">20</span><span id="journeyBigYearB">08</span></div>
+
+          <div class="journey-sacc-panel active" id="jSAcc2008" data-journey-sacc-panel="2008">
+            <div class="journey-sacc-card">
+              <div class="journey-sacc-grid">
+                <div class="journey-sacc-left">
+                  <div class="journey-sacc-kicker"><span class="pill">2008</span> <span class="muted">Hardware • Networking • Training</span></div>
+                  <div class="journey-sacc-title"><span class="emoji">🖥️</span> The Beginning</div>
+                  <div class="journey-sacc-desc">Mr. Arif starts with a strong technical foundation — hardware, networking, sales & training. Big ambition, driven by vision.</div>
+                  <div class="journey-sacc-meta">
+                    <span><i class="bi bi-geo-alt"></i> Mumbai</span>
+                    <span><i class="bi bi-person-fill"></i> 01 Person</span>
+                  </div>
+                </div>
+                <div class="journey-sacc-right">
+                  <div class="journey-sacc-img">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&q=75" alt="2008 Hardware & Tech" loading="lazy">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="journey-sacc-panel" id="jSAcc2011" data-journey-sacc-panel="2011">
+            <div class="journey-sacc-card">
+              <div class="journey-sacc-grid">
+                <div class="journey-sacc-left">
+                  <div class="journey-sacc-kicker"><span class="pill">2011</span> <span class="muted">HTML • CSS • Bootstrap</span></div>
+                  <div class="journey-sacc-title"><span class="emoji">💻</span> Stepping into Digital</div>
+                  <div class="journey-sacc-desc">Registered makent.in and entered web development with HTML, CSS & Bootstrap. A two-member team plants the digital seeds.</div>
+                  <div class="journey-sacc-meta">
+                    <span><i class="bi bi-globe2"></i> Web Services</span>
+                    <span><i class="bi bi-people-fill"></i> 02 Persons</span>
+                  </div>
+                </div>
+                <div class="journey-sacc-right">
+                  <div class="journey-sacc-img">
+                    <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1200&q=75" alt="2011 Web Development" loading="lazy">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="journey-sacc-panel" id="jSAcc2014" data-journey-sacc-panel="2014">
+            <div class="journey-sacc-card">
+              <div class="journey-sacc-grid">
+                <div class="journey-sacc-left">
+                  <div class="journey-sacc-kicker"><span class="pill">2014</span> <span class="muted">Partnership • PHP • Delivery</span></div>
+                  <div class="journey-sacc-title"><span class="emoji">🤝</span> Leadership & Growth</div>
+                  <div class="journey-sacc-desc">Tamir joins as partner. PHP development takes off, delivering impactful projects like geci.co.in for major clients.</div>
+                  <div class="journey-sacc-meta">
+                    <span><i class="bi bi-code-slash"></i> Development</span>
+                    <span><i class="bi bi-people-fill"></i> 03 Persons</span>
+                  </div>
+                </div>
+                <div class="journey-sacc-right">
+                  <div class="journey-sacc-img">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&q=75" alt="2014 Team Partnership" loading="lazy">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="journey-sacc-panel" id="jSAcc2015" data-journey-sacc-panel="2015">
+            <div class="journey-sacc-card">
+              <div class="journey-sacc-grid">
+                <div class="journey-sacc-left">
+                  <div class="journey-sacc-kicker"><span class="pill">2015</span> <span class="muted">International Clients</span></div>
+                  <div class="journey-sacc-title"><span class="emoji">✈️</span> Going Global</div>
+                  <div class="journey-sacc-desc">Clients in South Africa, USA, Canada, China, UAE & UK. Nexgeno crosses borders with trust and talent.</div>
+                  <div class="journey-sacc-meta">
+                    <span><i class="bi bi-globe"></i> Multi-country</span>
+                    <span><i class="bi bi-people-fill"></i> 07 Persons</span>
+                  </div>
+                </div>
+                <div class="journey-sacc-right">
+                  <div class="journey-sacc-img">
+                    <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1200&q=75" alt="2015 Going Global" loading="lazy">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="journey-sacc-panel" id="jSAcc2018" data-journey-sacc-panel="2018">
+            <div class="journey-sacc-card">
+              <div class="journey-sacc-grid">
+                <div class="journey-sacc-left">
+                  <div class="journey-sacc-kicker"><span class="pill">2018</span> <span class="muted">SEO • Social • Performance</span></div>
+                  <div class="journey-sacc-title"><span class="emoji">📈</span> Full 360° Agency</div>
+                  <div class="journey-sacc-desc">SEO, social media, email campaigns & performance marketing all under one roof. A true end-to-end digital agency is born.</div>
+                  <div class="journey-sacc-meta">
+                    <span><i class="bi bi-megaphone"></i> Marketing</span>
+                    <span><i class="bi bi-people-fill"></i> 20+ Persons</span>
+                  </div>
+                </div>
+                <div class="journey-sacc-right">
+                  <div class="journey-sacc-img">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=75" alt="2018 Digital Marketing" loading="lazy">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="journey-sacc-panel" id="jSAcc2022" data-journey-sacc-panel="2022">
+            <div class="journey-sacc-card">
+              <div class="journey-sacc-grid">
+                <div class="journey-sacc-left">
+                  <div class="journey-sacc-kicker"><span class="pill">2022</span> <span class="muted">Automation • CRM • AI</span></div>
+                  <div class="journey-sacc-title"><span class="emoji">🧠</span> AI Integration</div>
+                  <div class="journey-sacc-desc">Cutting-edge AI solutions and custom CRM systems help clients automate, scale and grow smarter in the digital era.</div>
+                  <div class="journey-sacc-meta">
+                    <span><i class="bi bi-cpu"></i> AI Solutions</span>
+                    <span><i class="bi bi-people-fill"></i> 35+ Persons</span>
+                  </div>
+                </div>
+                <div class="journey-sacc-right">
+                  <div class="journey-sacc-img">
+                    <div class="journey-sacc-grad" aria-hidden="true"><span>🧠</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="journey-sacc-panel" id="jSAcc2026" data-journey-sacc-panel="2026">
+            <div class="journey-sacc-card">
+              <div class="journey-sacc-grid">
+                <div class="journey-sacc-left">
+                  <div class="journey-sacc-kicker"><span class="pill">2026</span> <span class="muted">45+ team • 100+ clients • 12 countries</span></div>
+                  <div class="journey-sacc-title"><span class="emoji">🏆</span> Premier Digital Agency</div>
+                  <div class="journey-sacc-desc">45+ team, 100+ happy clients, 12 countries, 4.8★ Google rating. The journey continues — the best is yet to come.</div>
+                  <div class="journey-sacc-meta">
+                    <span><i class="bi bi-star-fill" style="color:#f59e0b"></i> 4.8★ Rating</span>
+                    <span><i class="bi bi-people-fill"></i> 45+ Persons</span>
+                  </div>
+                </div>
+                <div class="journey-sacc-right">
+                  <div class="journey-sacc-img">
+                    <div class="journey-sacc-grad" style="background:linear-gradient(135deg, rgba(56,133,222,0.42), rgba(123,137,235,0.30), rgba(192,83,174,0.28))" aria-hidden="true"><span>🏆</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
-      <button class="journey-arrow" id="jNext" aria-label="Next"><i class="bi bi-arrow-right"></i></button>
-      <div class="journey-counter"><span id="jCurrent">1</span> / 7</div>
     </div>
+
+    <!-- Option 2: Vertical Timeline -->
+    <div class="journey-view" id="journeyTimelineView" data-journey-view="timeline">
+      <div class="journey-vt" aria-label="Journey vertical timeline">
+        <div class="journey-vt-line" aria-hidden="true"></div>
+
+        <div class="journey-vt-item" data-journey-vt-item>
+          <div class="journey-vt-dot" aria-hidden="true"></div>
+          <div class="journey-vt-card">
+            <div class="journey-vt-top">
+              <div class="journey-vt-year">2008</div>
+              <div class="journey-vt-badges">
+                <span class="journey-vt-badge"><span class="journey-vt-emoji">🖥️</span> Hardware & Tech</span>
+                <span class="journey-vt-badge"><i class="bi bi-person-fill"></i> 01 Person</span>
+              </div>
+            </div>
+            <div class="journey-vt-title">The Beginning</div>
+            <div class="journey-vt-desc">Mr. Arif starts with a strong technical foundation — hardware, networking, sales & training. Big ambition, driven by vision.</div>
+          </div>
+        </div>
+
+        <div class="journey-vt-item" data-journey-vt-item>
+          <div class="journey-vt-dot" aria-hidden="true"></div>
+          <div class="journey-vt-card">
+            <div class="journey-vt-top">
+              <div class="journey-vt-year">2011</div>
+              <div class="journey-vt-badges">
+                <span class="journey-vt-badge"><span class="journey-vt-emoji">💻</span> Web Dev</span>
+                <span class="journey-vt-badge"><i class="bi bi-people-fill"></i> 02 Persons</span>
+              </div>
+            </div>
+            <div class="journey-vt-title">Stepping into Digital</div>
+            <div class="journey-vt-desc">Registered makent.in and entered web development with HTML, CSS & Bootstrap. A two-member team plants the digital seeds.</div>
+          </div>
+        </div>
+
+        <div class="journey-vt-item" data-journey-vt-item>
+          <div class="journey-vt-dot" aria-hidden="true"></div>
+          <div class="journey-vt-card">
+            <div class="journey-vt-top">
+              <div class="journey-vt-year">2014</div>
+              <div class="journey-vt-badges">
+                <span class="journey-vt-badge"><span class="journey-vt-emoji">🤝</span> Partnership</span>
+                <span class="journey-vt-badge"><i class="bi bi-people-fill"></i> 03 Persons</span>
+              </div>
+            </div>
+            <div class="journey-vt-title">Leadership & Growth</div>
+            <div class="journey-vt-desc">Tamir joins as partner. PHP development takes off, delivering impactful projects like geci.co.in for major clients.</div>
+          </div>
+        </div>
+
+        <div class="journey-vt-item" data-journey-vt-item>
+          <div class="journey-vt-dot" aria-hidden="true"></div>
+          <div class="journey-vt-card">
+            <div class="journey-vt-top">
+              <div class="journey-vt-year">2015</div>
+              <div class="journey-vt-badges">
+                <span class="journey-vt-badge"><span class="journey-vt-emoji">✈️</span> Global</span>
+                <span class="journey-vt-badge"><i class="bi bi-people-fill"></i> 07 Persons</span>
+              </div>
+            </div>
+            <div class="journey-vt-title">Going Global</div>
+            <div class="journey-vt-desc">Clients in South Africa, USA, Canada, China, UAE & UK. Nexgeno crosses borders with trust and talent.</div>
+          </div>
+        </div>
+
+        <div class="journey-vt-item" data-journey-vt-item>
+          <div class="journey-vt-dot" aria-hidden="true"></div>
+          <div class="journey-vt-card">
+            <div class="journey-vt-top">
+              <div class="journey-vt-year">2018</div>
+              <div class="journey-vt-badges">
+                <span class="journey-vt-badge"><span class="journey-vt-emoji">📈</span> 360°</span>
+                <span class="journey-vt-badge"><i class="bi bi-people-fill"></i> 20+ Persons</span>
+              </div>
+            </div>
+            <div class="journey-vt-title">Full 360° Agency</div>
+            <div class="journey-vt-desc">SEO, social media, email campaigns & performance marketing all under one roof. A true end-to-end digital agency is born.</div>
+          </div>
+        </div>
+
+        <div class="journey-vt-item" data-journey-vt-item>
+          <div class="journey-vt-dot" aria-hidden="true"></div>
+          <div class="journey-vt-card">
+            <div class="journey-vt-top">
+              <div class="journey-vt-year">2022</div>
+              <div class="journey-vt-badges">
+                <span class="journey-vt-badge"><span class="journey-vt-emoji">🧠</span> AI</span>
+                <span class="journey-vt-badge"><i class="bi bi-people-fill"></i> 35+ Persons</span>
+              </div>
+            </div>
+            <div class="journey-vt-title">AI Integration</div>
+            <div class="journey-vt-desc">Cutting-edge AI solutions and custom CRM systems help clients automate, scale and grow smarter in the digital era.</div>
+          </div>
+        </div>
+
+        <div class="journey-vt-item" data-journey-vt-item>
+          <div class="journey-vt-dot" aria-hidden="true"></div>
+          <div class="journey-vt-card">
+            <div class="journey-vt-top">
+              <div class="journey-vt-year">2026</div>
+              <div class="journey-vt-badges">
+                <span class="journey-vt-badge"><span class="journey-vt-emoji">🏆</span> Today</span>
+                <span class="journey-vt-badge"><i class="bi bi-people-fill"></i> 45+ Persons</span>
+              </div>
+            </div>
+            <div class="journey-vt-title">Premier Digital Agency</div>
+            <div class="journey-vt-desc">45+ team, 100+ happy clients, 12 countries, 4.8★ Google rating. The journey continues — the best is yet to come.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -2330,6 +3132,8 @@
 </button>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
   // ==================== THEME TOGGLE ====================
   const toggle = document.getElementById('themeToggle');
@@ -2378,6 +3182,195 @@
     });
   }, { threshold: 0.5 });
   counters.forEach(c => counterObs.observe(c));
+
+  // ==================== GSAP — JOURNEY IN NUMBERS ====================
+  (function() {
+    if (!window.gsap || !window.ScrollTrigger) return;
+    gsap.registerPlugin(ScrollTrigger);
+
+    const statCards = gsap.utils.toArray('[data-journey-stat]');
+    const nums = gsap.utils.toArray('.journey-counter-num[data-target]');
+    const viewBtns = document.querySelectorAll('[data-journey-view-btn]');
+    const views = document.querySelectorAll('[data-journey-view]');
+
+    function runCount() {
+      nums.forEach((el) => {
+        if (el.dataset.counted === 'true') return;
+        el.dataset.counted = 'true';
+        const target = parseInt(el.dataset.target || '0', 10);
+        const suffix = el.dataset.suffix || '';
+        const obj = { val: 0 };
+        gsap.to(obj, {
+          val: target,
+          duration: 1.35,
+          ease: 'power2.out',
+          onUpdate: () => { el.textContent = Math.round(obj.val) + suffix; }
+        });
+      });
+    }
+
+    if (statCards.length) {
+      gsap.set(statCards, { opacity: 0, y: 18 });
+      ScrollTrigger.create({
+        trigger: '#journey',
+        start: 'top 70%',
+        once: true,
+        onEnter: () => {
+          gsap.to(statCards, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', stagger: 0.08 });
+          runCount();
+        }
+      });
+    } else {
+      runCount();
+    }
+
+    // View toggle (Accordion / Timeline)
+    function setView(next) {
+      viewBtns.forEach((b) => {
+        const isActive = b.dataset.journeyViewBtn === next;
+        b.classList.toggle('active', isActive);
+        b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+      views.forEach((v) => v.classList.toggle('active', v.dataset.journeyView === next));
+
+      ScrollTrigger.refresh();
+    }
+
+    viewBtns.forEach((btn) => {
+      btn.addEventListener('click', () => setView(btn.dataset.journeyViewBtn));
+    });
+
+    // Split-accordion (like reference): left years + right stage
+    (function initSplitAccordion(){
+      const root = document.querySelector('[data-journey-sacc]');
+      if (!root) return;
+
+      const btns = Array.from(root.querySelectorAll('[data-journey-sacc-btn]'));
+      const panels = Array.from(root.querySelectorAll('[data-journey-sacc-panel]'));
+      const bigA = document.getElementById('journeyBigYearA');
+      const bigB = document.getElementById('journeyBigYearB');
+
+      function setBigYear(yr){
+        if (!bigA || !bigB) return;
+        const s = String(yr);
+        bigA.textContent = s.slice(0, 2);
+        bigB.textContent = s.slice(2);
+      }
+
+      function setActive(yr){
+        btns.forEach((b) => {
+          const on = b.dataset.journeySaccBtn === yr;
+          b.classList.toggle('active', on);
+          b.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+
+        const next = panels.find(p => p.dataset.journeySaccPanel === yr);
+        const curr = panels.find(p => p.classList.contains('active'));
+        if (!next || next === curr) return;
+
+        const inCard = next.querySelector('.journey-sacc-card');
+        const outCard = curr ? curr.querySelector('.journey-sacc-card') : null;
+        const inLeft = next.querySelector('.journey-sacc-left');
+        const inRight = next.querySelector('.journey-sacc-right');
+
+        if (curr) curr.classList.remove('active');
+        next.classList.add('active');
+
+        setBigYear(yr);
+
+        if (outCard) gsap.fromTo(outCard, { opacity: 1 }, { opacity: 0, duration: 0.16, ease: 'power1.out' });
+        if (inCard) gsap.fromTo(inCard, { opacity: 0 }, { opacity: 1, duration: 0.2, ease: 'power1.out' });
+        if (inLeft) gsap.fromTo(inLeft, { opacity: 0, x: -18, y: 8 }, { opacity: 1, x: 0, y: 0, duration: 0.55, ease: 'power2.out' });
+        if (inRight) gsap.fromTo(inRight, { opacity: 0, x: 18 }, { opacity: 1, x: 0, duration: 0.6, ease: 'power2.out' });
+        if (bigA && bigB) gsap.fromTo([bigA, bigB], { y: 10, opacity: 0.5 }, { y: 0, opacity: 1, duration: 0.45, ease: 'power2.out', stagger: 0.03 });
+      }
+
+      // initial
+      const initial = btns.find(b => b.classList.contains('active'))?.dataset.journeySaccBtn || '2008';
+      setBigYear(initial);
+
+      btns.forEach((b) => b.addEventListener('click', () => setActive(b.dataset.journeySaccBtn)));
+
+      // reveal animation on scroll
+      const rail = root.querySelector('.journey-sacc-rail-inner');
+      const stageCard = root.querySelector('.journey-sacc-panel.active .journey-sacc-card');
+      const stageLeft = root.querySelector('.journey-sacc-panel.active .journey-sacc-left');
+      const stageRight = root.querySelector('.journey-sacc-panel.active .journey-sacc-right');
+      if (rail) gsap.set(rail.children, { opacity: 0, x: -10 });
+      if (stageCard) gsap.set(stageCard, { opacity: 0 });
+      if (stageLeft) gsap.set(stageLeft, { opacity: 0, x: -18, y: 8 });
+      if (stageRight) gsap.set(stageRight, { opacity: 0, x: 18 });
+
+      ScrollTrigger.create({
+        trigger: '#journeyAccordionView',
+        start: 'top 80%',
+        once: true,
+        onEnter: () => {
+          if (rail) gsap.to(rail.children, { opacity: 1, x: 0, duration: 0.55, ease: 'power2.out', stagger: 0.05 });
+          if (stageCard) gsap.to(stageCard, { opacity: 1, duration: 0.2, ease: 'power1.out' });
+          if (stageLeft) gsap.to(stageLeft, { opacity: 1, x: 0, y: 0, duration: 0.65, ease: 'power2.out' });
+          if (stageRight) gsap.to(stageRight, { opacity: 1, x: 0, duration: 0.7, ease: 'power2.out' });
+          if (bigA && bigB) gsap.fromTo([bigA, bigB], { y: 10, opacity: 0.4 }, { y: 0, opacity: 1, duration: 0.6, ease: 'power2.out', stagger: 0.05 });
+        }
+      });
+    })();
+
+    // Vertical timeline animations (line draw + cards reveal)
+    const vtLine = document.querySelector('.journey-vt-line');
+    const vtItems = gsap.utils.toArray('[data-journey-vt-item]');
+
+    if (vtLine) {
+      gsap.set(vtLine, { transformOrigin: 'top', scaleY: 0.2, opacity: 0.55 });
+      gsap.to(vtLine, {
+        scaleY: 1,
+        opacity: 0.95,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '#journeyTimelineView',
+          start: 'top 80%',
+          end: 'bottom 40%',
+          scrub: true
+        }
+      });
+    }
+
+    if (vtItems.length) {
+      vtItems.forEach((item, idx) => {
+        const card = item.querySelector('.journey-vt-card');
+        const isEven = (idx + 1) % 2 === 0;
+        const fromX = window.matchMedia('(max-width: 991.98px)').matches ? 0 : (isEven ? -26 : 26);
+
+        gsap.fromTo(card,
+          { opacity: 0, y: 18, x: fromX, scale: 0.99 },
+          {
+            opacity: 1, y: 0, x: 0, scale: 1,
+            duration: 0.7,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: item,
+              start: 'top 82%',
+              toggleActions: 'play none none none'
+            }
+          }
+        );
+
+        const dot = item.querySelector('.journey-vt-dot');
+        if (dot) {
+          gsap.fromTo(dot, { scale: 0.6, opacity: 0.3 }, {
+            scale: 1,
+            opacity: 1,
+            duration: 0.45,
+            ease: 'back.out(2)',
+            scrollTrigger: {
+              trigger: item,
+              start: 'top 82%',
+              toggleActions: 'play none none none'
+            }
+          });
+        }
+      });
+    }
+  })();
 
   // ==================== BACK TO TOP ====================
   const backTop = document.getElementById('backTop');
