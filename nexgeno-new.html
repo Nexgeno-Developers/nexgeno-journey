@@ -315,7 +315,6 @@
       font-size: 1rem;
       color: var(--text2);
       line-height: 1.7;
-      max-width: 600px;
     }
 
     /* ==================== MARQUEE / TICKER ==================== */
@@ -454,12 +453,303 @@
     .about-img-wrap {
       position: relative;
     }
+    /* No-image About visual */
+    .about-visual{
+      border-radius: 30px;
+      padding: 26px;
+      background:
+        radial-gradient(700px 320px at 22% 18%, rgba(56,133,222,0.35), transparent 60%),
+        radial-gradient(700px 320px at 78% 22%, rgba(192,83,174,0.26), transparent 58%),
+        linear-gradient(135deg, rgba(13,15,26,0.92), rgba(13,15,26,0.72));
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: 0 34px 90px rgba(0,0,0,0.22);
+      position: relative;
+      overflow: hidden;
+      min-height: 420px;
+      display:flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    [data-theme="light"] .about-visual{
+      background:
+        radial-gradient(700px 320px at 22% 18%, rgba(56,133,222,0.18), transparent 60%),
+        radial-gradient(700px 320px at 78% 22%, rgba(192,83,174,0.14), transparent 58%),
+        #ffffff;
+      border-color: rgba(15,23,42,0.10);
+      box-shadow: 0 26px 70px rgba(15,23,42,0.12);
+    }
+    .about-visual::before{
+      content:"";
+      position:absolute;
+      inset: -2px;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.10), rgba(255,255,255,0), rgba(255,255,255,0.08));
+      opacity: 0.35;
+      filter: blur(18px);
+      pointer-events:none;
+    }
+    .about-visual-top{
+      position: relative;
+      display:flex;
+      align-items:flex-start;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .about-mark{
+      color:#fff;
+      font-size: 1.15rem;
+      line-height: 1.1;
+    }
+    [data-theme="light"] .about-mark{ color:#0f172a; }
+    .about-mark-sub{
+      margin-top: 10px;
+      font-size: 0.82rem;
+      letter-spacing: 2.6px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+      font-weight: 800;
+    }
+    [data-theme="light"] .about-mark-sub{ color: rgba(15,23,42,0.55); }
+    .about-pill{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      color: rgba(255,255,255,0.88);
+      font-weight: 900;
+      font-size: 0.86rem;
+      white-space: nowrap;
+    }
+    [data-theme="light"] .about-pill{
+      background: rgba(15,23,42,0.03);
+      border-color: rgba(15,23,42,0.10);
+      color: #0f172a;
+    }
+    .about-visual-mid{
+      position: relative;
+      padding: 6px 0 4px;
+    }
+    .about-big{
+      font-size: clamp(3.2rem, 6vw, 5.2rem);
+      font-weight: 900;
+      letter-spacing: -2px;
+      color: #fff;
+      line-height: 0.92;
+    }
+    [data-theme="light"] .about-big{ color:#0f172a; }
+    .about-big-sub{
+      margin-top: 10px;
+      font-size: 1.02rem;
+      font-weight: 800;
+      color: rgba(255,255,255,0.72);
+      max-width: 24ch;
+      line-height: 1.35;
+    }
+    [data-theme="light"] .about-big-sub{ color: #475569; }
+    .about-visual-cards{
+      position: relative;
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 12px;
+    }
+    .about-mini-card{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      padding: 14px 14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: rgba(255,255,255,0.90);
+    }
+    [data-theme="light"] .about-mini-card{
+      background: rgba(15,23,42,0.03);
+      border-color: rgba(15,23,42,0.10);
+      color:#0f172a;
+    }
+    .about-mini-card .ic{
+      width: 40px; height: 40px;
+      border-radius: 14px;
+      display:grid; place-items:center;
+      background: var(--grad);
+      color:#fff;
+      flex-shrink: 0;
+    }
+    .about-mini-card .t{
+      font-weight: 900;
+      font-size: 0.98rem;
+      line-height: 1.2;
+    }
+    .about-mini-card .s{
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.68);
+      margin-top: 2px;
+      line-height: 1.2;
+    }
+    [data-theme="light"] .about-mini-card .s{ color: #475569; }
+    @media (max-width: 991.98px){
+      .about-visual{ min-height: 380px; }
+      .about-visual-cards{ grid-template-columns: 1fr; }
+    }
+    /* Split About sections (no image) */
+    .about-split{
+      position: relative;
+      background: var(--bg);
+      padding: 96px 0;
+    }
+    .about-story{
+      padding-bottom: 46px;
+    }
+    .about-who{
+      padding-top: 46px;
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .about-story-grid{
+      display:grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 16px;
+      margin-top: 26px;
+    }
+    .about-story-card{
+      border-radius: 22px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: 22px;
+    }
+    .about-story-kicker{
+      font-size: 0.78rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 800;
+      color: var(--text2);
+      margin-bottom: 12px;
+    }
+    .about-story-text{
+      margin: 0;
+      font-size: 1.02rem;
+      line-height: 1.9;
+      color: var(--text);
+      opacity: 0.9;
+    }
+    .about-metrics{
+      display:grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 10px;
+      margin-top: 4px;
+    }
+    .about-metric{
+      border-radius: 16px;
+      padding: 14px 12px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      text-align: center;
+    }
+    .about-metric .n{
+      font-weight: 900;
+      font-size: 1.35rem;
+      letter-spacing: -0.3px;
+      background: var(--grad-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .about-metric .l{
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text2);
+      margin-top: 2px;
+    }
+    .about-rating{
+      margin-top: 14px;
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      font-weight: 800;
+      color: var(--text2);
+      width: fit-content;
+    }
+    .about-who-head .section-tag{ margin-bottom: 14px; }
+    .about-who-title{
+      font-weight: 900;
+      font-size: clamp(1.8rem, 3vw, 2.35rem);
+      letter-spacing: -0.5px;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+    .about-who-sub{
+      margin: 0;
+      font-size: 1.02rem;
+      line-height: 1.9;
+      color: var(--text2);
+      max-width: 52ch;
+    }
+    .about-pillars{
+      display:flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .about-cta-row{
+      margin-top: 20px;
+      display:flex;
+      align-items:center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    @media (max-width: 991.98px){
+      .about-story-grid{ grid-template-columns: 1fr; }
+      .about-metrics{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .about-split{ padding: 72px 0; }
+      .about-story{ padding-bottom: 32px; }
+      .about-who{ padding-top: 32px; }
+    }
+    .about-section .row{
+      --bs-gutter-x: 3.2rem;
+    }
+    .about-section .section-title{
+      font-size: clamp(2.1rem, 3.8vw, 3.25rem);
+      letter-spacing: -0.6px;
+    }
+    .about-section .section-sub{
+      font-size: 1.08rem;
+      line-height: 1.9;
+      max-width: 760px;
+    }
     .about-main-img {
       border-radius: 24px;
       width: 100%;
-      aspect-ratio: 4/3;
+      aspect-ratio: 16/11;
       object-fit: cover;
       display: block;
+    }
+    .about-img-wrap > div{
+      border-radius: 30px !important;
+    }
+    .about-img-wrap::before{
+      content:"";
+      position:absolute;
+      inset: -12px;
+      border-radius: 34px;
+      background: var(--grad);
+      opacity: 0.12;
+      filter: blur(18px);
+      z-index: 0;
+      pointer-events:none;
+    }
+    .about-img-wrap > div{
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 28px 90px rgba(0,0,0,0.14);
     }
     .about-badge-float {
       position: absolute;
@@ -486,6 +776,10 @@
       border-radius: 16px;
       transition: transform 0.3s, box-shadow 0.3s;
     }
+    .pillar-item{
+      padding: 22px 22px;
+      border-radius: 18px;
+    }
     .pillar-item:hover { transform: translateX(6px); box-shadow: var(--shadow); }
     .pillar-icon {
       width: 44px; height: 44px;
@@ -497,6 +791,12 @@
       color: #fff;
       font-size: 1.1rem;
       flex-shrink: 0;
+    }
+    @media (max-width: 991.98px){
+      .about-section .row{ --bs-gutter-x: 1.5rem; }
+      .about-section .section-title{ font-size: clamp(1.9rem, 7vw, 2.5rem); }
+      .about-section .section-sub{ font-size: 1.02rem; }
+      .about-img-wrap::before{ inset: -8px; opacity: 0.10; }
     }
 
     /* ==================== TEAM ==================== */
@@ -2170,87 +2470,64 @@
 </div>
 
 
-<!-- ==================== ABOUT ==================== -->
-<section class="about-section" id="about">
+<!-- ==================== ABOUT (SPLIT INTO 2 SECTIONS / NO IMAGE) ==================== -->
+<section class="about-split about-story" id="about">
   <div class="container">
-    <div class="row align-items-center g-5">
-      <div class="col-lg-5 reveal-left">
-        <div class="about-img-wrap">
-          <div style="border-radius:24px;overflow:hidden;background:var(--grad);aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;position:relative;">
-            <!-- SVG Illustration for About -->
-            <svg viewBox="0 0 500 375" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
-              <defs>
-                <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" style="stop-color:#3885DE;stop-opacity:1" />
-                  <stop offset="100%" style="stop-color:#C053AE;stop-opacity:1" />
-                </linearGradient>
-              </defs>
-              <rect width="500" height="375" fill="url(#grad1)"/>
-              <!-- City Skyline -->
-              <rect x="30" y="200" width="60" height="175" fill="rgba(255,255,255,0.15)" rx="4"/>
-              <rect x="100" y="170" width="50" height="205" fill="rgba(255,255,255,0.2)" rx="4"/>
-              <rect x="160" y="220" width="40" height="155" fill="rgba(255,255,255,0.12)" rx="4"/>
-              <rect x="210" y="180" width="70" height="195" fill="rgba(255,255,255,0.22)" rx="4"/>
-              <rect x="290" y="195" width="55" height="180" fill="rgba(255,255,255,0.15)" rx="4"/>
-              <rect x="355" y="160" width="65" height="215" fill="rgba(255,255,255,0.2)" rx="4"/>
-              <rect x="430" y="210" width="50" height="165" fill="rgba(255,255,255,0.12)" rx="4"/>
-              <!-- Road -->
-              <rect x="0" y="330" width="500" height="45" fill="rgba(0,0,0,0.2)"/>
-              <rect x="220" y="340" width="30" height="8" fill="rgba(255,255,255,0.5)" rx="2"/>
-              <rect x="270" y="340" width="30" height="8" fill="rgba(255,255,255,0.5)" rx="2"/>
-              <!-- Big N logo -->
-              <circle cx="250" cy="160" r="55" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
-              <text x="250" y="178" font-size="52" font-weight="900" fill="white" text-anchor="middle" font-family="Poppins,sans-serif">N</text>
-              <!-- Stars -->
-              <circle cx="80" cy="60" r="3" fill="rgba(255,255,255,0.7)"/>
-              <circle cx="140" cy="40" r="2" fill="rgba(255,255,255,0.5)"/>
-              <circle cx="370" cy="70" r="3" fill="rgba(255,255,255,0.7)"/>
-              <circle cx="440" cy="40" r="2" fill="rgba(255,255,255,0.5)"/>
-              <circle cx="310" cy="30" r="4" fill="rgba(255,255,255,0.6)"/>
-            </svg>
-            <div class="about-badge-float">
-              <div>17+</div>
-              <small>Years in Business</small>
-            </div>
-          </div>
+    <div class="row justify-content-center">
+      <div class="">
+        <div class=" reveal">
+          
+          <h2 class="section-title mb-3">
+            17 Years of Building Businesses,<br>
+            <span class="grad-text">One Click at a Time</span>
+          </h2>
+          <p class="section-sub mx-auto mb-4">
+            We're Nexgeno, a Mumbai-based digital marketing agency that's been helping businesses shine online since 2008. From crafting websites that tell your story to boosting your brand with SEO and digital marketing, we're here to make your business grow — step by step, with heart and hustle.
+          </p>
         </div>
       </div>
-      <div class="col-lg-7 reveal-right">
-        <div class="section-tag">About Us</div>
-        <h2 class="section-title mb-4">
-          17 Years of Building Businesses,<br>
-          <span class="grad-text">One Click at a Time</span>
-        </h2>
-        <p class="section-sub mb-4">
-          We're Nexgeno, a Mumbai-based digital marketing agency that's been helping businesses shine online since 2008. From crafting websites that tell your story to boosting your brand with SEO and digital marketing, we're here to make your business grow — step by step, with heart and hustle.
-        </p>
-        <p style="color:var(--text2);font-size:0.9rem;line-height:1.8;margin-bottom:28px">
-          Starting as a small hardware shop in 2008, we've grown into a full-fledged digital agency offering everything from killer website design to SEO that gets you noticed and digital marketing that hits every channel.
-        </p>
-        <div class="d-flex flex-column gap-3 mb-4">
+    </div>
+  </div>
+</section>
+
+<section class="about-split about-who">
+  <div class="container">
+    <div class="row align-items-start g-5">
+      <div class="col-lg-6 reveal-left">
+        <div class="about-who-head">
+          <div class="section-tag">Our Values</div>
+          <h3 class="about-who-title">Who We Are</h3>
+          <p class="about-who-sub">
+            We're built on a simple idea: your business deserves to stand out — and our job is to make that happen with clarity, creativity, and consistency.
+          </p>
+        </div>
+      </div>
+      <div class="col-lg-6 reveal-right">
+        <div class="about-pillars">
           <div class="pillar-item">
             <div class="pillar-icon"><i class="bi bi-lightbulb-fill"></i></div>
             <div>
-              <div style="font-weight:700;font-size:0.95rem;margin-bottom:4px">Innovation First</div>
-              <div style="font-size:0.85rem;color:var(--text2)">Next-gen solutions for modern challenges</div>
+              <div style="font-weight:700;font-size:1.02rem;margin-bottom:4px">Innovation First</div>
+              <div style="font-size:0.9rem;color:var(--text2)">Next-gen solutions for modern challenges</div>
             </div>
           </div>
           <div class="pillar-item">
             <div class="pillar-icon"><i class="bi bi-heart-fill"></i></div>
             <div>
-              <div style="font-weight:700;font-size:0.95rem;margin-bottom:4px">Client-Focused</div>
-              <div style="font-size:0.85rem;color:var(--text2)">Your success is our mission</div>
+              <div style="font-weight:700;font-size:1.02rem;margin-bottom:4px">Client-Focused</div>
+              <div style="font-size:0.9rem;color:var(--text2)">Your success is our mission</div>
             </div>
           </div>
           <div class="pillar-item">
             <div class="pillar-icon"><i class="bi bi-graph-up-arrow"></i></div>
             <div>
-              <div style="font-weight:700;font-size:0.95rem;margin-bottom:4px">Proven Results</div>
-              <div style="font-size:0.85rem;color:var(--text2)">17 years of measurable growth</div>
+              <div style="font-weight:700;font-size:1.02rem;margin-bottom:4px">Proven Results</div>
+              <div style="font-size:0.9rem;color:var(--text2)">17 years of measurable growth</div>
             </div>
           </div>
         </div>
-        <div class="d-flex align-items-center gap-3">
+
+        <div class="about-cta-row">
           <a href="#cta" class="grad-btn">Work With Us <i class="bi bi-arrow-right"></i></a>
           <div class="rating-badge">
             <i class="bi bi-star-fill star"></i>
