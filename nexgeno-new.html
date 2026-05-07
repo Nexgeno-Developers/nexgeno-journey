@@ -1,0 +1,2483 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nexgeno – 17 Years of Digital Excellence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
+  <style>
+    /* ==================== CSS VARIABLES ==================== */
+    :root {
+      --grad: linear-gradient(86.41deg, #3885DE -0.81%, #7B89EB 51.67%, #C053AE 103.12%);
+      --grad-text: linear-gradient(86.41deg, #3885DE -0.81%, #7B89EB 51.67%, #C053AE 103.12%);
+      --primary: #3885DE;
+      --secondary: #7B89EB;
+      --accent: #C053AE;
+      --bg: #ffffff;
+      --bg2: #f4f6ff;
+      --bg3: #eef1fb;
+      --card-bg: #ffffff;
+      --text: #111827;
+      --text2: #4b5563;
+      --border: #e5e7eb;
+      --shadow: 0 8px 40px rgba(56,133,222,0.10);
+      --nav-bg: rgba(255,255,255,0.92);
+      --toggle-bg: #e5e7eb;
+    }
+    [data-theme="dark"] {
+      --bg: #0d0f1a;
+      --bg2: #141727;
+      --bg3: #1a1e2e;
+      --card-bg: #1a1e2e;
+      --text: #f1f5f9;
+      --text2: #94a3b8;
+      --border: #2a2f4a;
+      --shadow: 0 8px 40px rgba(56,133,222,0.18);
+      --nav-bg: rgba(13,15,26,0.95);
+      --toggle-bg: #2a2f4a;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.4s, color 0.4s;
+      overflow-x: hidden;
+    }
+
+    /* ==================== GRADIENT TEXT ==================== */
+    .grad-text {
+      background: var(--grad-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .grad-btn {
+      background: var(--grad);
+      border: none;
+      color: #fff;
+      border-radius: 50px;
+      padding: 12px 32px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: opacity 0.3s, transform 0.2s, box-shadow 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .grad-btn:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(56,133,222,0.35);
+      color: #fff;
+    }
+    .outline-btn {
+      border: 2px solid var(--primary);
+      background: transparent;
+      color: var(--primary);
+      border-radius: 50px;
+      padding: 11px 32px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .outline-btn:hover {
+      background: var(--grad);
+      border-color: transparent;
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    /* ==================== NAVBAR ==================== */
+    .navbar {
+      background: var(--nav-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0;
+      transition: all 0.4s;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .navbar-brand {
+      font-size: 1.6rem;
+      font-weight: 800;
+      text-decoration: none;
+    }
+    .nav-link {
+      color: var(--text2) !important;
+      font-weight: 500;
+      padding: 6px 14px !important;
+      border-radius: 8px;
+      transition: all 0.25s;
+      font-size: 0.9rem;
+    }
+    .nav-link:hover {
+      color: var(--primary) !important;
+      background: var(--bg2);
+    }
+    /* Theme Toggle */
+    .theme-toggle {
+      width: 52px;
+      height: 26px;
+      background: var(--toggle-bg);
+      border-radius: 13px;
+      position: relative;
+      cursor: pointer;
+      border: none;
+      transition: background 0.3s;
+      flex-shrink: 0;
+    }
+    .theme-toggle::after {
+      content: '';
+      width: 20px; height: 20px;
+      background: var(--grad);
+      border-radius: 50%;
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      transition: transform 0.3s;
+    }
+    [data-theme="dark"] .theme-toggle::after { transform: translateX(26px); }
+    .toggle-icon { font-size: 0.75rem; position: absolute; top: 5px; }
+    .toggle-sun { left: 6px; }
+    .toggle-moon { right: 6px; }
+
+    /* ==================== HERO ==================== */
+    .hero-section {
+      min-height: 100vh;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+    /* Full-width background image */
+    .hero-bg-img {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=80');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transform: scale(1.04);
+      animation: heroZoom 14s ease-in-out infinite alternate;
+    }
+    @keyframes heroZoom {
+      from { transform: scale(1.04); }
+      to   { transform: scale(1.10); }
+    }
+    /* Dark overlay — left 50% stays near-opaque, right 50% fades to transparent */
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(
+        to right,
+        rgba(10, 14, 30, 0.88) 0%,
+        rgba(10, 14, 30, 0.80) 35%,
+        rgba(10, 14, 30, 0.50) 60%,
+        rgba(10, 14, 30, 0.18) 100%
+      );
+    }
+    /* Subtle animated gradient shimmer on top */
+    .hero-shimmer {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(
+        120deg,
+        rgba(56, 133, 222, 0.12) 0%,
+        rgba(123, 137, 235, 0.07) 40%,
+        rgba(192, 83, 174, 0.10) 100%
+      );
+      animation: shimmerPulse 6s ease-in-out infinite alternate;
+    }
+    @keyframes shimmerPulse {
+      from { opacity: 0.6; }
+      to   { opacity: 1; }
+    }
+    /* Dot-grid texture overlay */
+    .hero-dots {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background-image: radial-gradient(rgba(255,255,255,0.07) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+    .hero-content { position: relative; z-index: 3; width: 100%; }
+
+    /* Badge — white glass on dark bg */
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.22);
+      backdrop-filter: blur(8px);
+      border-radius: 50px;
+      padding: 7px 18px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 22px;
+      animation: fadeUp 0.8s ease both;
+    }
+    .hero-badge span { width: 8px; height: 8px; background: #3885DE; border-radius: 50%; animation: pulse 1.5s ease-in-out infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.4); } }
+
+    /* Always white text on image bg */
+    .hero-h1 {
+      font-size: clamp(2.6rem, 5.8vw, 4.6rem);
+      font-weight: 900;
+      line-height: 1.08;
+      color: #fff;
+      animation: fadeUp 0.8s 0.15s ease both;
+      text-shadow: 0 2px 24px rgba(0,0,0,0.25);
+    }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.78);
+      max-width: 580px;
+      animation: fadeUp 0.8s 0.3s ease both;
+      line-height: 1.75;
+    }
+    .hero-btns { animation: fadeUp 0.8s 0.45s ease both; }
+
+    /* Outline btn needs white border on dark hero */
+    .hero-section .outline-btn {
+      border-color: rgba(255,255,255,0.55);
+      color: #fff;
+    }
+    .hero-section .outline-btn:hover {
+      background: var(--grad);
+      border-color: transparent;
+      color: #fff;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 0;
+      flex-wrap: wrap;
+      animation: fadeUp 0.8s 0.6s ease both;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.15);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      overflow: hidden;
+      max-width: 580px;
+    }
+    .hero-stat {
+      flex: 1;
+      min-width: 120px;
+      text-align: center;
+      padding: 20px 16px;
+      border-right: 1px solid rgba(255,255,255,0.12);
+    }
+    .hero-stat:last-child { border-right: none; }
+    .hero-stat .num {
+      font-size: 1.9rem;
+      font-weight: 800;
+      background: var(--grad-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-stat .lbl { font-size: 0.72rem; color: rgba(255,255,255,0.62); font-weight: 500; margin-top: 2px; }
+
+    /* ==================== SECTION STYLES ==================== */
+    section { padding: 96px 0; }
+    .section-tag {
+      display: inline-block;
+      background: linear-gradient(135deg, rgba(56,133,222,0.12), rgba(192,83,174,0.12));
+      border: 1px solid rgba(56,133,222,0.2);
+      border-radius: 50px;
+      padding: 5px 16px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.2;
+    }
+    .section-sub {
+      font-size: 1rem;
+      color: var(--text2);
+      line-height: 1.7;
+      max-width: 600px;
+    }
+
+    /* ==================== MARQUEE / TICKER ==================== */
+    .marquee-wrap {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 0;
+      overflow: hidden;
+    }
+    .marquee-inner {
+      display: flex;
+      gap: 60px;
+      white-space: nowrap;
+      animation: marquee 25s linear infinite;
+    }
+    .marquee-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text2);
+    }
+    .marquee-dot { width: 6px; height: 6px; background: var(--primary); border-radius: 50%; }
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+    /* ==================== STATS ==================== */
+    .stats-section { background: var(--bg2); }
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 36px 28px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--grad);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .stat-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+    .stat-card:hover::before { opacity: 0.04; }
+    .stat-icon {
+      width: 56px; height: 56px;
+      background: linear-gradient(135deg, rgba(56,133,222,0.12), rgba(192,83,174,0.12));
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      font-size: 1.5rem;
+    }
+    .stat-num {
+      font-size: 2.8rem;
+      font-weight: 900;
+      background: var(--grad-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .stat-label { font-weight: 600; font-size: 0.9rem; color: var(--text2); }
+
+    /* ==================== ABOUT ==================== */
+    .about-section { background: var(--bg); }
+    .about-img-wrap {
+      position: relative;
+    }
+    .about-main-img {
+      border-radius: 24px;
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+    }
+    .about-badge-float {
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      background: var(--grad);
+      border-radius: 20px;
+      padding: 20px 24px;
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.4rem;
+      text-align: center;
+      box-shadow: 0 12px 40px rgba(56,133,222,0.3);
+      min-width: 130px;
+    }
+    .about-badge-float small { font-size: 0.75rem; font-weight: 400; display: block; opacity: 0.85; }
+    .pillar-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .pillar-item:hover { transform: translateX(6px); box-shadow: var(--shadow); }
+    .pillar-icon {
+      width: 44px; height: 44px;
+      background: var(--grad);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    /* ==================== TEAM ==================== */
+    .team-section { background: var(--bg2); }
+    .team-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      overflow: hidden;
+      position: relative;
+      transition: transform 0.35s cubic-bezier(.23,1,.32,1), box-shadow 0.35s;
+      display: flex;
+      flex-direction: column;
+    }
+    .team-card:hover { transform: translateY(-10px); box-shadow: 0 32px 64px rgba(56,133,222,0.18); }
+    .team-img-wrap {
+      position: relative;
+      overflow: hidden;
+      height: 320px;
+    }
+    .team-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      transition: transform 0.6s cubic-bezier(.23,1,.32,1);
+      display: block;
+    }
+    .team-card:hover .team-img-wrap img { transform: scale(1.07); }
+    .team-img-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10,14,30,0.85) 0%, rgba(10,14,30,0.2) 50%, transparent 100%);
+      transition: opacity 0.3s;
+    }
+    .team-img-socials {
+      position: absolute;
+      bottom: 20px; left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      opacity: 0;
+      transition: all 0.35s cubic-bezier(.23,1,.32,1);
+      display: flex; gap: 10px;
+      white-space: nowrap;
+    }
+    .team-card:hover .team-img-socials { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .team-img-socials a {
+      width: 36px; height: 36px;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      color: #fff; text-decoration: none; font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+    .team-img-socials a:hover { background: var(--grad); border-color: transparent; }
+    .team-grad-bar {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: var(--grad);
+    }
+    .team-body {
+      padding: 28px 28px 32px;
+      position: relative;
+    }
+    .team-role-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: linear-gradient(135deg, rgba(56,133,222,0.1), rgba(192,83,174,0.1));
+      border: 1px solid rgba(56,133,222,0.2);
+      border-radius: 50px;
+      padding: 4px 14px;
+      font-size: 0.75rem; font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+    .team-avatar {
+      width: 100px; height: 100px;
+      border-radius: 50%;
+      background: var(--grad);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #fff;
+      position: relative;
+    }
+    .team-avatar::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      background: var(--grad);
+      opacity: 0.2;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    .team-badge {
+      display: inline-block;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 4px 14px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-top: 8px;
+    }
+    .social-links a {
+      width: 36px; height: 36px;
+      border: 1.5px solid var(--border);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text2);
+      text-decoration: none;
+      transition: all 0.25s;
+      margin: 0 4px;
+    }
+    .social-links a:hover { background: var(--grad); border-color: transparent; color: #fff; }
+
+    /* ==================== JOURNEY — FULLSCREEN PINNED SCROLL ==================== */
+    .timeline-section {
+      background: #000;
+    }
+
+    /* The outer wrapper is tall enough to pin for all slides */
+    .journey-pin-outer {
+      position: relative;
+    }
+
+    /* The sticky container — full viewport height, pinned */
+    .journey-pin-inner {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Slides stack — all absolutely positioned, transition via JS class */
+    .journey-slides {
+      position: relative;
+      flex: 1;
+      width: 100%;
+    }
+
+    .jslide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: stretch;
+      opacity: 0;
+      transform: scale(1.04);
+      transition: opacity 0.65s cubic-bezier(.23,1,.32,1), transform 0.65s cubic-bezier(.23,1,.32,1);
+      pointer-events: none;
+    }
+    .jslide.active {
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
+    }
+    .jslide.exit {
+      opacity: 0;
+      transform: scale(0.97);
+    }
+
+    /* Full-bleed image side */
+    .jslide-img {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .jslide-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+    /* Dark gradient overlay — right side stays legible */
+    .jslide-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to right,
+        rgba(5,8,18,0.92) 0%,
+        rgba(5,8,18,0.78) 38%,
+        rgba(5,8,18,0.45) 65%,
+        rgba(5,8,18,0.15) 100%
+      );
+    }
+
+    /* Content panel — left side */
+    .jslide-content {
+      position: relative;
+      z-index: 2;
+      width: 50%;
+      max-width: 580px;
+      padding: 0 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0;
+    }
+
+    .jslide-era {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 12px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s 0.1s, transform 0.5s 0.1s;
+    }
+    .jslide.active .jslide-era {
+      opacity: 1; transform: translateY(0);
+    }
+
+    .jslide-year {
+      font-size: clamp(5rem, 10vw, 9rem);
+      font-weight: 900;
+      line-height: 0.9;
+      color: #fff;
+      letter-spacing: -4px;
+      margin-bottom: 20px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.55s 0.18s, transform 0.55s 0.18s;
+    }
+    .jslide.active .jslide-year {
+      opacity: 1; transform: translateY(0);
+    }
+
+    .jslide-title {
+      font-size: clamp(1.4rem, 2.5vw, 2rem);
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+      line-height: 1.2;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.55s 0.26s, transform 0.55s 0.26s;
+    }
+    .jslide.active .jslide-title {
+      opacity: 1; transform: translateY(0);
+    }
+
+    .jslide-desc {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.72);
+      line-height: 1.75;
+      max-width: 420px;
+      margin-bottom: 28px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.55s 0.34s, transform 0.55s 0.34s;
+    }
+    .jslide.active .jslide-desc {
+      opacity: 1; transform: translateY(0);
+    }
+
+    .jslide-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.55s 0.42s, transform 0.55s 0.42s;
+    }
+    .jslide.active .jslide-meta {
+      opacity: 1; transform: translateY(0);
+    }
+    .jslide-team {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.22);
+      backdrop-filter: blur(8px);
+      border-radius: 50px;
+      padding: 7px 18px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #fff;
+    }
+    .jslide-emoji-badge {
+      font-size: 1.5rem;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.18);
+      backdrop-filter: blur(8px);
+      border-radius: 14px;
+      padding: 6px 14px;
+      line-height: 1;
+    }
+
+    /* Bottom HUD bar */
+    .journey-hud {
+      position: relative;
+      z-index: 10;
+      background: rgba(5,8,18,0.85);
+      backdrop-filter: blur(16px);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 16px 64px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-shrink: 0;
+    }
+
+    /* Dot nav */
+    .journey-dots {
+      display: flex;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .jdot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+      cursor: pointer;
+      transition: all 0.3s;
+      border: none;
+      padding: 0;
+    }
+    .jdot.active {
+      background: #fff;
+      width: 28px;
+      border-radius: 4px;
+    }
+
+    /* Progress line */
+    .journey-hud-bar {
+      flex: 1;
+      height: 2px;
+      background: rgba(255,255,255,0.12);
+      border-radius: 1px;
+      overflow: hidden;
+    }
+    .journey-hud-fill {
+      height: 100%;
+      background: var(--grad);
+      border-radius: 1px;
+      transition: width 0.5s ease;
+      width: 14.28%;
+    }
+
+    /* Slide counter */
+    .journey-hud-count {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.45);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .journey-hud-count span { color: #fff; }
+
+    /* Arrow buttons */
+    .jhud-arrow {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.7);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.25s;
+      flex-shrink: 0;
+    }
+    .jhud-arrow:hover { background: var(--grad); border-color: transparent; color: #fff; }
+
+    /* Scroll hint */
+    .journey-scroll-hint {
+      position: absolute;
+      bottom: 72px;
+      right: 48px;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      opacity: 0.5;
+      pointer-events: none;
+    }
+    .journey-scroll-hint span {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #fff;
+      writing-mode: vertical-rl;
+    }
+    .journey-scroll-hint-line {
+      width: 1.5px;
+      height: 40px;
+      background: linear-gradient(to bottom, #fff, transparent);
+      animation: scrollLine 1.8s ease-in-out infinite;
+    }
+
+    @media (max-width: 991px) {
+      .jslide-content { width: 100%; padding: 0 28px; }
+      .jslide-img::after { background: linear-gradient(to top, rgba(5,8,18,0.96) 0%, rgba(5,8,18,0.75) 40%, rgba(5,8,18,0.4) 100%); }
+      .journey-hud { padding: 14px 24px; gap: 14px; }
+      .jslide-year { font-size: 5rem; }
+    }
+    @media (max-width: 576px) {
+      .jslide-content { padding: 0 20px; }
+      .journey-hud { padding: 12px 16px; }
+      .jslide-year { font-size: 4rem; letter-spacing: -2px; }
+      .jslide-title { font-size: 1.3rem; }
+      .journey-scroll-hint { display: none; }
+    }
+
+    /* ==================== SERVICES ==================== */
+    .services-section { background: var(--bg2); }
+    .service-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px 24px;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .service-card:hover { transform: translateY(-8px); box-shadow: var(--shadow); }
+    .service-card:hover .service-icon { background: var(--grad); color: #fff; }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      background: var(--grad);
+      opacity: 0.04;
+      transition: opacity 0.3s;
+    }
+    .service-card:hover::before { opacity: 0.08; }
+    .service-icon {
+      width: 56px; height: 56px;
+      background: linear-gradient(135deg, rgba(56,133,222,0.1), rgba(192,83,174,0.1));
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      transition: all 0.3s;
+      color: var(--primary);
+    }
+    .service-card h5 { font-weight: 700; font-size: 1rem; margin-bottom: 10px; }
+    .service-card p { font-size: 0.87rem; color: var(--text2); line-height: 1.6; margin: 0; }
+
+    /* ==================== WORLD MAP ==================== */
+    .map-section { background: var(--bg); }
+    .map-wrap {
+      position: relative;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      overflow: hidden;
+      padding: 0;
+    }
+    .world-map-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .map-tooltip {
+      position: absolute;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 16px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      white-space: nowrap;
+      z-index: 10;
+      color: var(--text);
+    }
+    .map-tooltip.show { opacity: 1; }
+    .country-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 6px 14px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin: 4px;
+      transition: all 0.25s;
+      cursor: default;
+    }
+    .country-pill:hover { background: var(--grad); color: #fff; border-color: transparent; }
+    .country-flag { font-size: 1.1rem; }
+
+    /* ==================== AWARDS ==================== */
+    .awards-section { background: var(--bg2); }
+    .award-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px 24px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .award-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+    .award-trophy {
+      font-size: 3.5rem;
+      margin-bottom: 16px;
+      display: block;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    /* ==================== BRANDS ==================== */
+    .brands-section { background: var(--bg); }
+    .brand-logo {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text2);
+      transition: all 0.3s;
+      letter-spacing: -0.5px;
+    }
+    .brand-logo:hover { border-color: var(--primary); color: var(--primary); transform: scale(1.04); }
+
+    /* ==================== TESTIMONIALS ==================== */
+    .testimonials-section { background: var(--bg2); }
+    .testi-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 36px 28px;
+      height: 100%;
+      position: relative;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .testi-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+    .testi-card::before {
+      content: '"';
+      position: absolute;
+      top: 20px; right: 28px;
+      font-size: 6rem;
+      line-height: 1;
+      background: var(--grad-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      opacity: 0.15;
+      font-family: Georgia, serif;
+    }
+    .testi-stars { color: #f59e0b; font-size: 0.9rem; margin-bottom: 14px; }
+    .testi-text { font-size: 0.9rem; color: var(--text2); line-height: 1.7; margin-bottom: 24px; }
+    .testi-author { display: flex; align-items: center; gap: 14px; }
+    .testi-ava {
+      width: 46px; height: 46px;
+      border-radius: 50%;
+      background: var(--grad);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #fff;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .testi-author h6 { font-weight: 700; margin: 0; font-size: 0.9rem; }
+    .testi-author small { color: var(--text2); font-size: 0.78rem; }
+
+    /* ==================== VISION ==================== */
+    .vision-section { background: var(--bg); }
+    .vision-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 40px 36px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .vision-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+    .vision-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: var(--grad);
+    }
+    .vision-icon {
+      width: 64px; height: 64px;
+      background: var(--grad);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      margin-bottom: 24px;
+      color: #fff;
+    }
+
+    /* ==================== CTA ==================== */
+    .cta-section {
+      background: var(--bg2);
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-bg {
+      position: absolute;
+      inset: 0;
+      background: var(--grad);
+      opacity: 0.04;
+    }
+    .cta-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 32px;
+      padding: 72px 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--grad);
+      opacity: 0.03;
+    }
+    .cta-card h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 800; }
+
+    /* ==================== FOOTER ==================== */
+    footer {
+      background: var(--bg3);
+      border-top: 1px solid var(--border);
+      padding: 64px 0 32px;
+    }
+    .footer-brand { font-size: 1.6rem; font-weight: 800; }
+    .footer-link {
+      color: var(--text2);
+      text-decoration: none;
+      font-size: 0.87rem;
+      transition: color 0.2s;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .footer-link:hover { color: var(--primary); }
+    .footer-social a {
+      width: 38px; height: 38px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text2);
+      text-decoration: none;
+      transition: all 0.25s;
+      margin-right: 8px;
+    }
+    .footer-social a:hover { background: var(--grad); border-color: transparent; color: #fff; }
+    .footer-divider { border-color: var(--border); margin: 32px 0 24px; }
+
+    /* ==================== SCROLL ANIMATIONS ==================== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-left { opacity: 0; transform: translateX(-30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+    .reveal-right { opacity: 0; transform: translateX(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+    /* Stagger delays */
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    .delay-4 { transition-delay: 0.4s; }
+    .delay-5 { transition-delay: 0.5s; }
+
+    /* ==================== COUNTER ==================== */
+    .counter-num { font-variant-numeric: tabular-nums; }
+
+    /* ==================== BACK TO TOP ==================== */
+    #backTop {
+      position: fixed;
+      bottom: 30px; right: 30px;
+      width: 46px; height: 46px;
+      background: var(--grad);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.1rem;
+      cursor: pointer;
+      box-shadow: 0 6px 24px rgba(56,133,222,0.35);
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.3s, transform 0.3s;
+      z-index: 999;
+      border: none;
+    }
+    #backTop.show { opacity: 1; transform: translateY(0); }
+
+    /* ==================== RESPONSIVE ==================== */
+    @media (max-width: 991.98px) {
+      .timeline-wrap::before { left: 20px; }
+      .timeline-item, .timeline-item:nth-child(even) {
+        justify-content: flex-start;
+        padding-left: 60px;
+        padding-right: 0;
+      }
+      .timeline-dot { left: 20px; }
+      .about-badge-float { display: none; }
+    }
+    @media (max-width: 767.98px) {
+      section { padding: 64px 0; }
+      .hero-section { min-height: auto; padding: 100px 0 64px; }
+      .hero-visual { margin-top: 40px; }
+    }
+
+    /* Rating star */
+    .rating-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 6px 14px;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+    .rating-badge .star { color: #f59e0b; }
+  </style>
+</head>
+<body>
+
+<!-- ==================== NAVBAR ==================== -->
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand" href="#">
+      <span class="grad-text">Nex</span><span style="color:var(--text)">geno</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" style="border-color:var(--border);color:var(--text)">
+      <i class="bi bi-list" style="font-size:1.4rem"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
+        <li class="nav-item"><a class="nav-link" href="#journey">Journey</a></li>
+        <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+        <li class="nav-item"><a class="nav-link" href="#global">Global</a></li>
+        <li class="nav-item"><a class="nav-link" href="#testimonials">Reviews</a></li>
+      </ul>
+      <div class="d-flex align-items-center gap-3">
+        <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+          <i class="bi bi-sun-fill toggle-icon toggle-sun" style="color:#f59e0b"></i>
+          <i class="bi bi-moon-fill toggle-icon toggle-moon" style="color:#7B89EB"></i>
+        </button>
+        <a href="#cta" class="grad-btn" style="padding:9px 22px;font-size:0.85rem">Get Started</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero-section" id="home">
+  <!-- Background image layer -->
+  <div class="hero-bg-img"></div>
+  <!-- Directional dark overlay (left heavy → fades right) -->
+  <div class="hero-overlay"></div>
+  <!-- Colour shimmer on top -->
+  <div class="hero-shimmer"></div>
+  <!-- Dot texture -->
+  <div class="hero-dots"></div>
+
+  <div class="container hero-content py-5">
+    <div class="row">
+      <div class="col-lg-8 col-xl-7">
+        <div class="hero-badge">
+          <span></span>
+          Mumbai-based Digital Agency Since 2008
+        </div>
+        <h1 class="hero-h1 mb-4">
+          <span class="grad-text">17 Years</span> of<br>
+          Digital Excellence
+        </h1>
+        <p class="hero-sub mb-4">
+          Your Partner for Digital Success — crafting websites, SEO strategies, and AI solutions that push your business to the top.
+        </p>
+        <div class="hero-btns d-flex gap-3 flex-wrap mb-5">
+          <a href="#services" class="grad-btn">
+            <i class="bi bi-rocket-takeoff-fill"></i> Explore Services
+          </a>
+          <a href="#about" class="outline-btn">
+            <i class="bi bi-play-circle"></i> Our Story
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="num counter-num" data-target="17">0+</div>
+            <div class="lbl">Years of Excellence</div>
+          </div>
+          <div class="hero-stat">
+            <div class="num counter-num" data-target="45">0+</div>
+            <div class="lbl">Expert Team</div>
+          </div>
+          <div class="hero-stat">
+            <div class="num counter-num" data-target="100">0+</div>
+            <div class="lbl">Happy Clients</div>
+          </div>
+          <div class="hero-stat">
+            <div class="num">4.8<span style="font-size:1rem">★</span></div>
+            <div class="lbl">Google Rating</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div style="position:absolute;bottom:32px;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:6px;animation:fadeUp 1s 1s ease both;opacity:0">
+    <span style="font-size:0.72rem;color:rgba(255,255,255,0.5);letter-spacing:2px;text-transform:uppercase;font-weight:600">Scroll</span>
+    <div style="width:1.5px;height:36px;background:linear-gradient(to bottom,rgba(255,255,255,0.6),transparent);animation:scrollLine 1.8s ease-in-out infinite"></div>
+  </div>
+</section>
+<style>
+  @keyframes scrollLine {
+    0%   { transform: scaleY(0); transform-origin: top; }
+    50%  { transform: scaleY(1); transform-origin: top; }
+    51%  { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
+  /* Remove old right-column elements that no longer exist */
+  .hero-visual, .hero-card, .orbit-wrap, .orbit-ring, .orbit-dot, .floating-tag { display: none !important; }
+</style>
+
+
+<!-- ==================== MARQUEE ==================== -->
+<div class="marquee-wrap">
+  <div class="marquee-inner" id="marqueeInner">
+    <div class="marquee-item"><span class="marquee-dot"></span> Website Design</div>
+    <div class="marquee-item"><span class="marquee-dot"></span> SEO Optimization</div>
+    <div class="marquee-item"><span class="marquee-dot"></span> Digital Marketing</div>
+    <div class="marquee-item"><span class="marquee-dot"></span> UI/UX Design</div>
+    <div class="marquee-item"><span class="marquee-dot"></span> AI Solutions</div>
+    <div class="marquee-item"><span class="marquee-dot"></span> CRM Systems</div>
+    <div class="marquee-item"><span class="marquee-dot"></span> 360° Marketing</div>
+    <div class="marquee-item"><span class="marquee-dot"></span> Global Presence</div>
+    <div class="marquee-item"><span class="marquee-dot"></span> 17+ Years Experience</div>
+    <div class="marquee-item"><span class="marquee-dot"></span> Website Design</div>
+    <div class="marquee-item"><span class="marquee-dot"></span> SEO Optimization</div>
+    <div class="marquee-item"><span class="marquee-dot"></span> Digital Marketing</div>
+    <div class="marquee-item"><span class="marquee-dot"></span> UI/UX Design</div>
+    <div class="marquee-item"><span class="marquee-dot"></span> AI Solutions</div>
+    <div class="marquee-item"><span class="marquee-dot"></span> CRM Systems</div>
+    <div class="marquee-item"><span class="marquee-dot"></span> 360° Marketing</div>
+    <div class="marquee-item"><span class="marquee-dot"></span> Global Presence</div>
+    <div class="marquee-item"><span class="marquee-dot"></span> 17+ Years Experience</div>
+  </div>
+</div>
+
+<!-- ==================== STATS ==================== -->
+<section class="stats-section">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-6 col-lg-3 reveal delay-1">
+        <div class="stat-card">
+          <div class="stat-icon"><i class="bi bi-calendar-check" style="background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text"></i></div>
+          <div class="stat-num counter-num" data-target="17">0</div><div style="font-size:1.2rem;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:800">+</div>
+          <div class="stat-label">Years of Excellence</div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3 reveal delay-2">
+        <div class="stat-card">
+          <div class="stat-icon"><i class="bi bi-people-fill" style="background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text"></i></div>
+          <div class="d-flex align-items-end justify-content-center gap-1">
+            <div class="stat-num counter-num" data-target="45">0</div>
+            <div style="font-size:1.2rem;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:800;margin-bottom:4px">+</div>
+          </div>
+          <div class="stat-label">Expert Team Members</div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3 reveal delay-3">
+        <div class="stat-card">
+          <div class="stat-icon"><i class="bi bi-emoji-smile-fill" style="background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text"></i></div>
+          <div class="d-flex align-items-end justify-content-center gap-1">
+            <div class="stat-num counter-num" data-target="100">0</div>
+            <div style="font-size:1.2rem;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:800;margin-bottom:4px">+</div>
+          </div>
+          <div class="stat-label">Happy Clients</div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3 reveal delay-4">
+        <div class="stat-card">
+          <div class="stat-icon"><i class="bi bi-star-fill" style="background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text"></i></div>
+          <div class="stat-num">4.8</div>
+          <div class="stat-label">Google Rating</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ABOUT ==================== -->
+<section class="about-section" id="about">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-5 reveal-left">
+        <div class="about-img-wrap">
+          <div style="border-radius:24px;overflow:hidden;background:var(--grad);aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;position:relative;">
+            <!-- SVG Illustration for About -->
+            <svg viewBox="0 0 500 375" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+              <defs>
+                <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#3885DE;stop-opacity:1" />
+                  <stop offset="100%" style="stop-color:#C053AE;stop-opacity:1" />
+                </linearGradient>
+              </defs>
+              <rect width="500" height="375" fill="url(#grad1)"/>
+              <!-- City Skyline -->
+              <rect x="30" y="200" width="60" height="175" fill="rgba(255,255,255,0.15)" rx="4"/>
+              <rect x="100" y="170" width="50" height="205" fill="rgba(255,255,255,0.2)" rx="4"/>
+              <rect x="160" y="220" width="40" height="155" fill="rgba(255,255,255,0.12)" rx="4"/>
+              <rect x="210" y="180" width="70" height="195" fill="rgba(255,255,255,0.22)" rx="4"/>
+              <rect x="290" y="195" width="55" height="180" fill="rgba(255,255,255,0.15)" rx="4"/>
+              <rect x="355" y="160" width="65" height="215" fill="rgba(255,255,255,0.2)" rx="4"/>
+              <rect x="430" y="210" width="50" height="165" fill="rgba(255,255,255,0.12)" rx="4"/>
+              <!-- Road -->
+              <rect x="0" y="330" width="500" height="45" fill="rgba(0,0,0,0.2)"/>
+              <rect x="220" y="340" width="30" height="8" fill="rgba(255,255,255,0.5)" rx="2"/>
+              <rect x="270" y="340" width="30" height="8" fill="rgba(255,255,255,0.5)" rx="2"/>
+              <!-- Big N logo -->
+              <circle cx="250" cy="160" r="55" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+              <text x="250" y="178" font-size="52" font-weight="900" fill="white" text-anchor="middle" font-family="Poppins,sans-serif">N</text>
+              <!-- Stars -->
+              <circle cx="80" cy="60" r="3" fill="rgba(255,255,255,0.7)"/>
+              <circle cx="140" cy="40" r="2" fill="rgba(255,255,255,0.5)"/>
+              <circle cx="370" cy="70" r="3" fill="rgba(255,255,255,0.7)"/>
+              <circle cx="440" cy="40" r="2" fill="rgba(255,255,255,0.5)"/>
+              <circle cx="310" cy="30" r="4" fill="rgba(255,255,255,0.6)"/>
+            </svg>
+            <div class="about-badge-float">
+              <div>17+</div>
+              <small>Years in Business</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-7 reveal-right">
+        <div class="section-tag">About Us</div>
+        <h2 class="section-title mb-4">
+          17 Years of Building Businesses,<br>
+          <span class="grad-text">One Click at a Time</span>
+        </h2>
+        <p class="section-sub mb-4">
+          We're Nexgeno, a Mumbai-based digital marketing agency that's been helping businesses shine online since 2008. From crafting websites that tell your story to boosting your brand with SEO and digital marketing, we're here to make your business grow — step by step, with heart and hustle.
+        </p>
+        <p style="color:var(--text2);font-size:0.9rem;line-height:1.8;margin-bottom:28px">
+          Starting as a small hardware shop in 2008, we've grown into a full-fledged digital agency offering everything from killer website design to SEO that gets you noticed and digital marketing that hits every channel.
+        </p>
+        <div class="d-flex flex-column gap-3 mb-4">
+          <div class="pillar-item">
+            <div class="pillar-icon"><i class="bi bi-lightbulb-fill"></i></div>
+            <div>
+              <div style="font-weight:700;font-size:0.95rem;margin-bottom:4px">Innovation First</div>
+              <div style="font-size:0.85rem;color:var(--text2)">Next-gen solutions for modern challenges</div>
+            </div>
+          </div>
+          <div class="pillar-item">
+            <div class="pillar-icon"><i class="bi bi-heart-fill"></i></div>
+            <div>
+              <div style="font-weight:700;font-size:0.95rem;margin-bottom:4px">Client-Focused</div>
+              <div style="font-size:0.85rem;color:var(--text2)">Your success is our mission</div>
+            </div>
+          </div>
+          <div class="pillar-item">
+            <div class="pillar-icon"><i class="bi bi-graph-up-arrow"></i></div>
+            <div>
+              <div style="font-weight:700;font-size:0.95rem;margin-bottom:4px">Proven Results</div>
+              <div style="font-size:0.85rem;color:var(--text2)">17 years of measurable growth</div>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex align-items-center gap-3">
+          <a href="#cta" class="grad-btn">Work With Us <i class="bi bi-arrow-right"></i></a>
+          <div class="rating-badge">
+            <i class="bi bi-star-fill star"></i>
+            <span>4.8/5 Google Rating</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== TEAM ==================== -->
+<section class="team-section" id="team">
+  <div class="container">
+    <div class="text-center mb-5 reveal">
+      <div class="section-tag">Our Leaders</div>
+      <h2 class="section-title mb-3">Meet <span class="grad-text">Our Team</span></h2>
+      <p class="section-sub mx-auto">The visionaries driving Nexgeno's mission forward</p>
+    </div>
+    <div class="row justify-content-center g-4">
+
+      <!-- Arif Khan -->
+      <div class="col-md-5 reveal delay-1">
+        <div class="team-card">
+          <div class="team-grad-bar"></div>
+          <div class="team-img-wrap">
+            <img
+              src="https://ui-avatars.com/api/?name=Arif+Khan&size=400&background=3885DE,7B89EB&color=fff&bold=true&format=png&length=2&font-size=0.35"
+              alt="Arif Khan – CEO & Founder"
+              onerror="this.onerror=null;this.src='https://placehold.co/400x320/3885DE/ffffff?text=AK'"
+            />
+            <div class="team-img-overlay"></div>
+            <div class="team-img-socials">
+              <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+              <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+              <a href="#" aria-label="Email"><i class="bi bi-envelope-fill"></i></a>
+            </div>
+          </div>
+          <div class="team-body">
+            <div class="team-role-badge"><i class="bi bi-star-fill"></i> CEO & Founder</div>
+            <h4 style="font-weight:800;font-size:1.3rem;margin-bottom:4px;margin-top:4px">Arif Khan</h4>
+            <p style="font-size:0.87rem;color:var(--text2);line-height:1.7;margin-top:12px;margin-bottom:0">
+              The heart of Nexgeno. A born problem-solver, always ready to roll up his sleeves and find a way forward. His passion for helping businesses fuels everything we do.
+            </p>
+            <div style="display:flex;gap:16px;margin-top:20px;flex-wrap:wrap">
+              <div style="font-size:0.8rem;color:var(--text2)"><span style="font-weight:700;color:var(--primary);font-size:1rem">17+</span> Yrs Exp</div>
+              <div style="font-size:0.8rem;color:var(--text2)"><span style="font-weight:700;color:var(--primary);font-size:1rem">100+</span> Clients</div>
+              <div style="font-size:0.8rem;color:var(--text2)"><span style="font-weight:700;color:var(--primary);font-size:1rem">12</span> Countries</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tamir Khan -->
+      <div class="col-md-5 reveal delay-2">
+        <div class="team-card">
+          <div class="team-grad-bar"></div>
+          <div class="team-img-wrap">
+            <img
+              src="https://ui-avatars.com/api/?name=Tamir+Khan&size=400&background=C053AE,7B89EB&color=fff&bold=true&format=png&length=2&font-size=0.35"
+              alt="Tamir Khan – CTO & Co-Founder"
+              onerror="this.onerror=null;this.src='https://placehold.co/400x320/C053AE/ffffff?text=TK'"
+            />
+            <div class="team-img-overlay"></div>
+            <div class="team-img-socials">
+              <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+              <a href="#" aria-label="GitHub"><i class="bi bi-github"></i></a>
+              <a href="#" aria-label="Email"><i class="bi bi-envelope-fill"></i></a>
+            </div>
+          </div>
+          <div class="team-body">
+            <div class="team-role-badge" style="color:var(--accent);background:linear-gradient(135deg,rgba(192,83,174,0.1),rgba(123,137,235,0.1));border-color:rgba(192,83,174,0.2)"><i class="bi bi-code-slash"></i> CTO & Co-Founder</div>
+            <h4 style="font-weight:800;font-size:1.3rem;margin-bottom:4px;margin-top:4px">Tamir Khan</h4>
+            <p style="font-size:0.87rem;color:var(--text2);line-height:1.7;margin-top:12px;margin-bottom:0">
+              The tech brain, turning ideas into reality. From coding stunning websites to exploring AI for your business, he's always thinking about what's next in digital.
+            </p>
+            <div style="display:flex;gap:16px;margin-top:20px;flex-wrap:wrap">
+              <div style="font-size:0.8rem;color:var(--text2)"><span style="font-weight:700;color:var(--accent);font-size:1rem">10+</span> Yrs Dev</div>
+              <div style="font-size:0.8rem;color:var(--text2)"><span style="font-weight:700;color:var(--accent);font-size:1rem">50+</span> Projects</div>
+              <div style="font-size:0.8rem;color:var(--text2)"><span style="font-weight:700;color:var(--accent);font-size:1rem">AI</span> Expert</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==================== JOURNEY — HORIZONTAL FILMSTRIP ==================== -->
+<section class="timeline-section" id="journey">
+  <div class="container">
+    <div class="text-center pb-2 reveal">
+      <div class="section-tag">Our Story</div>
+      <h2 class="section-title mb-3">Our Journey <span class="grad-text">in Numbers</span></h2>
+      <p class="section-sub mx-auto">From a one-person hardware shop to a global digital powerhouse</p>
+    </div>
+  </div>
+
+  <!-- Horizontal scrollable track (full-bleed) -->
+  <div class="journey-track-wrap" id="journeyWrap">
+    <div class="journey-track" id="journeyTrack">
+
+      <!-- 2008 -->
+      <div class="jcard">
+        <div class="jcard-dot"></div>
+        <div class="jcard-connector"></div>
+        <div class="jcard-inner">
+          <div class="jcard-head">
+            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=75" alt="2008 Hardware & Tech" loading="lazy" />
+            <div class="jcard-head-overlay"></div>
+            <span class="jcard-emoji">🖥️</span>
+            <span class="jcard-year-big">2008</span>
+          </div>
+          <div class="jcard-body">
+            <div class="jcard-year-pill"><i class="bi bi-record-circle-fill" style="font-size:0.5rem"></i> 2008</div>
+            <div class="jcard-title">The Beginning</div>
+            <div class="jcard-desc">Mr. Arif starts with a strong technical foundation — hardware, networking, sales & training. Big ambition, driven by vision.</div>
+            <div class="jcard-team"><i class="bi bi-person-fill"></i> 01 Person</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2011 -->
+      <div class="jcard">
+        <div class="jcard-dot"></div>
+        <div class="jcard-connector"></div>
+        <div class="jcard-inner">
+          <div class="jcard-head">
+            <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&q=75" alt="2011 Web Development" loading="lazy" />
+            <div class="jcard-head-overlay"></div>
+            <span class="jcard-emoji">💻</span>
+            <span class="jcard-year-big">2011</span>
+          </div>
+          <div class="jcard-body">
+            <div class="jcard-year-pill"><i class="bi bi-record-circle-fill" style="font-size:0.5rem"></i> 2011</div>
+            <div class="jcard-title">Stepping into Digital</div>
+            <div class="jcard-desc">Registered makent.in and entered web development with HTML, CSS & Bootstrap. A two-member team plants the digital seeds.</div>
+            <div class="jcard-team"><i class="bi bi-people-fill"></i> 02 Persons</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2014 -->
+      <div class="jcard">
+        <div class="jcard-dot"></div>
+        <div class="jcard-connector"></div>
+        <div class="jcard-inner">
+          <div class="jcard-head">
+            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&q=75" alt="2014 Team Partnership" loading="lazy" />
+            <div class="jcard-head-overlay"></div>
+            <span class="jcard-emoji">🤝</span>
+            <span class="jcard-year-big">2014</span>
+          </div>
+          <div class="jcard-body">
+            <div class="jcard-year-pill"><i class="bi bi-record-circle-fill" style="font-size:0.5rem"></i> 2014</div>
+            <div class="jcard-title">Leadership & Growth</div>
+            <div class="jcard-desc">Tamir joins as partner. PHP development takes off, delivering impactful projects like geci.co.in for major clients.</div>
+            <div class="jcard-team"><i class="bi bi-people-fill"></i> 03 Persons</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2015 -->
+      <div class="jcard">
+        <div class="jcard-dot"></div>
+        <div class="jcard-connector"></div>
+        <div class="jcard-inner">
+          <div class="jcard-head">
+            <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=600&q=75" alt="2015 Going Global" loading="lazy" />
+            <div class="jcard-head-overlay"></div>
+            <span class="jcard-emoji">✈️</span>
+            <span class="jcard-year-big">2015</span>
+          </div>
+          <div class="jcard-body">
+            <div class="jcard-year-pill"><i class="bi bi-record-circle-fill" style="font-size:0.5rem"></i> 2015</div>
+            <div class="jcard-title">Going Global</div>
+            <div class="jcard-desc">Clients in South Africa, USA, Canada, China, UAE & UK. Nexgeno crosses borders with trust and talent.</div>
+            <div class="jcard-team"><i class="bi bi-people-fill"></i> 07 Persons</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2018 -->
+      <div class="jcard">
+        <div class="jcard-dot"></div>
+        <div class="jcard-connector"></div>
+        <div class="jcard-inner">
+          <div class="jcard-head">
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=75" alt="2018 Digital Marketing" loading="lazy" />
+            <div class="jcard-head-overlay"></div>
+            <span class="jcard-emoji">📈</span>
+            <span class="jcard-year-big">2018</span>
+          </div>
+          <div class="jcard-body">
+            <div class="jcard-year-pill"><i class="bi bi-record-circle-fill" style="font-size:0.5rem"></i> 2018</div>
+            <div class="jcard-title">Full 360° Agency</div>
+            <div class="jcard-desc">SEO, social media, email campaigns & performance marketing all under one roof. A true end-to-end digital agency is born.</div>
+            <div class="jcard-team"><i class="bi bi-people-fill"></i> 20+ Persons</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2022 -->
+      <div class="jcard">
+        <div class="jcard-dot"></div>
+        <div class="jcard-connector"></div>
+        <div class="jcard-inner">
+          <div class="jcard-head" style="background:linear-gradient(135deg,#0d1b2a,#7B89EB,#3885DE)">
+            <span class="jcard-emoji">🧠</span>
+            <span class="jcard-year-big">2022</span>
+          </div>
+          <div class="jcard-body">
+            <div class="jcard-year-pill"><i class="bi bi-record-circle-fill" style="font-size:0.5rem"></i> 2022</div>
+            <div class="jcard-title">AI Integration</div>
+            <div class="jcard-desc">Cutting-edge AI solutions and custom CRM systems help clients automate, scale and grow smarter in the digital era.</div>
+            <div class="jcard-team"><i class="bi bi-people-fill"></i> 35+ Persons</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2026 -->
+      <div class="jcard">
+        <div class="jcard-dot"></div>
+        <div class="jcard-connector"></div>
+        <div class="jcard-inner">
+          <div class="jcard-head" style="background:linear-gradient(135deg,#3885DE,#7B89EB,#C053AE)">
+            <span class="jcard-emoji">🏆</span>
+            <span class="jcard-year-big">2026</span>
+          </div>
+          <div class="jcard-body">
+            <div class="jcard-year-pill" style="color:var(--accent);border-color:rgba(192,83,174,0.25);background:linear-gradient(135deg,rgba(192,83,174,0.1),rgba(56,133,222,0.1))"><i class="bi bi-star-fill" style="font-size:0.5rem"></i> Today</div>
+            <div class="jcard-title">Premier Digital Agency</div>
+            <div class="jcard-desc">45+ team, 100+ happy clients, 12 countries, 4.8★ Google rating. The journey continues — the best is yet to come.</div>
+            <div class="jcard-team" style="border-color:rgba(192,83,174,0.25);color:var(--accent)"><i class="bi bi-people-fill" style="color:var(--accent)"></i> 45+ Persons</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end track -->
+  </div><!-- end wrap -->
+
+  <!-- Controls -->
+  <div class="container">
+    <div class="journey-controls">
+      <button class="journey-arrow" id="jPrev" aria-label="Previous"><i class="bi bi-arrow-left"></i></button>
+      <div class="journey-progress-bar">
+        <div class="journey-progress-fill" id="jProgress"></div>
+      </div>
+      <button class="journey-arrow" id="jNext" aria-label="Next"><i class="bi bi-arrow-right"></i></button>
+      <div class="journey-counter"><span id="jCurrent">1</span> / 7</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SERVICES ==================== -->
+<section class="services-section" id="services">
+  <div class="container">
+    <div class="text-center mb-5 reveal">
+      <div class="section-tag">What We Do</div>
+      <h2 class="section-title mb-3">Your Growth, <span class="grad-text">Our Game Plan</span></h2>
+      <p class="section-sub mx-auto">360-degree digital solutions tailored to your business goals and budget</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4 reveal delay-1">
+        <div class="service-card">
+          <div class="service-icon"><i class="bi bi-window-stack"></i></div>
+          <h5>Website Design & Development</h5>
+          <p>Beautiful, responsive websites that tell your story and drive measurable results for your business.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 reveal delay-2">
+        <div class="service-card">
+          <div class="service-icon"><i class="bi bi-search-heart"></i></div>
+          <h5>SEO Optimization</h5>
+          <p>Get to the top of Google with our proven SEO strategies built over 17 years of experience.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 reveal delay-3">
+        <div class="service-card">
+          <div class="service-icon"><i class="bi bi-megaphone-fill"></i></div>
+          <h5>360° Digital Marketing</h5>
+          <p>From social media to email campaigns, we cover every channel to maximize your brand's reach.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 reveal delay-1">
+        <div class="service-card">
+          <div class="service-icon"><i class="bi bi-palette2"></i></div>
+          <h5>UI/UX Design</h5>
+          <p>User experiences that delight and convert visitors into loyal customers for your business.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 reveal delay-2">
+        <div class="service-card">
+          <div class="service-icon"><i class="bi bi-robot"></i></div>
+          <h5>AI Solutions</h5>
+          <p>Cutting-edge AI integration to streamline your operations and stay ahead of the competition.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 reveal delay-3">
+        <div class="service-card">
+          <div class="service-icon"><i class="bi bi-diagram-3-fill"></i></div>
+          <h5>CRM Systems</h5>
+          <p>Custom CRM solutions to manage your customer relationships and drive repeat business.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== GLOBAL MAP ==================== -->
+<section class="map-section" id="global">
+  <div class="container">
+    <div class="text-center mb-5 reveal">
+      <div class="section-tag">Global Presence</div>
+      <h2 class="section-title mb-3">Across <span class="grad-text">The Globe</span></h2>
+      <p class="section-sub mx-auto">Serving clients across 12 countries with digital excellence</p>
+    </div>
+
+    <!-- Stats row above map -->
+    <div class="row g-3 mb-4 reveal">
+      <div class="col-6 col-md-3">
+        <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:16px;padding:20px;text-align:center">
+          <div style="font-size:2rem;font-weight:900;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">12</div>
+          <div style="font-size:0.8rem;color:var(--text2);font-weight:600">Countries</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:16px;padding:20px;text-align:center">
+          <div style="font-size:2rem;font-weight:900;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">4</div>
+          <div style="font-size:0.8rem;color:var(--text2);font-weight:600">Continents</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:16px;padding:20px;text-align:center">
+          <div style="font-size:2rem;font-weight:900;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">100+</div>
+          <div style="font-size:0.8rem;color:var(--text2);font-weight:600">Global Clients</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:16px;padding:20px;text-align:center">
+          <div style="font-size:2rem;font-weight:900;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">17+</div>
+          <div style="font-size:0.8rem;color:var(--text2);font-weight:600">Years Global</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="map-wrap reveal" style="position:relative">
+      <div id="mapTooltip" class="map-tooltip"></div>
+      <!-- Proper detailed world map using Natural Earth projection paths -->
+      <svg id="worldMap" viewBox="0 0 1010 560" class="world-map-svg" xmlns="http://www.w3.org/2000/svg" style="padding:24px">
+        <defs>
+          <linearGradient id="mapGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#3885DE;stop-opacity:1"/>
+            <stop offset="50%" style="stop-color:#7B89EB;stop-opacity:1"/>
+            <stop offset="100%" style="stop-color:#C053AE;stop-opacity:1"/>
+          </linearGradient>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+
+        <!-- ── Continent shapes (simplified but recognisable outlines) ── -->
+        <!-- North America -->
+        <path d="M 60,55 L 95,45 L 140,42 L 175,48 L 205,55 L 230,70 L 245,90 L 245,120 L 235,145 L 215,160 L 205,185 L 195,205 L 185,220 L 170,235 L 155,250 L 145,265 L 150,280 L 160,290 L 155,305 L 140,310 L 125,300 L 110,285 L 95,265 L 80,245 L 65,220 L 55,195 L 48,170 L 50,145 L 55,120 L 55,90 Z"
+          fill="var(--border)" stroke="var(--bg2)" stroke-width="1.5" opacity="0.8"/>
+        <!-- Greenland -->
+        <path d="M 165,20 L 200,15 L 230,22 L 240,38 L 225,48 L 200,50 L 175,45 L 162,32 Z"
+          fill="var(--border)" stroke="var(--bg2)" stroke-width="1" opacity="0.6"/>
+        <!-- Central America + Caribbean (simplified) -->
+        <path d="M 145,265 L 160,270 L 170,280 L 165,295 L 150,290 Z" fill="var(--border)" opacity="0.7"/>
+        <!-- South America -->
+        <path d="M 175,295 L 205,285 L 235,280 L 260,285 L 280,300 L 290,325 L 295,360 L 290,400 L 275,440 L 250,475 L 225,490 L 205,480 L 185,460 L 175,430 L 168,395 L 165,360 L 165,325 Z"
+          fill="var(--border)" stroke="var(--bg2)" stroke-width="1.5" opacity="0.8"/>
+        <!-- Europe -->
+        <path d="M 430,52 L 460,45 L 490,48 L 510,55 L 515,70 L 505,85 L 490,95 L 475,105 L 460,110 L 445,105 L 435,95 L 428,80 L 425,65 Z"
+          fill="var(--border)" stroke="var(--bg2)" stroke-width="1.5" opacity="0.8"/>
+        <!-- Scandinavia -->
+        <path d="M 455,30 L 470,25 L 485,30 L 490,45 L 475,50 L 460,47 Z" fill="var(--border)" opacity="0.7"/>
+        <!-- UK -->
+        <path d="M 418,60 L 428,55 L 434,62 L 430,72 L 420,74 L 415,66 Z" fill="var(--border)" opacity="0.8"/>
+        <!-- Africa -->
+        <path d="M 435,120 L 460,115 L 490,118 L 510,128 L 520,150 L 525,180 L 522,215 L 515,250 L 505,285 L 490,315 L 470,340 L 455,355 L 440,360 L 425,350 L 412,330 L 405,300 L 400,265 L 398,230 L 400,195 L 405,165 L 415,140 Z"
+          fill="var(--border)" stroke="var(--bg2)" stroke-width="1.5" opacity="0.8"/>
+        <!-- Middle East / Arabian Peninsula -->
+        <path d="M 515,130 L 545,125 L 570,130 L 585,145 L 590,165 L 580,185 L 565,195 L 548,195 L 530,185 L 518,165 L 512,148 Z"
+          fill="var(--border)" stroke="var(--bg2)" stroke-width="1" opacity="0.8"/>
+        <!-- Asia (main body) -->
+        <path d="M 510,50 L 545,42 L 590,38 L 640,40 L 685,45 L 730,50 L 775,55 L 810,65 L 840,80 L 858,100 L 855,125 L 840,148 L 815,162 L 790,175 L 760,185 L 730,195 L 700,200 L 670,205 L 640,205 L 610,200 L 585,195 L 560,185 L 540,170 L 525,155 L 515,135 L 510,115 L 508,90 Z"
+          fill="var(--border)" stroke="var(--bg2)" stroke-width="1.5" opacity="0.8"/>
+        <!-- India subcontinent -->
+        <path d="M 600,195 L 625,192 L 648,200 L 660,220 L 660,250 L 645,275 L 625,290 L 608,280 L 596,260 L 592,235 L 595,210 Z"
+          fill="var(--border)" stroke="var(--bg2)" stroke-width="1" opacity="0.8"/>
+        <!-- Southeast Asia -->
+        <path d="M 730,195 L 765,195 L 790,205 L 800,225 L 790,250 L 770,265 L 745,268 L 725,255 L 718,235 L 720,215 Z"
+          fill="var(--border)" stroke="var(--bg2)" stroke-width="1" opacity="0.8"/>
+        <!-- Indonesia (simplified archipelago) -->
+        <path d="M 748,285 L 780,278 L 810,280 L 838,288 L 855,300 L 848,315 L 820,318 L 790,312 L 762,305 Z"
+          fill="var(--border)" stroke="var(--bg2)" stroke-width="1" opacity="0.8"/>
+        <path d="M 855,298 L 880,292 L 900,298 L 905,312 L 890,320 L 865,318 Z"
+          fill="var(--border)" opacity="0.7"/>
+        <!-- Australia -->
+        <path d="M 778,355 L 815,345 L 855,345 L 890,355 L 912,375 L 915,405 L 905,430 L 882,448 L 852,455 L 820,450 L 792,435 L 772,412 L 765,385 Z"
+          fill="var(--border)" stroke="var(--bg2)" stroke-width="1.5" opacity="0.8"/>
+        <!-- New Zealand (small) -->
+        <path d="M 930,415 L 940,408 L 948,418 L 942,430 L 932,425 Z" fill="var(--border)" opacity="0.6"/>
+        <!-- Japan -->
+        <path d="M 840,112 L 855,105 L 868,112 L 868,128 L 855,134 L 842,126 Z" fill="var(--border)" opacity="0.75"/>
+        <!-- Madagascar -->
+        <path d="M 520,305 L 530,295 L 540,305 L 538,325 L 525,330 L 516,318 Z" fill="var(--border)" opacity="0.65"/>
+
+        <!-- ── Animated connection arcs between Mumbai (hub) and client countries ── -->
+        <!-- Mumbai hub coords: ~630,195 -->
+        <!-- To UK 422,63 -->
+        <path d="M 630,195 Q 520,100 422,63" fill="none" stroke="url(#mapGrad)" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.4">
+          <animate attributeName="stroke-dashoffset" values="200;0" dur="4s" repeatCount="indefinite"/>
+        </path>
+        <!-- To USA ~170,175 -->
+        <path d="M 630,195 Q 400,80 170,175" fill="none" stroke="url(#mapGrad)" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.4">
+          <animate attributeName="stroke-dashoffset" values="300;0" dur="5s" repeatCount="indefinite"/>
+        </path>
+        <!-- To Canada ~160,140 -->
+        <path d="M 630,195 Q 400,60 160,140" fill="none" stroke="url(#mapGrad)" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.35">
+          <animate attributeName="stroke-dashoffset" values="280;0" dur="5.5s" repeatCount="indefinite"/>
+        </path>
+        <!-- To UAE ~558,165 -->
+        <path d="M 630,195 Q 595,165 558,165" fill="none" stroke="url(#mapGrad)" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.5">
+          <animate attributeName="stroke-dashoffset" values="100;0" dur="2.5s" repeatCount="indefinite"/>
+        </path>
+        <!-- To South Africa ~455,340 -->
+        <path d="M 630,195 Q 540,290 455,340" fill="none" stroke="url(#mapGrad)" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.4">
+          <animate attributeName="stroke-dashoffset" values="200;0" dur="4.2s" repeatCount="indefinite"/>
+        </path>
+        <!-- To China ~785,100 -->
+        <path d="M 630,195 Q 710,145 785,100" fill="none" stroke="url(#mapGrad)" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.4">
+          <animate attributeName="stroke-dashoffset" values="180;0" dur="3.5s" repeatCount="indefinite"/>
+        </path>
+        <!-- To Australia ~845,400 -->
+        <path d="M 630,195 Q 740,330 845,400" fill="none" stroke="url(#mapGrad)" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.4">
+          <animate attributeName="stroke-dashoffset" values="260;0" dur="4.8s" repeatCount="indefinite"/>
+        </path>
+        <!-- To Indonesia ~790,295 -->
+        <path d="M 630,195 Q 715,245 790,295" fill="none" stroke="url(#mapGrad)" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.4">
+          <animate attributeName="stroke-dashoffset" values="200;0" dur="3.8s" repeatCount="indefinite"/>
+        </path>
+
+        <!-- ── Mumbai hub dot (home base) ── -->
+        <circle cx="630" cy="195" r="22" fill="rgba(56,133,222,0.12)" stroke="rgba(56,133,222,0.3)" stroke-width="1">
+          <animate attributeName="r" values="22;32;22" dur="2.5s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.8;0.2;0.8" dur="2.5s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="630" cy="195" r="10" fill="#3885DE" filter="url(#glow)"/>
+        <text x="630" y="180" text-anchor="middle" font-size="11" fill="#3885DE" font-family="Poppins,sans-serif" font-weight="800">📍 Mumbai HQ</text>
+
+        <!-- ── Country dots ── -->
+        <!-- USA -->
+        <g class="map-pin" data-label="🇺🇸 United States" style="cursor:pointer">
+          <circle cx="170" cy="175" r="16" fill="rgba(56,133,222,0.12)" stroke="rgba(56,133,222,0.4)" stroke-width="1.5">
+            <animate attributeName="r" values="16;24;16" dur="3s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="1;0.2;1" dur="3s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="170" cy="175" r="7" fill="#3885DE"/>
+          <text x="170" y="158" text-anchor="middle" font-size="10" fill="var(--text)" font-family="Poppins,sans-serif" font-weight="700">🇺🇸 USA</text>
+        </g>
+        <!-- Canada -->
+        <g class="map-pin" data-label="🇨🇦 Canada" style="cursor:pointer">
+          <circle cx="165" cy="140" r="14" fill="rgba(192,83,174,0.12)" stroke="rgba(192,83,174,0.4)" stroke-width="1.5">
+            <animate attributeName="r" values="14;22;14" dur="3.5s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="1;0.2;1" dur="3.5s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="165" cy="140" r="6" fill="#C053AE"/>
+          <text x="165" y="125" text-anchor="middle" font-size="10" fill="var(--text)" font-family="Poppins,sans-serif" font-weight="700">🇨🇦 Canada</text>
+        </g>
+        <!-- UK -->
+        <g class="map-pin" data-label="🇬🇧 United Kingdom" style="cursor:pointer">
+          <circle cx="422" cy="63" r="14" fill="rgba(123,137,235,0.12)" stroke="rgba(123,137,235,0.4)" stroke-width="1.5">
+            <animate attributeName="r" values="14;22;14" dur="2.8s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="1;0.2;1" dur="2.8s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="422" cy="63" r="6" fill="#7B89EB"/>
+          <text x="422" y="50" text-anchor="middle" font-size="10" fill="var(--text)" font-family="Poppins,sans-serif" font-weight="700">🇬🇧 UK</text>
+        </g>
+        <!-- UAE -->
+        <g class="map-pin" data-label="🇦🇪 United Arab Emirates" style="cursor:pointer">
+          <circle cx="558" cy="165" r="15" fill="rgba(56,133,222,0.12)" stroke="rgba(56,133,222,0.4)" stroke-width="1.5">
+            <animate attributeName="r" values="15;23;15" dur="2.2s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="1;0.2;1" dur="2.2s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="558" cy="165" r="7" fill="#3885DE"/>
+          <text x="558" y="152" text-anchor="middle" font-size="10" fill="var(--text)" font-family="Poppins,sans-serif" font-weight="700">🇦🇪 UAE</text>
+        </g>
+        <!-- Saudi Arabia -->
+        <g class="map-pin" data-label="🇸🇦 Saudi Arabia" style="cursor:pointer">
+          <circle cx="540" cy="182" r="12" fill="rgba(192,83,174,0.12)" stroke="rgba(192,83,174,0.35)" stroke-width="1.5">
+            <animate attributeName="r" values="12;18;12" dur="3.2s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="1;0.2;1" dur="3.2s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="540" cy="182" r="5" fill="#C053AE"/>
+          <text x="540" y="200" text-anchor="middle" font-size="9" fill="var(--text)" font-family="Poppins,sans-serif" font-weight="700">🇸🇦 KSA</text>
+        </g>
+        <!-- Qatar -->
+        <g class="map-pin" data-label="🇶🇦 Qatar" style="cursor:pointer">
+          <circle cx="565" cy="175" r="10" fill="rgba(123,137,235,0.12)" stroke="rgba(123,137,235,0.35)" stroke-width="1.5">
+            <animate attributeName="r" values="10;16;10" dur="2.7s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="1;0.2;1" dur="2.7s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="565" cy="175" r="5" fill="#7B89EB"/>
+        </g>
+        <!-- South Africa -->
+        <g class="map-pin" data-label="🇿🇦 South Africa" style="cursor:pointer">
+          <circle cx="455" cy="340" r="15" fill="rgba(56,133,222,0.12)" stroke="rgba(56,133,222,0.4)" stroke-width="1.5">
+            <animate attributeName="r" values="15;24;15" dur="2.6s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="1;0.2;1" dur="2.6s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="455" cy="340" r="7" fill="#3885DE"/>
+          <text x="455" y="327" text-anchor="middle" font-size="10" fill="var(--text)" font-family="Poppins,sans-serif" font-weight="700">🇿🇦 S.Africa</text>
+        </g>
+        <!-- Botswana -->
+        <g class="map-pin" data-label="🇧🇼 Botswana" style="cursor:pointer">
+          <circle cx="462" cy="320" r="10" fill="rgba(192,83,174,0.12)" stroke="rgba(192,83,174,0.35)" stroke-width="1.5">
+            <animate attributeName="r" values="10;15;10" dur="3.3s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="1;0.2;1" dur="3.3s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="462" cy="320" r="4" fill="#C053AE"/>
+        </g>
+        <!-- Mauritius -->
+        <g class="map-pin" data-label="🇲🇺 Mauritius" style="cursor:pointer">
+          <circle cx="533" cy="360" r="11" fill="rgba(123,137,235,0.12)" stroke="rgba(123,137,235,0.35)" stroke-width="1.5">
+            <animate attributeName="r" values="11;17;11" dur="2.9s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="1;0.2;1" dur="2.9s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="533" cy="360" r="5" fill="#7B89EB"/>
+          <text x="533" y="377" text-anchor="middle" font-size="9" fill="var(--text)" font-family="Poppins,sans-serif" font-weight="700">🇲🇺 Mauritius</text>
+        </g>
+        <!-- China -->
+        <g class="map-pin" data-label="🇨🇳 China" style="cursor:pointer">
+          <circle cx="785" cy="100" r="16" fill="rgba(56,133,222,0.12)" stroke="rgba(56,133,222,0.4)" stroke-width="1.5">
+            <animate attributeName="r" values="16;25;16" dur="3.1s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="1;0.2;1" dur="3.1s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="785" cy="100" r="7" fill="#3885DE"/>
+          <text x="785" y="87" text-anchor="middle" font-size="10" fill="var(--text)" font-family="Poppins,sans-serif" font-weight="700">🇨🇳 China</text>
+        </g>
+        <!-- Indonesia -->
+        <g class="map-pin" data-label="🇮🇩 Indonesia" style="cursor:pointer">
+          <circle cx="792" cy="296" r="14" fill="rgba(192,83,174,0.12)" stroke="rgba(192,83,174,0.4)" stroke-width="1.5">
+            <animate attributeName="r" values="14;22;14" dur="3.4s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="1;0.2;1" dur="3.4s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="792" cy="296" r="6" fill="#C053AE"/>
+          <text x="792" y="283" text-anchor="middle" font-size="10" fill="var(--text)" font-family="Poppins,sans-serif" font-weight="700">🇮🇩 Indonesia</text>
+        </g>
+        <!-- Australia -->
+        <g class="map-pin" data-label="🇦🇺 Australia" style="cursor:pointer">
+          <circle cx="845" cy="400" r="16" fill="rgba(123,137,235,0.12)" stroke="rgba(123,137,235,0.4)" stroke-width="1.5">
+            <animate attributeName="r" values="16;25;16" dur="2.4s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="1;0.2;1" dur="2.4s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="845" cy="400" r="7" fill="#7B89EB"/>
+          <text x="845" y="387" text-anchor="middle" font-size="10" fill="var(--text)" font-family="Poppins,sans-serif" font-weight="700">🇦🇺 Australia</text>
+        </g>
+
+      </svg>
+    </div>
+
+    <!-- Country Pills -->
+    <div class="text-center mt-4 reveal">
+      <span class="country-pill"><span class="country-flag">🇿🇦</span> South Africa</span>
+      <span class="country-pill"><span class="country-flag">🇺🇸</span> United States</span>
+      <span class="country-pill"><span class="country-flag">🇨🇦</span> Canada</span>
+      <span class="country-pill"><span class="country-flag">🇨🇳</span> China</span>
+      <span class="country-pill"><span class="country-flag">🇮🇩</span> Indonesia</span>
+      <span class="country-pill"><span class="country-flag">🇦🇪</span> UAE</span>
+      <span class="country-pill"><span class="country-flag">🇬🇧</span> United Kingdom</span>
+      <span class="country-pill"><span class="country-flag">🇧🇼</span> Botswana</span>
+      <span class="country-pill"><span class="country-flag">🇸🇦</span> Saudi Arabia</span>
+      <span class="country-pill"><span class="country-flag">🇲🇺</span> Mauritius</span>
+      <span class="country-pill"><span class="country-flag">🇶🇦</span> Qatar</span>
+      <span class="country-pill"><span class="country-flag">🇦🇺</span> Australia</span>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== AWARDS ==================== -->
+<section class="awards-section">
+  <div class="container">
+    <div class="text-center mb-5 reveal">
+      <div class="section-tag">Recognition</div>
+      <h2 class="section-title mb-3">Award <span class="grad-text">Winning</span> Agency</h2>
+    </div>
+    <div class="row g-4 justify-content-center">
+      <div class="col-6 col-md-3 reveal delay-1">
+        <div class="award-card">
+          <span class="award-trophy">🏆</span>
+          <h6 style="font-weight:700;font-size:0.9rem;margin-bottom:6px">Best Digital Agency</h6>
+          <div style="font-size:0.78rem;color:var(--text2)">Mumbai 2023</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3 reveal delay-2">
+        <div class="award-card">
+          <span class="award-trophy" style="animation-delay:1s">🥇</span>
+          <h6 style="font-weight:700;font-size:0.9rem;margin-bottom:6px">Top SEO Agency</h6>
+          <div style="font-size:0.78rem;color:var(--text2)">India 2024</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3 reveal delay-3">
+        <div class="award-card">
+          <span class="award-trophy" style="animation-delay:2s">⭐</span>
+          <h6 style="font-weight:700;font-size:0.9rem;margin-bottom:6px">Innovation Award</h6>
+          <div style="font-size:0.78rem;color:var(--text2)">Tech Expo 2022</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3 reveal delay-4">
+        <div class="award-card">
+          <span class="award-trophy" style="animation-delay:3s">🎖️</span>
+          <h6 style="font-weight:700;font-size:0.9rem;margin-bottom:6px">Client Choice</h6>
+          <div style="font-size:0.78rem;color:var(--text2)">Google 2024</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== BRANDS ==================== -->
+<section class="brands-section">
+  <div class="container">
+    <div class="text-center mb-5 reveal">
+      <div class="section-tag">Our Clients</div>
+      <h2 class="section-title mb-3">Brands That <span class="grad-text">Trust Us</span></h2>
+    </div>
+    <div class="row g-3 reveal">
+      <div class="col-6 col-md-4 col-lg-2"><div class="brand-logo">Starbucks</div></div>
+      <div class="col-6 col-md-4 col-lg-2"><div class="brand-logo">TechCorp</div></div>
+      <div class="col-6 col-md-4 col-lg-2"><div class="brand-logo">Luxora</div></div>
+      <div class="col-6 col-md-4 col-lg-2"><div class="brand-logo">FreshMart</div></div>
+      <div class="col-6 col-md-4 col-lg-2"><div class="brand-logo">BuildPro</div></div>
+      <div class="col-6 col-md-4 col-lg-2"><div class="brand-logo">MedPlus</div></div>
+      <div class="col-6 col-md-4 col-lg-2"><div class="brand-logo">AutoFlex</div></div>
+      <div class="col-6 col-md-4 col-lg-2"><div class="brand-logo">StyleHub</div></div>
+      <div class="col-6 col-md-4 col-lg-2"><div class="brand-logo">EduSpark</div></div>
+      <div class="col-6 col-md-4 col-lg-2"><div class="brand-logo">FinServe</div></div>
+      <div class="col-6 col-md-4 col-lg-2"><div class="brand-logo">GreenCo</div></div>
+      <div class="col-6 col-md-4 col-lg-2"><div class="brand-logo">CloudX</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== TESTIMONIALS ==================== -->
+<section class="testimonials-section" id="testimonials">
+  <div class="container">
+    <div class="text-center mb-5 reveal">
+      <div class="section-tag">Testimonials</div>
+      <h2 class="section-title mb-3">What Our <span class="grad-text">Clients Say</span></h2>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4 reveal delay-1">
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"Nexgeno transformed our online presence completely. Our website traffic tripled within 3 months of their SEO work. Absolutely outstanding team!"</p>
+          <div class="testi-author">
+            <div class="testi-ava">RK</div>
+            <div>
+              <h6>Rajesh Kumar</h6>
+              <small>CEO, TechStart India</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 reveal delay-2">
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"The website they designed for us is stunning and converts like crazy. Arif and his team genuinely care about results, not just deliverables."</p>
+          <div class="testi-author">
+            <div class="testi-ava">SM</div>
+            <div>
+              <h6>Sarah Mitchell</h6>
+              <small>Founder, StyleCo UK</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 reveal delay-3">
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"Their AI integration streamlined our entire customer management process. We saved 40 hours a week. Worth every rupee invested."</p>
+          <div class="testi-author">
+            <div class="testi-ava">AP</div>
+            <div>
+              <h6>Ahmed Patel</h6>
+              <small>Director, GulfTrade UAE</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 reveal delay-1">
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"Best digital marketing agency in Mumbai. Their 360° approach helped us capture audiences across all platforms simultaneously."</p>
+          <div class="testi-author">
+            <div class="testi-ava">PG</div>
+            <div>
+              <h6>Priya Gupta</h6>
+              <small>CMO, FreshMart</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 reveal delay-2">
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"Tamir's technical expertise is unmatched. He built our entire CRM from scratch and trained our team seamlessly. Highly recommend!"</p>
+          <div class="testi-author">
+            <div class="testi-ava">JL</div>
+            <div>
+              <h6>James Lee</h6>
+              <small>COO, CloudX Canada</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 reveal delay-3">
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"Working with Nexgeno for 5+ years now. They're not just an agency — they're a true digital partner who understands our business deeply."</p>
+          <div class="testi-author">
+            <div class="testi-ava">NW</div>
+            <div>
+              <h6>Nomsa Williams</h6>
+              <small>MD, BuildPro S.Africa</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== VISION / VALUES ==================== -->
+<section class="vision-section">
+  <div class="container">
+    <div class="text-center mb-5 reveal">
+      <div class="section-tag">Principles</div>
+      <h2 class="section-title mb-3">Our <span class="grad-text">Guiding Principles</span></h2>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 reveal delay-1">
+        <div class="vision-card">
+          <div class="vision-icon"><i class="bi bi-eye-fill"></i></div>
+          <h4 style="font-weight:800;margin-bottom:14px">Our Vision</h4>
+          <p style="color:var(--text2);line-height:1.8;margin:0">To lead businesses into the future with digital solutions that are smart, bold, and built to last. We envision a world where every business — big or small — has access to cutting-edge digital tools that drive real, measurable growth.</p>
+        </div>
+      </div>
+      <div class="col-md-6 reveal delay-2">
+        <div class="vision-card">
+          <div class="vision-icon"><i class="bi bi-gem"></i></div>
+          <h4 style="font-weight:800;margin-bottom:14px">Our Values</h4>
+          <div class="d-flex flex-column gap-3">
+            <div style="display:flex;align-items:center;gap:12px">
+              <i class="bi bi-check-circle-fill" style="color:var(--primary);font-size:1.1rem;flex-shrink:0"></i>
+              <span style="color:var(--text2);font-size:0.9rem"><strong style="color:var(--text)">Integrity</strong> — Transparent, honest communication with every client</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px">
+              <i class="bi bi-check-circle-fill" style="color:var(--secondary);font-size:1.1rem;flex-shrink:0"></i>
+              <span style="color:var(--text2);font-size:0.9rem"><strong style="color:var(--text)">Excellence</strong> — Delivering beyond expectations on every project</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px">
+              <i class="bi bi-check-circle-fill" style="color:var(--accent);font-size:1.1rem;flex-shrink:0"></i>
+              <span style="color:var(--text2);font-size:0.9rem"><strong style="color:var(--text)">Innovation</strong> — Always staying ahead with next-gen technology</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px">
+              <i class="bi bi-check-circle-fill" style="color:var(--primary);font-size:1.1rem;flex-shrink:0"></i>
+              <span style="color:var(--text2);font-size:0.9rem"><strong style="color:var(--text)">Partnership</strong> — Your success is always our mission</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CTA ==================== -->
+<section class="cta-section" id="cta">
+  <div class="cta-bg"></div>
+  <div class="container position-relative" style="z-index:1">
+    <div class="cta-card reveal">
+      <div class="section-tag">Get Started</div>
+      <h2 class="mb-3">Ready to <span class="grad-text">Grow Your Business?</span></h2>
+      <p style="color:var(--text2);font-size:1rem;max-width:500px;margin:0 auto 36px;line-height:1.7">
+        Join 100+ businesses that trust Nexgeno for their digital success. Let's build something amazing together.
+      </p>
+      <div class="d-flex justify-content-center gap-3 flex-wrap mb-4">
+        <a href="mailto:hello@nexgeno.com" class="grad-btn" style="font-size:1rem;padding:14px 36px">
+          <i class="bi bi-envelope-fill"></i> Start a Project
+        </a>
+        <a href="tel:+91XXXXXXXXXX" class="outline-btn" style="font-size:1rem;padding:13px 36px">
+          <i class="bi bi-telephone-fill"></i> Call Us Now
+        </a>
+      </div>
+      <div class="d-flex justify-content-center gap-4 flex-wrap">
+        <div style="display:flex;align-items:center;gap:8px;font-size:0.85rem;color:var(--text2)">
+          <i class="bi bi-check-circle-fill" style="color:var(--primary)"></i>
+          Free Consultation
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:0.85rem;color:var(--text2)">
+          <i class="bi bi-check-circle-fill" style="color:var(--primary)"></i>
+          No Hidden Costs
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:0.85rem;color:var(--text2)">
+          <i class="bi bi-check-circle-fill" style="color:var(--primary)"></i>
+          Results Guaranteed
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer>
+  <div class="container">
+    <div class="row g-4 mb-4">
+      <div class="col-lg-4">
+        <div class="footer-brand mb-3">
+          <span class="grad-text">Nex</span><span style="color:var(--text)">geno</span>
+        </div>
+        <p style="color:var(--text2);font-size:0.87rem;line-height:1.7;max-width:300px;margin-bottom:20px">
+          Mumbai-based digital agency helping businesses shine online since 2008. Web, SEO, AI — we do it all.
+        </p>
+        <div class="footer-social">
+          <a href="#"><i class="bi bi-linkedin"></i></a>
+          <a href="#"><i class="bi bi-twitter-x"></i></a>
+          <a href="#"><i class="bi bi-instagram"></i></a>
+          <a href="#"><i class="bi bi-facebook"></i></a>
+          <a href="#"><i class="bi bi-youtube"></i></a>
+        </div>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6 style="font-weight:700;margin-bottom:16px;font-size:0.9rem">Services</h6>
+        <a class="footer-link" href="#">Web Design</a>
+        <a class="footer-link" href="#">SEO</a>
+        <a class="footer-link" href="#">Digital Marketing</a>
+        <a class="footer-link" href="#">UI/UX Design</a>
+        <a class="footer-link" href="#">AI Solutions</a>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6 style="font-weight:700;margin-bottom:16px;font-size:0.9rem">Company</h6>
+        <a class="footer-link" href="#about">About Us</a>
+        <a class="footer-link" href="#team">Our Team</a>
+        <a class="footer-link" href="#journey">Journey</a>
+        <a class="footer-link" href="#global">Global</a>
+        <a class="footer-link" href="#cta">Contact</a>
+      </div>
+      <div class="col-lg-4">
+        <h6 style="font-weight:700;margin-bottom:16px;font-size:0.9rem">Contact Us</h6>
+        <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:12px">
+          <i class="bi bi-geo-alt-fill" style="color:var(--primary);margin-top:2px;flex-shrink:0"></i>
+          <span style="font-size:0.85rem;color:var(--text2)">Mumbai, Maharashtra, India</span>
+        </div>
+        <div style="display:flex;gap:12px;align-items:center;margin-bottom:12px">
+          <i class="bi bi-envelope-fill" style="color:var(--primary);flex-shrink:0"></i>
+          <a href="mailto:hello@nexgeno.com" style="font-size:0.85rem;color:var(--text2);text-decoration:none">hello@nexgeno.com</a>
+        </div>
+        <div style="display:flex;gap:12px;align-items:center;margin-bottom:20px">
+          <i class="bi bi-telephone-fill" style="color:var(--primary);flex-shrink:0"></i>
+          <span style="font-size:0.85rem;color:var(--text2)">+91 XX XXXX XXXX</span>
+        </div>
+        <div class="rating-badge">
+          <i class="bi bi-star-fill star"></i>
+          <span>4.8/5 on Google</span>
+        </div>
+      </div>
+    </div>
+    <hr class="footer-divider">
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+      <p style="font-size:0.82rem;color:var(--text2);margin:0">© 2026 Nexgeno. All rights reserved. Made with ❤️ in Mumbai.</p>
+      <div style="display:flex;gap:20px">
+        <a href="#" style="font-size:0.82rem;color:var(--text2);text-decoration:none">Privacy Policy</a>
+        <a href="#" style="font-size:0.82rem;color:var(--text2);text-decoration:none">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Back to Top -->
+<button id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <i class="bi bi-arrow-up"></i>
+</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+<script>
+  // ==================== THEME TOGGLE ====================
+  const toggle = document.getElementById('themeToggle');
+  const html = document.documentElement;
+  const stored = localStorage.getItem('nexgeno-theme') || 'light';
+  html.setAttribute('data-theme', stored);
+
+  toggle.addEventListener('click', () => {
+    const current = html.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('nexgeno-theme', next);
+  });
+
+  // ==================== SCROLL REVEAL ====================
+  const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
+  // ==================== COUNTER ANIMATION ====================
+  function animateCounter(el) {
+    const target = parseInt(el.dataset.target);
+    const duration = 2000;
+    const step = target / (duration / 16);
+    let current = 0;
+    const timer = setInterval(() => {
+      current += step;
+      if (current >= target) { current = target; clearInterval(timer); }
+      el.textContent = Math.floor(current) + (el.closest('.hero-stat') || el.closest('.stat-card') ? '+' : '');
+    }, 16);
+  }
+
+  const counters = document.querySelectorAll('.counter-num[data-target]');
+  const counterObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting && !e.target.classList.contains('counted')) {
+        e.target.classList.add('counted');
+        animateCounter(e.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(c => counterObs.observe(c));
+
+  // ==================== BACK TO TOP ====================
+  const backTop = document.getElementById('backTop');
+  window.addEventListener('scroll', () => {
+    backTop.classList.toggle('show', window.scrollY > 400);
+  });
+
+  // ==================== JOURNEY HORIZONTAL FILMSTRIP ====================
+  (function() {
+    const wrap   = document.getElementById('journeyWrap');
+    const track  = document.getElementById('journeyTrack');
+    const prev   = document.getElementById('jPrev');
+    const next   = document.getElementById('jNext');
+    const prog   = document.getElementById('jProgress');
+    const curr   = document.getElementById('jCurrent');
+    if (!wrap || !track) return;
+
+    const TOTAL = track.querySelectorAll('.jcard').length;
+    let cardIdx = 0;
+
+    function cardWidth() {
+      const c = track.querySelector('.jcard');
+      return c ? c.offsetWidth + parseInt(getComputedStyle(track).gap || 0) : 320;
+    }
+
+    function scrollTo(idx) {
+      cardIdx = Math.max(0, Math.min(TOTAL - 1, idx));
+      const offset = cardIdx * cardWidth();
+      wrap.scrollTo({ left: offset, behavior: 'smooth' });
+      const pct = ((cardIdx + 1) / TOTAL) * 100;
+      if (prog) prog.style.width = pct + '%';
+      if (curr) curr.textContent = cardIdx + 1;
+    }
+
+    if (prev) prev.addEventListener('click', () => scrollTo(cardIdx - 1));
+    if (next) next.addEventListener('click', () => scrollTo(cardIdx + 1));
+
+    // Update counter on native scroll / touch
+    wrap.addEventListener('scroll', () => {
+      const w = cardWidth();
+      if (w > 0) {
+        cardIdx = Math.round(wrap.scrollLeft / w);
+        const pct = ((cardIdx + 1) / TOTAL) * 100;
+        if (prog) prog.style.width = pct + '%';
+        if (curr) curr.textContent = cardIdx + 1;
+      }
+    });
+
+    // Mouse drag
+    let isDown = false, startX = 0, startScroll = 0;
+    wrap.addEventListener('mousedown', e => { isDown = true; startX = e.pageX; startScroll = wrap.scrollLeft; wrap.style.scrollBehavior = 'auto'; });
+    wrap.addEventListener('mouseleave', () => { if(isDown) { isDown = false; snapNearest(); } });
+    wrap.addEventListener('mouseup',    () => { if(isDown) { isDown = false; snapNearest(); } });
+    wrap.addEventListener('mousemove',  e => { if (!isDown) return; e.preventDefault(); wrap.scrollLeft = startScroll - (e.pageX - startX); });
+
+    function snapNearest() {
+      wrap.style.scrollBehavior = 'smooth';
+      const w = cardWidth();
+      scrollTo(Math.round(wrap.scrollLeft / w));
+    }
+
+    // Keyboard nav when section in view
+    document.addEventListener('keydown', e => {
+      const r = document.getElementById('journey').getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) {
+        if (e.key === 'ArrowRight') scrollTo(cardIdx + 1);
+        if (e.key === 'ArrowLeft')  scrollTo(cardIdx - 1);
+      }
+    });
+
+    // Init
+    scrollTo(0);
+  })();
+
+  // ==================== MAP TOOLTIP ====================
+  const tooltip = document.getElementById('mapTooltip');
+  document.querySelectorAll('.map-pin').forEach(pin => {
+    pin.addEventListener('mouseenter', (e) => {
+      if (!tooltip) return;
+      tooltip.textContent = pin.dataset.label;
+      tooltip.classList.add('show');
+    });
+    pin.addEventListener('mousemove', (e) => {
+      if (!tooltip) return;
+      const rect = pin.closest('svg').parentElement.getBoundingClientRect();
+      tooltip.style.left = (e.clientX - rect.left + 12) + 'px';
+      tooltip.style.top = (e.clientY - rect.top - 36) + 'px';
+    });
+    pin.addEventListener('mouseleave', () => { if (tooltip) tooltip.classList.remove('show'); });
+  });
+
+  // ==================== NAVBAR SCROLL ====================
+  const navbar = document.querySelector('.navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      navbar.style.boxShadow = '0 4px 24px rgba(0,0,0,0.08)';
+    } else {
+      navbar.style.boxShadow = 'none';
+    }
+  });
+</script>
+</body>
+</html>
