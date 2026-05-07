@@ -746,6 +746,84 @@
       .about-story{ padding-bottom: 32px; }
       .about-who{ padding-top: 32px; }
     }
+
+    /* ==================== ABOUT (REFERENCE-STYLE / NO IMAGE) ==================== */
+    .about-ref{
+      background: var(--bg);
+      padding: 104px 0 92px;
+    }
+    .about-ref-left{
+      max-width: 560px;
+    }
+    .about-ref-who{
+      font-weight: 900;
+      font-size: clamp(1.9rem, 3vw, 2.35rem);
+      letter-spacing: -0.5px;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .about-ref-who-sub{
+      margin: 0;
+      font-size: 1.02rem;
+      line-height: 1.9;
+      color: var(--text2);
+      max-width: 52ch;
+    }
+    .about-ref-spacer{
+      height: 26px;
+    }
+    .about-ref-title{
+      font-weight: 900;
+      font-size: clamp(2.0rem, 3.6vw, 3.05rem);
+      letter-spacing: -0.7px;
+      line-height: 1.12;
+      margin: 0 0 12px;
+      color: var(--text);
+    }
+    .about-ref-sub{
+      margin: 0;
+      font-size: 1.03rem;
+      line-height: 1.95;
+      color: var(--text2);
+      max-width: 62ch;
+    }
+    .about-ref-pillars{
+      display:flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+    .about-ref-cta{
+      margin-top: 25px;
+      justify-content: flex-start;
+    }
+    .about-ref .pillar-item{
+      background: var(--card-bg);
+      border: 1px solid rgba(15,23,42,0.08);
+      box-shadow: 0 16px 44px rgba(15,23,42,0.06);
+    }
+    [data-theme="dark"] .about-ref .pillar-item{
+      background: rgba(255,255,255,0.03);
+      border-color: rgba(255,255,255,0.10);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    }
+    /* white icon chip (no gradient) */
+    .about-ref .pillar-icon{
+      background: var(--grad);
+      border: 1px solid rgba(15,23,42,0.10);
+      box-shadow: 0 14px 30px rgba(15,23,42,0.10);
+      color: #fff;
+    }
+    [data-theme="dark"] .about-ref .pillar-icon{
+      background: rgba(255,255,255,0.08) !important;
+      border-color: rgba(255,255,255,0.14);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.35);
+      color: #ffffff;
+    }
+    @media (max-width: 991.98px){
+      .about-ref{ padding: 78px 0 70px; }
+      .about-ref-left{ max-width: 100%; }
+      .about-ref-spacer{ height: 18px; }
+    }
     .about-section .row{
       --bs-gutter-x: 3.2rem;
     }
@@ -2503,68 +2581,61 @@
 </div>
 
 
-<!-- ==================== ABOUT (SPLIT INTO 2 SECTIONS / NO IMAGE) ==================== -->
-<section class="about-split about-story" id="about">
+<!-- ==================== ABOUT (REFERENCE-STYLE / NO IMAGE) ==================== -->
+<section class="about-ref" id="about">
   <div class="container">
-    <div class="row justify-content-center">
-      <div class="">
-        <div class=" reveal">
-          
-          <h2 class="section-title mb-3">
+    <div class="row align-items-start g-5">
+      <div class="col-lg-6 reveal-left">
+        <div class="about-ref-left">
+          <h3 class="about-ref-who">Who We Are</h3>
+          <p class="about-ref-who-sub">
+            We're built on a simple idea: your business deserves to stand out — and our job is to make that happen with clarity, creativity, and consistency.
+          </p>
+
+          <div class="about-ref-spacer"></div>
+
+          <h2 class="about-ref-title">
             17 Years of Building Businesses,<br>
             <span class="grad-text">One Click at a Time</span>
           </h2>
-          <p class="section-sub mx-auto mb-4">
+          <p class="about-ref-sub">
             We're Nexgeno, a Mumbai-based digital marketing agency that's been helping businesses shine online since 2008. From crafting websites that tell your story to boosting your brand with SEO and digital marketing, we're here to make your business grow — step by step, with heart and hustle.
           </p>
         </div>
       </div>
-    </div>
-  </div>
-</section>
 
-<section class="about-split about-who">
-  <div class="container">
-    <div class="row align-items-start g-5">
-      <div class="col-lg-6 reveal-left">
-        <div class="about-who-head">
-          
-          <h3 class="about-who-title">Who We Are</h3>
-          <p class="about-who-sub">
-            We're built on a simple idea: your business deserves to stand out — and our job is to make that happen with clarity, creativity, and consistency.
-          </p>
-        </div>
-      </div>
       <div class="col-lg-6 reveal-right">
-        <div class="about-pillars">
-          <div class="pillar-item">
-            <div class="pillar-icon"><i class="bi bi-lightbulb-fill"></i></div>
-            <div>
-              <div style="font-weight:700;font-size:1.02rem;margin-bottom:4px">Innovation First</div>
-              <div style="font-size:0.9rem;color:var(--text2)">Next-gen solutions for modern challenges</div>
+        <div class="about-ref-right">
+          <div class="about-pillars about-ref-pillars">
+            <div class="pillar-item">
+              <div class="pillar-icon"><i class="bi bi-lightbulb-fill"></i></div>
+              <div>
+                <div style="font-weight:800;font-size:1.02rem;margin-bottom:4px">Innovation First</div>
+                <div style="font-size:0.9rem;color:var(--text2)">Next-gen solutions for modern challenges</div>
+              </div>
+            </div>
+            <div class="pillar-item">
+              <div class="pillar-icon"><i class="bi bi-heart-fill"></i></div>
+              <div>
+                <div style="font-weight:800;font-size:1.02rem;margin-bottom:4px">Client-Focused</div>
+                <div style="font-size:0.9rem;color:var(--text2)">Your success is our mission</div>
+              </div>
+            </div>
+            <div class="pillar-item">
+              <div class="pillar-icon"><i class="bi bi-graph-up-arrow"></i></div>
+              <div>
+                <div style="font-weight:800;font-size:1.02rem;margin-bottom:4px">Proven Results</div>
+                <div style="font-size:0.9rem;color:var(--text2)">17 years of measurable growth</div>
+              </div>
             </div>
           </div>
-          <div class="pillar-item">
-            <div class="pillar-icon"><i class="bi bi-heart-fill"></i></div>
-            <div>
-              <div style="font-weight:700;font-size:1.02rem;margin-bottom:4px">Client-Focused</div>
-              <div style="font-size:0.9rem;color:var(--text2)">Your success is our mission</div>
-            </div>
-          </div>
-          <div class="pillar-item">
-            <div class="pillar-icon"><i class="bi bi-graph-up-arrow"></i></div>
-            <div>
-              <div style="font-weight:700;font-size:1.02rem;margin-bottom:4px">Proven Results</div>
-              <div style="font-size:0.9rem;color:var(--text2)">17 years of measurable growth</div>
-            </div>
-          </div>
-        </div>
 
-        <div class="about-cta-row">
-          <a href="#cta" class="grad-btn">Work With Us <i class="bi bi-arrow-right"></i></a>
-          <div class="rating-badge">
-            <i class="bi bi-star-fill star"></i>
-            <span>4.8/5 Google Rating</span>
+          <div class="about-cta-row about-ref-cta">
+            <a href="#cta" class="grad-btn">Work With Us <i class="bi bi-arrow-right"></i></a>
+            <div class="rating-badge">
+              <i class="bi bi-star-fill star"></i>
+              <span>4.8/5 Google Rating</span>
+            </div>
           </div>
         </div>
       </div>
