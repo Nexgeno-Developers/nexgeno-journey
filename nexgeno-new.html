@@ -1462,7 +1462,18 @@
     .journey-sacc-rail{
       position: relative;
       padding-left: 14px;
+      position: sticky;
+      top: 96px;
+      max-height: calc(100vh - 140px);
+      overflow: auto;
+      padding-right: 10px;
     }
+    .journey-sacc-rail::-webkit-scrollbar{ width: 8px; }
+    .journey-sacc-rail::-webkit-scrollbar-thumb{
+      background: rgba(255,255,255,0.16);
+      border-radius: 999px;
+    }
+    .journey-sacc-rail::-webkit-scrollbar-track{ background: transparent; }
     .journey-sacc-rail::before{
       content:"";
       position:absolute;
@@ -1540,13 +1551,11 @@
     .journey-sacc-panel.active{ display:block; }
 
     .journey-sacc-card{
-      border-radius: 26px;
-      overflow: hidden;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.10);
-      box-shadow: 0 28px 90px rgba(0,0,0,0.50);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      border-radius: 0;
+      overflow: visible;
+      background: transparent;
+      border: none;
+      box-shadow: none;
     }
     .journey-sacc-grid{
       display:grid;
@@ -1555,7 +1564,7 @@
       align-items: stretch;
     }
     .journey-sacc-left{
-      padding: 22px 22px 22px;
+      padding: 10px 8px 10px;
       display:flex;
       flex-direction: column;
       justify-content: center;
@@ -1599,12 +1608,7 @@
       margin-bottom: 12px;
     }
     .journey-sacc-title .emoji{
-      width: 38px; height: 38px;
-      border-radius: 14px;
-      display:grid; place-items:center;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.10);
-      font-size: 1.1rem;
+      display:none;
     }
     .journey-sacc-desc{
       color: rgba(255,255,255,0.68);
@@ -1631,13 +1635,23 @@
       background: rgba(0,0,0,0.15);
     }
     .journey-sacc-right{
-      border-left: 1px solid rgba(255,255,255,0.10);
-      background: rgba(0,0,0,0.10);
+      border-left: none;
+      background: transparent;
+      display:flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-left: 10px;
     }
     .journey-sacc-img{
-      height: 100%;
-      min-height: 320px;
-      background: rgba(0,0,0,0.18);
+      width: min(560px, 100%);
+      aspect-ratio: 16/10;
+      height: auto;
+      min-height: 0;
+      border-radius: 26px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.03);
+      box-shadow: 0 28px 90px rgba(0,0,0,0.55);
     }
     .journey-sacc-img img{
       width:100%; height:100%;
@@ -1668,6 +1682,10 @@
       .journey-sacc-rail{
         padding-left: 0;
         overflow-x: auto;
+        overflow-y: hidden;
+        position: relative;
+        top: auto;
+        max-height: none;
       }
       .journey-sacc-rail::before{ display:none; }
       .journey-sacc-rail-inner{
@@ -1691,12 +1709,76 @@
       .journey-sacc-grid{
         grid-template-columns: 1fr;
       }
-      .journey-sacc-right{
-        border-left: none;
-        border-top: 1px solid rgba(255,255,255,0.10);
-      }
-      .journey-sacc-img{ min-height: 230px; }
+      .journey-sacc-right{ padding-left: 0; justify-content: flex-start; }
+      .journey-sacc-img{ width: 100%; }
     }
+
+    /* Light mode adjustments for Journey section */
+    [data-theme="light"] .timeline-section{
+      background:
+        
+        #ffffff;
+    }
+    [data-theme="light"] .timeline-section::before{ opacity: 0.25; }
+    [data-theme="light"] .timeline-section .section-tag{
+      background: rgba(56,133,222,0.08);
+      border-color: rgba(56,133,222,0.16);
+      color: var(--primary);
+    }
+    [data-theme="light"] .timeline-section .section-title{ color: #0f172a; }
+    [data-theme="light"] .timeline-section .section-sub{ color: #475569; }
+    [data-theme="light"] .journey-stats .journey-stat-card{
+      background: #ffffff;
+      border-color: rgba(15,23,42,0.10);
+      box-shadow: 0 18px 60px rgba(15,23,42,0.10);
+    }
+    [data-theme="light"] .journey-stat-label,
+    [data-theme="light"] .journey-stat-foot,
+    [data-theme="light"] .journey-stat-chip{
+      color: #475569;
+      border-color: rgba(15,23,42,0.10);
+      background: rgba(15,23,42,0.03);
+    }
+    [data-theme="light"] .journey-stat-num{ color: #0f172a; }
+
+    [data-theme="light"] .journey-switch-btn{
+      background: rgba(15,23,42,0.03);
+      color: #0f172a;
+      border-color: rgba(15,23,42,0.10);
+    }
+    [data-theme="light"] .journey-switch-btn.active{
+      color:#0f172a;
+      border-color: rgba(56,133,222,0.22);
+      box-shadow: 0 18px 60px rgba(56,133,222,0.14);
+    }
+
+    [data-theme="light"] .journey-sacc-year{ color: rgba(15,23,42,0.65); }
+    [data-theme="light"] .journey-sacc-year:hover{ color: rgba(15,23,42,0.90); background: rgba(15,23,42,0.04); }
+    [data-theme="light"] .journey-sacc-year .dot{ background: rgba(15,23,42,0.18); border-color: rgba(15,23,42,0.14); }
+    [data-theme="light"] .journey-sacc-year.active{ color: #0f172a; }
+    [data-theme="light"] .journey-sacc-rail::before{
+      background: linear-gradient(180deg, rgba(56,133,222,0), rgba(56,133,222,0.35), rgba(192,83,174,0.25), rgba(192,83,174,0));
+    }
+    [data-theme="light"] .journey-sacc-bigyear{ color: rgba(56,133,222,0.12); }
+    [data-theme="light"] .journey-sacc-kicker .muted{ color: rgba(15,23,42,0.55); }
+    [data-theme="light"] .journey-sacc-kicker .pill{
+      background: rgba(15,23,42,0.03);
+      border-color: rgba(15,23,42,0.10);
+      color: #0f172a;
+    }
+    [data-theme="light"] .journey-sacc-title{ color: #0f172a; }
+    [data-theme="light"] .journey-sacc-desc{ color: #475569; }
+    [data-theme="light"] .journey-sacc-meta span{
+      background: rgba(15,23,42,0.03);
+      border-color: rgba(15,23,42,0.10);
+      color: #0f172a;
+    }
+    [data-theme="light"] .journey-sacc-img{
+      background: #ffffff;
+      border-color: rgba(15,23,42,0.10);
+      box-shadow: 0 22px 70px rgba(15,23,42,0.14);
+    }
+    [data-theme="light"] .journey-sacc-rail::-webkit-scrollbar-thumb{ background: rgba(15,23,42,0.16); }
 
     /* Option 2 — Vertical timeline */
     .journey-vt{
@@ -2213,13 +2295,37 @@
               <span class="dot" aria-hidden="true"></span>
               <span class="year">2015</span>
             </button>
+            <button class="journey-sacc-year" type="button" data-journey-sacc-btn="2017" aria-controls="jSAcc2017" aria-selected="false">
+              <span class="dot" aria-hidden="true"></span>
+              <span class="year">2017</span>
+            </button>
             <button class="journey-sacc-year" type="button" data-journey-sacc-btn="2018" aria-controls="jSAcc2018" aria-selected="false">
               <span class="dot" aria-hidden="true"></span>
               <span class="year">2018</span>
             </button>
+            <button class="journey-sacc-year" type="button" data-journey-sacc-btn="2020" aria-controls="jSAcc2020" aria-selected="false">
+              <span class="dot" aria-hidden="true"></span>
+              <span class="year">2020</span>
+            </button>
+            <button class="journey-sacc-year" type="button" data-journey-sacc-btn="2021" aria-controls="jSAcc2021" aria-selected="false">
+              <span class="dot" aria-hidden="true"></span>
+              <span class="year">2021</span>
+            </button>
             <button class="journey-sacc-year" type="button" data-journey-sacc-btn="2022" aria-controls="jSAcc2022" aria-selected="false">
               <span class="dot" aria-hidden="true"></span>
               <span class="year">2022</span>
+            </button>
+            <button class="journey-sacc-year" type="button" data-journey-sacc-btn="2023" aria-controls="jSAcc2023" aria-selected="false">
+              <span class="dot" aria-hidden="true"></span>
+              <span class="year">2023</span>
+            </button>
+            <button class="journey-sacc-year" type="button" data-journey-sacc-btn="2024" aria-controls="jSAcc2024" aria-selected="false">
+              <span class="dot" aria-hidden="true"></span>
+              <span class="year">2024</span>
+            </button>
+            <button class="journey-sacc-year" type="button" data-journey-sacc-btn="2025" aria-controls="jSAcc2025" aria-selected="false">
+              <span class="dot" aria-hidden="true"></span>
+              <span class="year">2025</span>
             </button>
             <button class="journey-sacc-year" type="button" data-journey-sacc-btn="2026" aria-controls="jSAcc2026" aria-selected="false">
               <span class="dot" aria-hidden="true"></span>
@@ -2229,13 +2335,11 @@
         </div>
 
         <div class="journey-sacc-stage">
-          <div class="journey-sacc-bigyear" aria-hidden="true"><span id="journeyBigYearA">20</span><span id="journeyBigYearB">08</span></div>
-
+          
           <div class="journey-sacc-panel active" id="jSAcc2008" data-journey-sacc-panel="2008">
             <div class="journey-sacc-card">
               <div class="journey-sacc-grid">
                 <div class="journey-sacc-left">
-                  <div class="journey-sacc-kicker"><span class="pill">2008</span> <span class="muted">Hardware • Networking • Training</span></div>
                   <div class="journey-sacc-title"><span class="emoji">🖥️</span> The Beginning</div>
                   <div class="journey-sacc-desc">Mr. Arif starts with a strong technical foundation — hardware, networking, sales & training. Big ambition, driven by vision.</div>
                   <div class="journey-sacc-meta">
@@ -2256,7 +2360,6 @@
             <div class="journey-sacc-card">
               <div class="journey-sacc-grid">
                 <div class="journey-sacc-left">
-                  <div class="journey-sacc-kicker"><span class="pill">2011</span> <span class="muted">HTML • CSS • Bootstrap</span></div>
                   <div class="journey-sacc-title"><span class="emoji">💻</span> Stepping into Digital</div>
                   <div class="journey-sacc-desc">Registered makent.in and entered web development with HTML, CSS & Bootstrap. A two-member team plants the digital seeds.</div>
                   <div class="journey-sacc-meta">
@@ -2277,7 +2380,6 @@
             <div class="journey-sacc-card">
               <div class="journey-sacc-grid">
                 <div class="journey-sacc-left">
-                  <div class="journey-sacc-kicker"><span class="pill">2014</span> <span class="muted">Partnership • PHP • Delivery</span></div>
                   <div class="journey-sacc-title"><span class="emoji">🤝</span> Leadership & Growth</div>
                   <div class="journey-sacc-desc">Tamir joins as partner. PHP development takes off, delivering impactful projects like geci.co.in for major clients.</div>
                   <div class="journey-sacc-meta">
@@ -2298,7 +2400,6 @@
             <div class="journey-sacc-card">
               <div class="journey-sacc-grid">
                 <div class="journey-sacc-left">
-                  <div class="journey-sacc-kicker"><span class="pill">2015</span> <span class="muted">International Clients</span></div>
                   <div class="journey-sacc-title"><span class="emoji">✈️</span> Going Global</div>
                   <div class="journey-sacc-desc">Clients in South Africa, USA, Canada, China, UAE & UK. Nexgeno crosses borders with trust and talent.</div>
                   <div class="journey-sacc-meta">
@@ -2315,12 +2416,31 @@
             </div>
           </div>
 
+          <div class="journey-sacc-panel" id="jSAcc2017" data-journey-sacc-panel="2017">
+            <div class="journey-sacc-card">
+              <div class="journey-sacc-grid">
+                <div class="journey-sacc-left">
+                  <div class="journey-sacc-title"><span class="emoji">⚙️</span> Building the Engine</div>
+                  <div class="journey-sacc-desc">We standardised delivery, improved QA and project workflows, and built stronger foundations to scale website + marketing work consistently.</div>
+                  <div class="journey-sacc-meta">
+                    <span><i class="bi bi-kanban"></i> Process</span>
+                    <span><i class="bi bi-shield-check"></i> Quality</span>
+                  </div>
+                </div>
+                <div class="journey-sacc-right">
+                  <div class="journey-sacc-img">
+                    <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1200&q=75" alt="2017 Systems and teamwork" loading="lazy">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div class="journey-sacc-panel" id="jSAcc2018" data-journey-sacc-panel="2018">
             <div class="journey-sacc-card">
               <div class="journey-sacc-grid">
                 <div class="journey-sacc-left">
-                  <div class="journey-sacc-kicker"><span class="pill">2018</span> <span class="muted">SEO • Social • Performance</span></div>
-                  <div class="journey-sacc-title"><span class="emoji">📈</span> Full 360° Agency</div>
+                   <div class="journey-sacc-title"><span class="emoji">📈</span> Full 360° Agency</div>
                   <div class="journey-sacc-desc">SEO, social media, email campaigns & performance marketing all under one roof. A true end-to-end digital agency is born.</div>
                   <div class="journey-sacc-meta">
                     <span><i class="bi bi-megaphone"></i> Marketing</span>
@@ -2336,12 +2456,51 @@
             </div>
           </div>
 
+          <div class="journey-sacc-panel" id="jSAcc2020" data-journey-sacc-panel="2020">
+            <div class="journey-sacc-card">
+              <div class="journey-sacc-grid">
+                <div class="journey-sacc-left">
+                   <div class="journey-sacc-title"><span class="emoji">🛡️</span> Built for Any Season</div>
+                  <div class="journey-sacc-desc">We adapted fast, strengthened remote workflows, and kept client growth moving with dependable execution and communication.</div>
+                  <div class="journey-sacc-meta">
+                    <span><i class="bi bi-wifi"></i> Remote</span>
+                    <span><i class="bi bi-chat-dots"></i> Support</span>
+                  </div>
+                </div>
+                <div class="journey-sacc-right">
+                  <div class="journey-sacc-img">
+                    <img src="https://images.unsplash.com/photo-1522071901873-411886a10004?w=1200&q=75" alt="2020 remote work" loading="lazy">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="journey-sacc-panel" id="jSAcc2021" data-journey-sacc-panel="2021">
+            <div class="journey-sacc-card">
+              <div class="journey-sacc-grid">
+                <div class="journey-sacc-left">
+                  <div class="journey-sacc-title"><span class="emoji">✨</span> Experience-Led Growth</div>
+                  <div class="journey-sacc-desc">Sharper UX, faster websites, better funnels — we focused on conversions and measurable outcomes across services.</div>
+                  <div class="journey-sacc-meta">
+                    <span><i class="bi bi-speedometer2"></i> Speed</span>
+                    <span><i class="bi bi-graph-up-arrow"></i> Conversions</span>
+                  </div>
+                </div>
+                <div class="journey-sacc-right">
+                  <div class="journey-sacc-img">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&q=75" alt="2021 growth and planning" loading="lazy">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div class="journey-sacc-panel" id="jSAcc2022" data-journey-sacc-panel="2022">
             <div class="journey-sacc-card">
               <div class="journey-sacc-grid">
                 <div class="journey-sacc-left">
-                  <div class="journey-sacc-kicker"><span class="pill">2022</span> <span class="muted">Automation • CRM • AI</span></div>
-                  <div class="journey-sacc-title"><span class="emoji">🧠</span> AI Integration</div>
+                   <div class="journey-sacc-title"><span class="emoji">🧠</span> AI Integration</div>
                   <div class="journey-sacc-desc">Cutting-edge AI solutions and custom CRM systems help clients automate, scale and grow smarter in the digital era.</div>
                   <div class="journey-sacc-meta">
                     <span><i class="bi bi-cpu"></i> AI Solutions</span>
@@ -2357,11 +2516,70 @@
             </div>
           </div>
 
+          <div class="journey-sacc-panel" id="jSAcc2023" data-journey-sacc-panel="2023">
+            <div class="journey-sacc-card">
+              <div class="journey-sacc-grid">
+                <div class="journey-sacc-left">
+                   <div class="journey-sacc-title"><span class="emoji">📊</span> Smarter Decision Making</div>
+                  <div class="journey-sacc-desc">Better dashboards, cleaner analytics and clearer reporting helped clients see progress, optimize spend, and scale what works.</div>
+                  <div class="journey-sacc-meta">
+                    <span><i class="bi bi-bar-chart-line"></i> Analytics</span>
+                    <span><i class="bi bi-receipt"></i> Reporting</span>
+                  </div>
+                </div>
+                <div class="journey-sacc-right">
+                  <div class="journey-sacc-img">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=75" alt="2023 analytics" loading="lazy">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="journey-sacc-panel" id="jSAcc2024" data-journey-sacc-panel="2024">
+            <div class="journey-sacc-card">
+              <div class="journey-sacc-grid">
+                <div class="journey-sacc-left">
+                  <div class="journey-sacc-title"><span class="emoji">🎯</span> Performance at Scale</div>
+                  <div class="journey-sacc-desc">We refined creatives, ad operations, and landing pages to improve lead quality while maintaining strong CPL and ROI.</div>
+                  <div class="journey-sacc-meta">
+                    <span><i class="bi bi-bullseye"></i> Performance</span>
+                    <span><i class="bi bi-megaphone"></i> Campaigns</span>
+                  </div>
+                </div>
+                <div class="journey-sacc-right">
+                  <div class="journey-sacc-img">
+                    <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1200&q=75" alt="2024 performance marketing" loading="lazy">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="journey-sacc-panel" id="jSAcc2025" data-journey-sacc-panel="2025">
+            <div class="journey-sacc-card">
+              <div class="journey-sacc-grid">
+                <div class="journey-sacc-left">
+                   <div class="journey-sacc-title"><span class="emoji">🤝</span> Long-Term Partnerships</div>
+                  <div class="journey-sacc-desc">We strengthened client relationships with faster turnarounds, proactive strategy, and execution that compounds over time.</div>
+                  <div class="journey-sacc-meta">
+                    <span><i class="bi bi-heart-fill"></i> Trust</span>
+                    <span><i class="bi bi-arrow-repeat"></i> Retention</span>
+                  </div>
+                </div>
+                <div class="journey-sacc-right">
+                  <div class="journey-sacc-img">
+                    <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1200&q=75" alt="2025 partnerships" loading="lazy">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div class="journey-sacc-panel" id="jSAcc2026" data-journey-sacc-panel="2026">
             <div class="journey-sacc-card">
               <div class="journey-sacc-grid">
                 <div class="journey-sacc-left">
-                  <div class="journey-sacc-kicker"><span class="pill">2026</span> <span class="muted">45+ team • 100+ clients • 12 countries</span></div>
                   <div class="journey-sacc-title"><span class="emoji">🏆</span> Premier Digital Agency</div>
                   <div class="journey-sacc-desc">45+ team, 100+ happy clients, 12 countries, 4.8★ Google rating. The journey continues — the best is yet to come.</div>
                   <div class="journey-sacc-meta">
