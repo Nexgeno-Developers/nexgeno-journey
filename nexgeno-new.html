@@ -1373,7 +1373,6 @@
     .map-wrap {
       position: relative;
       background: #ffffff;
-      border: 1px solid var(--border);
       border-radius: 28px;
       overflow: hidden;
       padding: 0;
@@ -1399,7 +1398,7 @@
       inset: 0;
       pointer-events: none;
     }
-    .globe-marker.map-pin {
+    .globe-marker {
       position: absolute;
       transform: translate(-50%, -50%);
       display: flex;
@@ -1407,88 +1406,81 @@
       align-items: center;
       pointer-events: auto;
       z-index: 2;
+      transition: z-index 0s;
+    }
+    .globe-marker:hover {
+      z-index: 25;
     }
     .globe-marker-card {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
+      gap: 5px;
       background: #ffffff;
-      border-radius: 10px;
-      padding: 8px 14px 8px 10px;
-      margin-bottom: 10px;
-      box-shadow: 0 6px 22px rgba(15, 23, 42, 0.12), 0 2px 6px rgba(15, 23, 42, 0.06);
+      border-radius: 6px;
+      padding: 3px 7px 3px 4px;
+      margin-bottom: 5px;
+      box-shadow: 0 3px 12px rgba(15, 23, 42, 0.1), 0 1px 3px rgba(15, 23, 42, 0.06);
       border: 1px solid rgba(15, 23, 42, 0.06);
     }
+    .globe-marker:hover .globe-marker-card {
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.14);
+    }
     .globe-marker-card img {
-      width: 28px;
-      height: 28px;
+      width: 18px;
+      height: 18px;
       border-radius: 50%;
       object-fit: cover;
       box-shadow: 0 0 0 1px rgba(0,0,0,0.06);
       flex-shrink: 0;
     }
-    .globe-marker-card span {
-      font-size: 0.72rem;
+    .globe-marker-card .globe-marker-text {
+      font-size: 0.52rem;
       font-weight: 700;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.035em;
       color: #111827;
-      white-space: nowrap;
+      white-space: normal;
+      line-height: 1.12;
+      text-align: center;
+      max-width: 4.15rem;
     }
     @keyframes globe-marker-blink {
       0%, 100% {
         opacity: 1;
         transform: scale(1);
-        box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.55);
+        box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.45);
       }
       45% {
-        opacity: 0.92;
-        transform: scale(1.2);
-        box-shadow: 0 0 0 10px rgba(220, 38, 38, 0);
+        opacity: 0.95;
+        transform: scale(1.08);
+        box-shadow: 0 0 0 6px rgba(220, 38, 38, 0);
       }
     }
     .globe-marker-dot {
-      width: 12px;
-      height: 12px;
+      width: 9px;
+      height: 9px;
       border-radius: 50%;
       background: #dc2626;
       flex-shrink: 0;
       animation: globe-marker-blink 1.8s ease-in-out infinite;
     }
-    .globe-marker.map-pin:nth-child(2) .globe-marker-dot { animation-delay: 0.15s; }
-    .globe-marker.map-pin:nth-child(3) .globe-marker-dot { animation-delay: 0.3s; }
-    .globe-marker.map-pin:nth-child(4) .globe-marker-dot { animation-delay: 0.45s; }
-    .globe-marker.map-pin:nth-child(5) .globe-marker-dot { animation-delay: 0.6s; }
-    .globe-marker.map-pin:nth-child(6) .globe-marker-dot { animation-delay: 0.75s; }
-    .globe-marker.map-pin:nth-child(7) .globe-marker-dot { animation-delay: 0.9s; }
-    .globe-marker.map-pin:nth-child(8) .globe-marker-dot { animation-delay: 1.05s; }
-    .globe-marker.map-pin:nth-child(9) .globe-marker-dot { animation-delay: 1.2s; }
-    .globe-marker.map-pin:nth-child(10) .globe-marker-dot { animation-delay: 1.35s; }
-    .globe-marker.map-pin:nth-child(11) .globe-marker-dot { animation-delay: 1.5s; }
-    .globe-marker.map-pin:nth-child(12) .globe-marker-dot { animation-delay: 1.65s; }
-    .globe-marker.map-pin:nth-child(13) .globe-marker-dot { animation-delay: 1.8s; }
+    .globe-marker:nth-child(2) .globe-marker-dot { animation-delay: 0.15s; }
+    .globe-marker:nth-child(3) .globe-marker-dot { animation-delay: 0.3s; }
+    .globe-marker:nth-child(4) .globe-marker-dot { animation-delay: 0.45s; }
+    .globe-marker:nth-child(5) .globe-marker-dot { animation-delay: 0.6s; }
+    .globe-marker:nth-child(6) .globe-marker-dot { animation-delay: 0.75s; }
+    .globe-marker:nth-child(7) .globe-marker-dot { animation-delay: 0.9s; }
+    .globe-marker:nth-child(8) .globe-marker-dot { animation-delay: 1.05s; }
+    .globe-marker:nth-child(9) .globe-marker-dot { animation-delay: 1.2s; }
+    .globe-marker:nth-child(10) .globe-marker-dot { animation-delay: 1.35s; }
+    .globe-marker:nth-child(11) .globe-marker-dot { animation-delay: 1.5s; }
+    .globe-marker:nth-child(12) .globe-marker-dot { animation-delay: 1.65s; }
+    .globe-marker:nth-child(13) .globe-marker-dot { animation-delay: 1.8s; }
     @media (max-width: 576px) {
-      .globe-marker-card { padding: 6px 10px 6px 8px; gap: 7px; }
-      .globe-marker-card img { width: 22px; height: 22px; }
-      .globe-marker-card span { font-size: 0.58rem; letter-spacing: 0.04em; }
-      .globe-marker-dot { width: 9px; height: 9px; }
+      .globe-marker-card { padding: 2px 6px 2px 3px; gap: 4px; }
+      .globe-marker-card img { width: 15px; height: 15px; }
+      .globe-marker-card .globe-marker-text { font-size: 0.46rem; max-width: 3.2rem; letter-spacing: 0.03em; }
+      .globe-marker-dot { width: 7px; height: 7px; }
     }
-    .map-tooltip {
-      position: absolute;
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 10px 16px;
-      font-size: 0.82rem;
-      font-weight: 600;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.2s;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-      white-space: nowrap;
-      z-index: 20;
-      color: var(--text);
-    }
-    .map-tooltip.show { opacity: 1; }
     .country-pill {
       display: inline-flex;
       align-items: center;
@@ -3326,98 +3318,99 @@
   
 
     <div class="map-wrap reveal" style="position:relative">
-      <div id="mapTooltip" class="map-tooltip"></div>
       <div class="globe-map-inner">
         <img id="worldMap" class="world-map-img" src="images/map_imags.png" alt="World map" width="1010" height="560" decoding="async" loading="lazy"/>
         <div class="globe-markers-layer">
-          <div class="globe-marker map-pin" data-label="United States" style="left:16.83%; top:31.25%" role="img" aria-label="United States">
+          <div class="globe-marker" style="left:18.1%; top:33.2%" aria-label="United States">
             <div class="globe-marker-card">
-              <img src="https://flagcdn.com/w40/us.png" width="40" height="30" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"/>
-              <span>USA</span>
+              <img src="https://flagcdn.com/w20/us.png" width="20" height="15" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"/>
+              <span class="globe-marker-text">UNITED<br />STATES</span>
             </div>
             <span class="globe-marker-dot" aria-hidden="true"></span>
           </div>
-          <div class="globe-marker map-pin" data-label="Canada" style="left:16.34%; top:25%" role="img" aria-label="Canada">
+          <div class="globe-marker" style="left:15.2%; top:22.8%" aria-label="Canada">
             <div class="globe-marker-card">
-              <img src="https://flagcdn.com/w40/ca.png" width="40" height="30" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"/>
-              <span>CANADA</span>
+              <img src="https://flagcdn.com/w20/ca.png" width="20" height="15" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"/>
+              <span class="globe-marker-text">CANADA</span>
             </div>
             <span class="globe-marker-dot" aria-hidden="true"></span>
           </div>
-          <div class="globe-marker map-pin" data-label="United Kingdom" style="left:41.78%; top:11.25%" role="img" aria-label="United Kingdom">
+          <div class="globe-marker" style="left:41.78%; top:11.25%" aria-label="United Kingdom">
             <div class="globe-marker-card">
-              <img src="https://flagcdn.com/w40/gb.png" width="40" height="30" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"/>
-              <span>UNITED KINGDOM</span>
+              <img src="https://flagcdn.com/w20/gb.png" width="20" height="15" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"/>
+              <span class="globe-marker-text">UNITED<br />KINGDOM</span>
             </div>
             <span class="globe-marker-dot" aria-hidden="true"></span>
           </div>
-          <div class="globe-marker map-pin" data-label="United Arab Emirates" style="left:55.25%; top:29.46%" role="img" aria-label="United Arab Emirates">
+          <!-- UAE: southwest of Qatar so labels do not merge -->
+          <div class="globe-marker" style="left:51%; top:32.9%" aria-label="United Arab Emirates">
             <div class="globe-marker-card">
-              <img src="https://flagcdn.com/w40/ae.png" width="40" height="30" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"/>
-              <span>UAE</span>
+              <img src="https://flagcdn.com/w20/ae.png" width="20" height="15" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"/>
+              <span class="globe-marker-text">UAE</span>
             </div>
             <span class="globe-marker-dot" aria-hidden="true"></span>
           </div>
-          <div class="globe-marker map-pin" data-label="Saudi Arabia" style="left:53.47%; top:32.5%" role="img" aria-label="Saudi Arabia">
+          <div class="globe-marker" style="left:49.6%; top:37.4%" aria-label="Saudi Arabia">
             <div class="globe-marker-card">
-              <img src="https://flagcdn.com/w40/sa.png" width="40" height="30" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"/>
-              <span>SAUDI ARABIA</span>
+              <img src="https://flagcdn.com/w20/sa.png" width="20" height="15" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"/>
+              <span class="globe-marker-text">SAUDI<br />ARABIA</span>
             </div>
             <span class="globe-marker-dot" aria-hidden="true"></span>
           </div>
-          <div class="globe-marker map-pin" data-label="Qatar" style="left:55.94%; top:31.25%" role="img" aria-label="Qatar">
+          <!-- Qatar: northeast, toward open gulf -->
+          <div class="globe-marker" style="left:59.8%; top:24.2%" aria-label="Qatar">
             <div class="globe-marker-card">
-              <img src="https://flagcdn.com/w40/qa.png" width="40" height="30" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"/>
-              <span>QATAR</span>
+              <img src="https://flagcdn.com/w20/qa.png" width="20" height="15" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"/>
+              <span class="globe-marker-text">QATAR</span>
             </div>
             <span class="globe-marker-dot" aria-hidden="true"></span>
           </div>
-          <div class="globe-marker map-pin" data-label="South Africa" style="left:45.05%; top:60.71%" role="img" aria-label="South Africa">
+          <div class="globe-marker" style="left:44%; top:62.2%" aria-label="South Africa">
             <div class="globe-marker-card">
-              <img src="https://flagcdn.com/w40/za.png" width="40" height="30" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"/>
-              <span>SOUTH AFRICA</span>
+              <img src="https://flagcdn.com/w20/za.png" width="20" height="15" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"/>
+              <span class="globe-marker-text">SOUTH<br />AFRICA</span>
             </div>
             <span class="globe-marker-dot" aria-hidden="true"></span>
           </div>
-          <div class="globe-marker map-pin" data-label="Botswana" style="left:45.74%; top:57.14%" role="img" aria-label="Botswana">
+          <div class="globe-marker" style="left:47.1%; top:55.8%" aria-label="Botswana">
             <div class="globe-marker-card">
-              <img src="https://flagcdn.com/w40/bw.png" width="40" height="30" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"/>
-              <span>BOTSWANA</span>
+              <img src="https://flagcdn.com/w20/bw.png" width="20" height="15" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"/>
+              <span class="globe-marker-text">BOTSWANA</span>
             </div>
             <span class="globe-marker-dot" aria-hidden="true"></span>
           </div>
-          <div class="globe-marker map-pin" data-label="Mauritius" style="left:52.77%; top:64.29%" role="img" aria-label="Mauritius">
+          <div class="globe-marker" style="left:54.2%; top:63.4%" aria-label="Mauritius">
             <div class="globe-marker-card">
-              <img src="https://flagcdn.com/w40/mu.png" width="40" height="30" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"/>
-              <span>MAURITIUS</span>
+              <img src="https://flagcdn.com/w20/mu.png" width="20" height="15" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"/>
+              <span class="globe-marker-text">MAURITIUS</span>
             </div>
             <span class="globe-marker-dot" aria-hidden="true"></span>
           </div>
-          <div class="globe-marker map-pin" data-label="China" style="left:77.72%; top:17.86%" role="img" aria-label="China">
+          <div class="globe-marker" style="left:77.72%; top:17.86%" aria-label="China">
             <div class="globe-marker-card">
-              <img src="https://flagcdn.com/w40/cn.png" width="40" height="30" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"/>
-              <span>CHINA</span>
+              <img src="https://flagcdn.com/w20/cn.png" width="20" height="15" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"/>
+              <span class="globe-marker-text">CHINA</span>
             </div>
             <span class="globe-marker-dot" aria-hidden="true"></span>
           </div>
-          <div class="globe-marker map-pin" data-label="India" style="left:62.4%; top:41.5%" role="img" aria-label="India">
+          <div class="globe-marker" style="left:63.1%; top:40.4%" aria-label="India">
             <div class="globe-marker-card">
-              <img src="https://flagcdn.com/w40/in.png" width="40" height="30" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"/>
-              <span>INDIA</span>
+              <img src="https://flagcdn.com/w20/in.png" width="20" height="15" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"/>
+              <span class="globe-marker-text">INDIA</span>
             </div>
             <span class="globe-marker-dot" aria-hidden="true"></span>
           </div>
-          <div class="globe-marker map-pin" data-label="Indonesia" style="left:78.42%; top:52.86%" role="img" aria-label="Indonesia">
+          <div class="globe-marker" style="left:78.42%; top:52.86%" aria-label="Indonesia">
             <div class="globe-marker-card">
-              <img src="https://flagcdn.com/w40/id.png" width="40" height="30" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"/>
-              <span>INDONESIA</span>
+              <img src="https://flagcdn.com/w20/id.png" width="20" height="15" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"/>
+              <span class="globe-marker-text">INDONESIA</span>
             </div>
             <span class="globe-marker-dot" aria-hidden="true"></span>
           </div>
-          <div class="globe-marker map-pin" data-label="Australia" style="left:83.66%; top:71.43%" role="img" aria-label="Australia">
+          <div class="globe-marker" style="left:83.66%; top:71.43%" aria-label="Australia">
             <div class="globe-marker-card">
-              <img src="https://flagcdn.com/w40/au.png" width="40" height="30" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"/>
-              <span>AUSTRALIA</span>
+              <img src="https://flagcdn.com/w20/au.png" width="20" height="15" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"/>
+              <span class="globe-marker-text">AUSTRALIA</span>
             </div>
             <span class="globe-marker-dot" aria-hidden="true"></span>
           </div>
@@ -4097,25 +4090,6 @@
     // Init
     scrollTo(0);
   })();
-
-  // ==================== MAP TOOLTIP ====================
-  const tooltip = document.getElementById('mapTooltip');
-  document.querySelectorAll('.map-pin').forEach(pin => {
-    pin.addEventListener('mouseenter', (e) => {
-      if (!tooltip) return;
-      tooltip.textContent = pin.dataset.label;
-      tooltip.classList.add('show');
-    });
-    pin.addEventListener('mousemove', (e) => {
-      if (!tooltip) return;
-      const wrap = pin.closest('.map-wrap');
-      if (!wrap) return;
-      const rect = wrap.getBoundingClientRect();
-      tooltip.style.left = (e.clientX - rect.left + 12) + 'px';
-      tooltip.style.top = (e.clientY - rect.top - 36) + 'px';
-    });
-    pin.addEventListener('mouseleave', () => { if (tooltip) tooltip.classList.remove('show'); });
-  });
 
   // ==================== NAVBAR SCROLL ====================
   const navbar = document.querySelector('.navbar');
