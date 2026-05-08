@@ -1368,20 +1368,109 @@
     .service-card h5 { font-weight: 700; font-size: 1rem; margin-bottom: 10px; }
     .service-card p { font-size: 0.87rem; color: var(--text2); line-height: 1.6; margin: 0; }
 
-    /* ==================== WORLD MAP ==================== */
+    /* ==================== WORLD MAP (dotted globe + flag labels) ==================== */
     .map-section { background: var(--bg); }
     .map-wrap {
       position: relative;
-      background: var(--bg2);
+      background: #ffffff;
       border: 1px solid var(--border);
       border-radius: 28px;
       overflow: hidden;
       padding: 0;
     }
-    .world-map-svg {
+    [data-theme="dark"] .map-wrap {
+      background: #f8fafc;
+    }
+    .globe-map-inner {
+      position: relative;
+      line-height: 0;
+      background: #ffffff;
+    }
+    .world-map-img {
       width: 100%;
       height: auto;
       display: block;
+      vertical-align: top;
+      object-fit: contain;
+      background: #ffffff;
+    }
+    .globe-markers-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .globe-marker.map-pin {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      pointer-events: auto;
+      z-index: 2;
+    }
+    .globe-marker-card {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 8px 14px 8px 10px;
+      margin-bottom: 10px;
+      box-shadow: 0 6px 22px rgba(15, 23, 42, 0.12), 0 2px 6px rgba(15, 23, 42, 0.06);
+      border: 1px solid rgba(15, 23, 42, 0.06);
+    }
+    .globe-marker-card img {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.06);
+      flex-shrink: 0;
+    }
+    .globe-marker-card span {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #111827;
+      white-space: nowrap;
+    }
+    @keyframes globe-marker-blink {
+      0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.55);
+      }
+      45% {
+        opacity: 0.92;
+        transform: scale(1.2);
+        box-shadow: 0 0 0 10px rgba(220, 38, 38, 0);
+      }
+    }
+    .globe-marker-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #dc2626;
+      flex-shrink: 0;
+      animation: globe-marker-blink 1.8s ease-in-out infinite;
+    }
+    .globe-marker.map-pin:nth-child(2) .globe-marker-dot { animation-delay: 0.15s; }
+    .globe-marker.map-pin:nth-child(3) .globe-marker-dot { animation-delay: 0.3s; }
+    .globe-marker.map-pin:nth-child(4) .globe-marker-dot { animation-delay: 0.45s; }
+    .globe-marker.map-pin:nth-child(5) .globe-marker-dot { animation-delay: 0.6s; }
+    .globe-marker.map-pin:nth-child(6) .globe-marker-dot { animation-delay: 0.75s; }
+    .globe-marker.map-pin:nth-child(7) .globe-marker-dot { animation-delay: 0.9s; }
+    .globe-marker.map-pin:nth-child(8) .globe-marker-dot { animation-delay: 1.05s; }
+    .globe-marker.map-pin:nth-child(9) .globe-marker-dot { animation-delay: 1.2s; }
+    .globe-marker.map-pin:nth-child(10) .globe-marker-dot { animation-delay: 1.35s; }
+    .globe-marker.map-pin:nth-child(11) .globe-marker-dot { animation-delay: 1.5s; }
+    .globe-marker.map-pin:nth-child(12) .globe-marker-dot { animation-delay: 1.65s; }
+    .globe-marker.map-pin:nth-child(13) .globe-marker-dot { animation-delay: 1.8s; }
+    @media (max-width: 576px) {
+      .globe-marker-card { padding: 6px 10px 6px 8px; gap: 7px; }
+      .globe-marker-card img { width: 22px; height: 22px; }
+      .globe-marker-card span { font-size: 0.58rem; letter-spacing: 0.04em; }
+      .globe-marker-dot { width: 9px; height: 9px; }
     }
     .map-tooltip {
       position: absolute;
@@ -1396,7 +1485,7 @@
       transition: opacity 0.2s;
       box-shadow: 0 8px 24px rgba(0,0,0,0.12);
       white-space: nowrap;
-      z-index: 10;
+      z-index: 20;
       color: var(--text);
     }
     .map-tooltip.show { opacity: 1; }
@@ -3230,7 +3319,7 @@
   <div class="container">
     <div class="text-center mb-5 reveal">
       <h2 class="section-title mb-3">Across <span class="grad-text">The Globe</span></h2>
-      <p class="section-sub mx-auto">Serving clients across 12 countries with digital excellence</p>
+      <p class="section-sub mx-auto">Serving clients across the world with digital excellence</p>
     </div>
 
     <!-- Stats row above map -->
@@ -3238,221 +3327,102 @@
 
     <div class="map-wrap reveal" style="position:relative">
       <div id="mapTooltip" class="map-tooltip"></div>
-      <!-- Proper detailed world map using Natural Earth projection paths -->
-      <svg id="worldMap" viewBox="0 0 1010 560" class="world-map-svg" xmlns="http://www.w3.org/2000/svg" style="padding:24px">
-        <defs>
-          <linearGradient id="mapGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" style="stop-color:#3885DE;stop-opacity:1"/>
-            <stop offset="50%" style="stop-color:#7B89EB;stop-opacity:1"/>
-            <stop offset="100%" style="stop-color:#C053AE;stop-opacity:1"/>
-          </linearGradient>
-          <filter id="glow">
-            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
-          </filter>
-        </defs>
-
-        <!-- ── Continent shapes (simplified but recognisable outlines) ── -->
-        <!-- North America -->
-        <path d="M 60,55 L 95,45 L 140,42 L 175,48 L 205,55 L 230,70 L 245,90 L 245,120 L 235,145 L 215,160 L 205,185 L 195,205 L 185,220 L 170,235 L 155,250 L 145,265 L 150,280 L 160,290 L 155,305 L 140,310 L 125,300 L 110,285 L 95,265 L 80,245 L 65,220 L 55,195 L 48,170 L 50,145 L 55,120 L 55,90 Z"
-          fill="var(--border)" stroke="var(--bg2)" stroke-width="1.5" opacity="0.8"/>
-        <!-- Greenland -->
-        <path d="M 165,20 L 200,15 L 230,22 L 240,38 L 225,48 L 200,50 L 175,45 L 162,32 Z"
-          fill="var(--border)" stroke="var(--bg2)" stroke-width="1" opacity="0.6"/>
-        <!-- Central America + Caribbean (simplified) -->
-        <path d="M 145,265 L 160,270 L 170,280 L 165,295 L 150,290 Z" fill="var(--border)" opacity="0.7"/>
-        <!-- South America -->
-        <path d="M 175,295 L 205,285 L 235,280 L 260,285 L 280,300 L 290,325 L 295,360 L 290,400 L 275,440 L 250,475 L 225,490 L 205,480 L 185,460 L 175,430 L 168,395 L 165,360 L 165,325 Z"
-          fill="var(--border)" stroke="var(--bg2)" stroke-width="1.5" opacity="0.8"/>
-        <!-- Europe -->
-        <path d="M 430,52 L 460,45 L 490,48 L 510,55 L 515,70 L 505,85 L 490,95 L 475,105 L 460,110 L 445,105 L 435,95 L 428,80 L 425,65 Z"
-          fill="var(--border)" stroke="var(--bg2)" stroke-width="1.5" opacity="0.8"/>
-        <!-- Scandinavia -->
-        <path d="M 455,30 L 470,25 L 485,30 L 490,45 L 475,50 L 460,47 Z" fill="var(--border)" opacity="0.7"/>
-        <!-- UK -->
-        <path d="M 418,60 L 428,55 L 434,62 L 430,72 L 420,74 L 415,66 Z" fill="var(--border)" opacity="0.8"/>
-        <!-- Africa -->
-        <path d="M 435,120 L 460,115 L 490,118 L 510,128 L 520,150 L 525,180 L 522,215 L 515,250 L 505,285 L 490,315 L 470,340 L 455,355 L 440,360 L 425,350 L 412,330 L 405,300 L 400,265 L 398,230 L 400,195 L 405,165 L 415,140 Z"
-          fill="var(--border)" stroke="var(--bg2)" stroke-width="1.5" opacity="0.8"/>
-        <!-- Middle East / Arabian Peninsula -->
-        <path d="M 515,130 L 545,125 L 570,130 L 585,145 L 590,165 L 580,185 L 565,195 L 548,195 L 530,185 L 518,165 L 512,148 Z"
-          fill="var(--border)" stroke="var(--bg2)" stroke-width="1" opacity="0.8"/>
-        <!-- Asia (main body) -->
-        <path d="M 510,50 L 545,42 L 590,38 L 640,40 L 685,45 L 730,50 L 775,55 L 810,65 L 840,80 L 858,100 L 855,125 L 840,148 L 815,162 L 790,175 L 760,185 L 730,195 L 700,200 L 670,205 L 640,205 L 610,200 L 585,195 L 560,185 L 540,170 L 525,155 L 515,135 L 510,115 L 508,90 Z"
-          fill="var(--border)" stroke="var(--bg2)" stroke-width="1.5" opacity="0.8"/>
-        <!-- India subcontinent -->
-        <path d="M 600,195 L 625,192 L 648,200 L 660,220 L 660,250 L 645,275 L 625,290 L 608,280 L 596,260 L 592,235 L 595,210 Z"
-          fill="var(--border)" stroke="var(--bg2)" stroke-width="1" opacity="0.8"/>
-        <!-- Southeast Asia -->
-        <path d="M 730,195 L 765,195 L 790,205 L 800,225 L 790,250 L 770,265 L 745,268 L 725,255 L 718,235 L 720,215 Z"
-          fill="var(--border)" stroke="var(--bg2)" stroke-width="1" opacity="0.8"/>
-        <!-- Indonesia (simplified archipelago) -->
-        <path d="M 748,285 L 780,278 L 810,280 L 838,288 L 855,300 L 848,315 L 820,318 L 790,312 L 762,305 Z"
-          fill="var(--border)" stroke="var(--bg2)" stroke-width="1" opacity="0.8"/>
-        <path d="M 855,298 L 880,292 L 900,298 L 905,312 L 890,320 L 865,318 Z"
-          fill="var(--border)" opacity="0.7"/>
-        <!-- Australia -->
-        <path d="M 778,355 L 815,345 L 855,345 L 890,355 L 912,375 L 915,405 L 905,430 L 882,448 L 852,455 L 820,450 L 792,435 L 772,412 L 765,385 Z"
-          fill="var(--border)" stroke="var(--bg2)" stroke-width="1.5" opacity="0.8"/>
-        <!-- New Zealand (small) -->
-        <path d="M 930,415 L 940,408 L 948,418 L 942,430 L 932,425 Z" fill="var(--border)" opacity="0.6"/>
-        <!-- Japan -->
-        <path d="M 840,112 L 855,105 L 868,112 L 868,128 L 855,134 L 842,126 Z" fill="var(--border)" opacity="0.75"/>
-        <!-- Madagascar -->
-        <path d="M 520,305 L 530,295 L 540,305 L 538,325 L 525,330 L 516,318 Z" fill="var(--border)" opacity="0.65"/>
-
-        <!-- ── Animated connection arcs between Mumbai (hub) and client countries ── -->
-        <!-- Mumbai hub coords: ~630,195 -->
-        <!-- To UK 422,63 -->
-        <path d="M 630,195 Q 520,100 422,63" fill="none" stroke="url(#mapGrad)" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.4">
-          <animate attributeName="stroke-dashoffset" values="200;0" dur="4s" repeatCount="indefinite"/>
-        </path>
-        <!-- To USA ~170,175 -->
-        <path d="M 630,195 Q 400,80 170,175" fill="none" stroke="url(#mapGrad)" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.4">
-          <animate attributeName="stroke-dashoffset" values="300;0" dur="5s" repeatCount="indefinite"/>
-        </path>
-        <!-- To Canada ~160,140 -->
-        <path d="M 630,195 Q 400,60 160,140" fill="none" stroke="url(#mapGrad)" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.35">
-          <animate attributeName="stroke-dashoffset" values="280;0" dur="5.5s" repeatCount="indefinite"/>
-        </path>
-        <!-- To UAE ~558,165 -->
-        <path d="M 630,195 Q 595,165 558,165" fill="none" stroke="url(#mapGrad)" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.5">
-          <animate attributeName="stroke-dashoffset" values="100;0" dur="2.5s" repeatCount="indefinite"/>
-        </path>
-        <!-- To South Africa ~455,340 -->
-        <path d="M 630,195 Q 540,290 455,340" fill="none" stroke="url(#mapGrad)" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.4">
-          <animate attributeName="stroke-dashoffset" values="200;0" dur="4.2s" repeatCount="indefinite"/>
-        </path>
-        <!-- To China ~785,100 -->
-        <path d="M 630,195 Q 710,145 785,100" fill="none" stroke="url(#mapGrad)" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.4">
-          <animate attributeName="stroke-dashoffset" values="180;0" dur="3.5s" repeatCount="indefinite"/>
-        </path>
-        <!-- To Australia ~845,400 -->
-        <path d="M 630,195 Q 740,330 845,400" fill="none" stroke="url(#mapGrad)" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.4">
-          <animate attributeName="stroke-dashoffset" values="260;0" dur="4.8s" repeatCount="indefinite"/>
-        </path>
-        <!-- To Indonesia ~790,295 -->
-        <path d="M 630,195 Q 715,245 790,295" fill="none" stroke="url(#mapGrad)" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.4">
-          <animate attributeName="stroke-dashoffset" values="200;0" dur="3.8s" repeatCount="indefinite"/>
-        </path>
-
-        <!-- ── Mumbai hub dot (home base) ── -->
-        <circle cx="630" cy="195" r="22" fill="rgba(56,133,222,0.12)" stroke="rgba(56,133,222,0.3)" stroke-width="1">
-          <animate attributeName="r" values="22;32;22" dur="2.5s" repeatCount="indefinite"/>
-          <animate attributeName="opacity" values="0.8;0.2;0.8" dur="2.5s" repeatCount="indefinite"/>
-        </circle>
-        <circle cx="630" cy="195" r="10" fill="#3885DE" filter="url(#glow)"/>
-        <text x="630" y="180" text-anchor="middle" font-size="11" fill="#3885DE" font-family="Poppins,sans-serif" font-weight="800">📍 Mumbai HQ</text>
-
-        <!-- ── Country dots ── -->
-        <!-- USA -->
-        <g class="map-pin" data-label="🇺🇸 United States" style="cursor:pointer">
-          <circle cx="170" cy="175" r="16" fill="rgba(56,133,222,0.12)" stroke="rgba(56,133,222,0.4)" stroke-width="1.5">
-            <animate attributeName="r" values="16;24;16" dur="3s" repeatCount="indefinite"/>
-            <animate attributeName="opacity" values="1;0.2;1" dur="3s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="170" cy="175" r="7" fill="#3885DE"/>
-          <text x="170" y="158" text-anchor="middle" font-size="10" fill="var(--text)" font-family="Poppins,sans-serif" font-weight="700">🇺🇸 USA</text>
-        </g>
-        <!-- Canada -->
-        <g class="map-pin" data-label="🇨🇦 Canada" style="cursor:pointer">
-          <circle cx="165" cy="140" r="14" fill="rgba(192,83,174,0.12)" stroke="rgba(192,83,174,0.4)" stroke-width="1.5">
-            <animate attributeName="r" values="14;22;14" dur="3.5s" repeatCount="indefinite"/>
-            <animate attributeName="opacity" values="1;0.2;1" dur="3.5s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="165" cy="140" r="6" fill="#C053AE"/>
-          <text x="165" y="125" text-anchor="middle" font-size="10" fill="var(--text)" font-family="Poppins,sans-serif" font-weight="700">🇨🇦 Canada</text>
-        </g>
-        <!-- UK -->
-        <g class="map-pin" data-label="🇬🇧 United Kingdom" style="cursor:pointer">
-          <circle cx="422" cy="63" r="14" fill="rgba(123,137,235,0.12)" stroke="rgba(123,137,235,0.4)" stroke-width="1.5">
-            <animate attributeName="r" values="14;22;14" dur="2.8s" repeatCount="indefinite"/>
-            <animate attributeName="opacity" values="1;0.2;1" dur="2.8s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="422" cy="63" r="6" fill="#7B89EB"/>
-          <text x="422" y="50" text-anchor="middle" font-size="10" fill="var(--text)" font-family="Poppins,sans-serif" font-weight="700">🇬🇧 UK</text>
-        </g>
-        <!-- UAE -->
-        <g class="map-pin" data-label="🇦🇪 United Arab Emirates" style="cursor:pointer">
-          <circle cx="558" cy="165" r="15" fill="rgba(56,133,222,0.12)" stroke="rgba(56,133,222,0.4)" stroke-width="1.5">
-            <animate attributeName="r" values="15;23;15" dur="2.2s" repeatCount="indefinite"/>
-            <animate attributeName="opacity" values="1;0.2;1" dur="2.2s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="558" cy="165" r="7" fill="#3885DE"/>
-          <text x="558" y="152" text-anchor="middle" font-size="10" fill="var(--text)" font-family="Poppins,sans-serif" font-weight="700">🇦🇪 UAE</text>
-        </g>
-        <!-- Saudi Arabia -->
-        <g class="map-pin" data-label="🇸🇦 Saudi Arabia" style="cursor:pointer">
-          <circle cx="540" cy="182" r="12" fill="rgba(192,83,174,0.12)" stroke="rgba(192,83,174,0.35)" stroke-width="1.5">
-            <animate attributeName="r" values="12;18;12" dur="3.2s" repeatCount="indefinite"/>
-            <animate attributeName="opacity" values="1;0.2;1" dur="3.2s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="540" cy="182" r="5" fill="#C053AE"/>
-          <text x="540" y="200" text-anchor="middle" font-size="9" fill="var(--text)" font-family="Poppins,sans-serif" font-weight="700">🇸🇦 KSA</text>
-        </g>
-        <!-- Qatar -->
-        <g class="map-pin" data-label="🇶🇦 Qatar" style="cursor:pointer">
-          <circle cx="565" cy="175" r="10" fill="rgba(123,137,235,0.12)" stroke="rgba(123,137,235,0.35)" stroke-width="1.5">
-            <animate attributeName="r" values="10;16;10" dur="2.7s" repeatCount="indefinite"/>
-            <animate attributeName="opacity" values="1;0.2;1" dur="2.7s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="565" cy="175" r="5" fill="#7B89EB"/>
-        </g>
-        <!-- South Africa -->
-        <g class="map-pin" data-label="🇿🇦 South Africa" style="cursor:pointer">
-          <circle cx="455" cy="340" r="15" fill="rgba(56,133,222,0.12)" stroke="rgba(56,133,222,0.4)" stroke-width="1.5">
-            <animate attributeName="r" values="15;24;15" dur="2.6s" repeatCount="indefinite"/>
-            <animate attributeName="opacity" values="1;0.2;1" dur="2.6s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="455" cy="340" r="7" fill="#3885DE"/>
-          <text x="455" y="327" text-anchor="middle" font-size="10" fill="var(--text)" font-family="Poppins,sans-serif" font-weight="700">🇿🇦 S.Africa</text>
-        </g>
-        <!-- Botswana -->
-        <g class="map-pin" data-label="🇧🇼 Botswana" style="cursor:pointer">
-          <circle cx="462" cy="320" r="10" fill="rgba(192,83,174,0.12)" stroke="rgba(192,83,174,0.35)" stroke-width="1.5">
-            <animate attributeName="r" values="10;15;10" dur="3.3s" repeatCount="indefinite"/>
-            <animate attributeName="opacity" values="1;0.2;1" dur="3.3s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="462" cy="320" r="4" fill="#C053AE"/>
-        </g>
-        <!-- Mauritius -->
-        <g class="map-pin" data-label="🇲🇺 Mauritius" style="cursor:pointer">
-          <circle cx="533" cy="360" r="11" fill="rgba(123,137,235,0.12)" stroke="rgba(123,137,235,0.35)" stroke-width="1.5">
-            <animate attributeName="r" values="11;17;11" dur="2.9s" repeatCount="indefinite"/>
-            <animate attributeName="opacity" values="1;0.2;1" dur="2.9s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="533" cy="360" r="5" fill="#7B89EB"/>
-          <text x="533" y="377" text-anchor="middle" font-size="9" fill="var(--text)" font-family="Poppins,sans-serif" font-weight="700">🇲🇺 Mauritius</text>
-        </g>
-        <!-- China -->
-        <g class="map-pin" data-label="🇨🇳 China" style="cursor:pointer">
-          <circle cx="785" cy="100" r="16" fill="rgba(56,133,222,0.12)" stroke="rgba(56,133,222,0.4)" stroke-width="1.5">
-            <animate attributeName="r" values="16;25;16" dur="3.1s" repeatCount="indefinite"/>
-            <animate attributeName="opacity" values="1;0.2;1" dur="3.1s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="785" cy="100" r="7" fill="#3885DE"/>
-          <text x="785" y="87" text-anchor="middle" font-size="10" fill="var(--text)" font-family="Poppins,sans-serif" font-weight="700">🇨🇳 China</text>
-        </g>
-        <!-- Indonesia -->
-        <g class="map-pin" data-label="🇮🇩 Indonesia" style="cursor:pointer">
-          <circle cx="792" cy="296" r="14" fill="rgba(192,83,174,0.12)" stroke="rgba(192,83,174,0.4)" stroke-width="1.5">
-            <animate attributeName="r" values="14;22;14" dur="3.4s" repeatCount="indefinite"/>
-            <animate attributeName="opacity" values="1;0.2;1" dur="3.4s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="792" cy="296" r="6" fill="#C053AE"/>
-          <text x="792" y="283" text-anchor="middle" font-size="10" fill="var(--text)" font-family="Poppins,sans-serif" font-weight="700">🇮🇩 Indonesia</text>
-        </g>
-        <!-- Australia -->
-        <g class="map-pin" data-label="🇦🇺 Australia" style="cursor:pointer">
-          <circle cx="845" cy="400" r="16" fill="rgba(123,137,235,0.12)" stroke="rgba(123,137,235,0.4)" stroke-width="1.5">
-            <animate attributeName="r" values="16;25;16" dur="2.4s" repeatCount="indefinite"/>
-            <animate attributeName="opacity" values="1;0.2;1" dur="2.4s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="845" cy="400" r="7" fill="#7B89EB"/>
-          <text x="845" y="387" text-anchor="middle" font-size="10" fill="var(--text)" font-family="Poppins,sans-serif" font-weight="700">🇦🇺 Australia</text>
-        </g>
-
-      </svg>
+      <div class="globe-map-inner">
+        <img id="worldMap" class="world-map-img" src="images/map_imags.png" alt="World map" width="1010" height="560" decoding="async" loading="lazy"/>
+        <div class="globe-markers-layer">
+          <div class="globe-marker map-pin" data-label="United States" style="left:16.83%; top:31.25%" role="img" aria-label="United States">
+            <div class="globe-marker-card">
+              <img src="https://flagcdn.com/w40/us.png" width="40" height="30" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"/>
+              <span>USA</span>
+            </div>
+            <span class="globe-marker-dot" aria-hidden="true"></span>
+          </div>
+          <div class="globe-marker map-pin" data-label="Canada" style="left:16.34%; top:25%" role="img" aria-label="Canada">
+            <div class="globe-marker-card">
+              <img src="https://flagcdn.com/w40/ca.png" width="40" height="30" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"/>
+              <span>CANADA</span>
+            </div>
+            <span class="globe-marker-dot" aria-hidden="true"></span>
+          </div>
+          <div class="globe-marker map-pin" data-label="United Kingdom" style="left:41.78%; top:11.25%" role="img" aria-label="United Kingdom">
+            <div class="globe-marker-card">
+              <img src="https://flagcdn.com/w40/gb.png" width="40" height="30" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"/>
+              <span>UNITED KINGDOM</span>
+            </div>
+            <span class="globe-marker-dot" aria-hidden="true"></span>
+          </div>
+          <div class="globe-marker map-pin" data-label="United Arab Emirates" style="left:55.25%; top:29.46%" role="img" aria-label="United Arab Emirates">
+            <div class="globe-marker-card">
+              <img src="https://flagcdn.com/w40/ae.png" width="40" height="30" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"/>
+              <span>UAE</span>
+            </div>
+            <span class="globe-marker-dot" aria-hidden="true"></span>
+          </div>
+          <div class="globe-marker map-pin" data-label="Saudi Arabia" style="left:53.47%; top:32.5%" role="img" aria-label="Saudi Arabia">
+            <div class="globe-marker-card">
+              <img src="https://flagcdn.com/w40/sa.png" width="40" height="30" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"/>
+              <span>SAUDI ARABIA</span>
+            </div>
+            <span class="globe-marker-dot" aria-hidden="true"></span>
+          </div>
+          <div class="globe-marker map-pin" data-label="Qatar" style="left:55.94%; top:31.25%" role="img" aria-label="Qatar">
+            <div class="globe-marker-card">
+              <img src="https://flagcdn.com/w40/qa.png" width="40" height="30" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"/>
+              <span>QATAR</span>
+            </div>
+            <span class="globe-marker-dot" aria-hidden="true"></span>
+          </div>
+          <div class="globe-marker map-pin" data-label="South Africa" style="left:45.05%; top:60.71%" role="img" aria-label="South Africa">
+            <div class="globe-marker-card">
+              <img src="https://flagcdn.com/w40/za.png" width="40" height="30" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"/>
+              <span>SOUTH AFRICA</span>
+            </div>
+            <span class="globe-marker-dot" aria-hidden="true"></span>
+          </div>
+          <div class="globe-marker map-pin" data-label="Botswana" style="left:45.74%; top:57.14%" role="img" aria-label="Botswana">
+            <div class="globe-marker-card">
+              <img src="https://flagcdn.com/w40/bw.png" width="40" height="30" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"/>
+              <span>BOTSWANA</span>
+            </div>
+            <span class="globe-marker-dot" aria-hidden="true"></span>
+          </div>
+          <div class="globe-marker map-pin" data-label="Mauritius" style="left:52.77%; top:64.29%" role="img" aria-label="Mauritius">
+            <div class="globe-marker-card">
+              <img src="https://flagcdn.com/w40/mu.png" width="40" height="30" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"/>
+              <span>MAURITIUS</span>
+            </div>
+            <span class="globe-marker-dot" aria-hidden="true"></span>
+          </div>
+          <div class="globe-marker map-pin" data-label="China" style="left:77.72%; top:17.86%" role="img" aria-label="China">
+            <div class="globe-marker-card">
+              <img src="https://flagcdn.com/w40/cn.png" width="40" height="30" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"/>
+              <span>CHINA</span>
+            </div>
+            <span class="globe-marker-dot" aria-hidden="true"></span>
+          </div>
+          <div class="globe-marker map-pin" data-label="India" style="left:62.4%; top:41.5%" role="img" aria-label="India">
+            <div class="globe-marker-card">
+              <img src="https://flagcdn.com/w40/in.png" width="40" height="30" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"/>
+              <span>INDIA</span>
+            </div>
+            <span class="globe-marker-dot" aria-hidden="true"></span>
+          </div>
+          <div class="globe-marker map-pin" data-label="Indonesia" style="left:78.42%; top:52.86%" role="img" aria-label="Indonesia">
+            <div class="globe-marker-card">
+              <img src="https://flagcdn.com/w40/id.png" width="40" height="30" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"/>
+              <span>INDONESIA</span>
+            </div>
+            <span class="globe-marker-dot" aria-hidden="true"></span>
+          </div>
+          <div class="globe-marker map-pin" data-label="Australia" style="left:83.66%; top:71.43%" role="img" aria-label="Australia">
+            <div class="globe-marker-card">
+              <img src="https://flagcdn.com/w40/au.png" width="40" height="30" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"/>
+              <span>AUSTRALIA</span>
+            </div>
+            <span class="globe-marker-dot" aria-hidden="true"></span>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Country Pills -->
@@ -4138,7 +4108,9 @@
     });
     pin.addEventListener('mousemove', (e) => {
       if (!tooltip) return;
-      const rect = pin.closest('svg').parentElement.getBoundingClientRect();
+      const wrap = pin.closest('.map-wrap');
+      if (!wrap) return;
+      const rect = wrap.getBoundingClientRect();
       tooltip.style.left = (e.clientX - rect.left + 12) + 'px';
       tooltip.style.top = (e.clientY - rect.top - 36) + 'px';
     });
